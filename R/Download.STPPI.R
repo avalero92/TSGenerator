@@ -41,7 +41,7 @@
 #'bbox = c(-0.89285, 41.48762, -0.86284, 41.50456),
 #'download_path = "local_directory"
 #')
-function(user, password, dataset_id, productType,
+Download.STPPI <- function(user, password, dataset_id, productType,
          platformSerialIdentifier, tileId, start, end, bbox, download_path) {
 
   library(reticulate)

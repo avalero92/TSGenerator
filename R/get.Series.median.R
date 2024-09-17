@@ -17,7 +17,7 @@
 #' @examples
 #' Example of use: #' #' result <- get_series(pathRaster = "path/to/them/tifs",
 #'#' shapefile = my_shapefile, #' factorR = 10000)
-function(pathRaster = NULL, shapefile = NULL, factorR = NULL) {
+get.Series.median <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL) {
   options(warn = -1)
 
   if (is.null(factorR)) {

@@ -20,7 +20,7 @@
 #' @examples
 #' Extracting indexes from a raster directory and a shapefile
 #' índices <- extraer_índices("ruta/a/carpeta", shapefile = mi_shapefile, factorR = 10000)
-function(pathRaster = NULL, shapefile = NULL, factorR = NULL) {
+get.Series.VPP <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL) {
   options(warn = -1)
 
   if (is.null(factorR)) {

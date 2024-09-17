@@ -25,7 +25,7 @@
 #' Calling the function with one input and one output directory
 #'get.Clean.IV(stack_folder = "ruta/a/tu/directorio", output_folder = "ruta/a/directorio/salida")
 
-function(stack_folder=NULL, output_folder) {
+get.Clean.IV <- function(stack_folder=NULL, output_folder) {
 
   if (is.null(stack_folder)) {
     message("Please insert an address to rastestack")

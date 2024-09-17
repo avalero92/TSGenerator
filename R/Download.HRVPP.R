@@ -1,6 +1,7 @@
-# Function to download HRVPP data using hda
 #' Download.HRVPP
-#'@name Download.HRVPP
+#'
+#' @import reticulate
+#' @name Download.HRVPP
 #'
 #' @param user
 #' User in which it is used in the WEkEO platform
@@ -25,10 +26,11 @@
 #'
 #' @return
 #' Set of .tif files relating to the selected HRVPP product(s)
+#'
 #' @export
 #'
 #' @examples
-#' #' Download.HRVPP(
+#' #' Download.HRVPP (
 #'user = "user_name",
 #'password = "Password",
 #'dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VPP",
@@ -41,7 +43,7 @@
 #'download_path = "local_directory"
 #')
 
-function(user, password, dataset_id, productType,productGroupId,
+Download.HRVPP <- function(user, password, dataset_id, productType,productGroupId,
                               tileId, start, end, bbox, download_path) {
 
   library(reticulate)
