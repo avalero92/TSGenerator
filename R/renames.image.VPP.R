@@ -18,7 +18,7 @@
 #' # Rename TIF files in the specified folder
 #' rename_files("path/to/folder")
 
-function(input_folder){
+renames.image.VPP <- function(input_folder){
   #List the TIF files in the folder
   archivos <- list.files(input_folder, pattern = "\\.tif$", full.names = TRUE)
   length(archivos)

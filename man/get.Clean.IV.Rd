@@ -3,6 +3,9 @@
 \name{get.Clean.IV}
 \alias{get.Clean.IV}
 \title{get.Clean.IV}
+\usage{
+get.Clean.IV(stack_folder = NULL, output_folder)
+}
 \arguments{
 \item{stack_folder}{Path to the directory containing the raster files (.tif).
 If NULL, an error message will be displayed.}

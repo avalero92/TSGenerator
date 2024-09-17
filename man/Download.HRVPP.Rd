@@ -3,6 +3,20 @@
 \name{Download.HRVPP}
 \alias{Download.HRVPP}
 \title{Download.HRVPP}
+\usage{
+Download.HRVPP(
+  user,
+  password,
+  dataset_id,
+  productType,
+  productGroupId,
+  tileId,
+  start,
+  end,
+  bbox,
+  download_path
+)
+}
 \arguments{
 \item{user}{User in which it is used in the WEkEO platform}
 
@@ -14,8 +28,6 @@
 
 \item{tileId}{ndicate the tesserae (mosaic) you want to download}
 
-\item{productGroupID}{The product group will be selected, which can be Season 1 or 2 (example: s2).}
-
 \item{start}{Start date with structure: "yyyy-mm-ddT00:00:00:00.000Z".}
 
 \item{end}{End date with structure: "yyyy-mm-ddT00:00:00:00.000Z".}
@@ -23,6 +35,8 @@
 \item{bbox}{Coordinates of the study area: Xmin,Ymin,Xmax,Ymax}
 
 \item{download_path}{Directory where the .tif files will be stored}
+
+\item{productGroupID}{The product group will be selected, which can be Season 1 or 2 (example: s2).}
 }
 \value{
 Set of .tif files relating to the selected HRVPP product(s)
@@ -31,7 +45,7 @@ Set of .tif files relating to the selected HRVPP product(s)
 Download.HRVPP
 }
 \examples{
-#' Download.HRVPP(
+#' Download.HRVPP (
 user = "user_name",
 password = "Password",
 dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VPP",

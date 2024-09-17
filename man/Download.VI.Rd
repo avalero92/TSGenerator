@@ -3,6 +3,20 @@
 \name{Download.VI}
 \alias{Download.VI}
 \title{Download.VI}
+\usage{
+Download.VI(
+  user,
+  password,
+  dataset_id,
+  productType,
+  platformSerialIdentifier,
+  tileId,
+  start,
+  end,
+  bbox,
+  download_path
+)
+}
 \arguments{
 \item{user}{User in which it is used in the WEkEO platform}
 

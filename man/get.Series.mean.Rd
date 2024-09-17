@@ -3,6 +3,9 @@
 \name{get.Series.mean}
 \alias{get.Series.mean}
 \title{get.Series.mean}
+\usage{
+get.Series.mean(pathRaster = NULL, shapefile = NULL, factorR = NULL)
+}
 \arguments{
 \item{pathRaster}{Path to the directory containing raster files in TIFF format.}
 

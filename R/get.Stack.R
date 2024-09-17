@@ -21,7 +21,7 @@
 #' @examples
 #' # Processing VI files and adding QFLAG layers
 #' process_files("path/to/VI", "path/to/QFLAG", "path/to/output")
-function(IV_path, QFLAG, output_path) {
+get.Stack <- function(IV_path, QFLAG, output_path) {
   archivos <- list.files(IV_path, pattern = "\\.tif$", full.names = TRUE)
   clusters <- detectCores() - 1
   cl <- makePSOCKcluster(clusters)

@@ -3,6 +3,9 @@
 \name{renames.image.IV}
 \alias{renames.image.IV}
 \title{renames.image.IV}
+\usage{
+renames.image.IV(input_folder = NULL)
+}
 \arguments{
 \item{input_folder}{Path to the directory containing TIF files.}
 }

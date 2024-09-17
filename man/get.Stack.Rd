@@ -3,6 +3,9 @@
 \name{get.Stack}
 \alias{get.Stack}
 \title{get.Stack}
+\usage{
+get.Stack(IV_path, QFLAG, output_path)
+}
 \arguments{
 \item{IV_path}{Path to the directory containing VI files in .tif format.}
 

@@ -3,6 +3,9 @@
 \name{renames.image.VPP}
 \alias{renames.image.VPP}
 \title{renames.image.VPP}
+\usage{
+renames.image.VPP(input_folder)
+}
 \arguments{
 \item{input_folder}{Path to the directory containing TIF files.}
 }

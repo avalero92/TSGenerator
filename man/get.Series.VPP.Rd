@@ -3,6 +3,9 @@
 \name{get.Series.VPP}
 \alias{get.Series.VPP}
 \title{get.Series.VPP}
+\usage{
+get.Series.VPP(pathRaster = NULL, shapefile = NULL, factorR = NULL)
+}
 \arguments{
 \item{pathRaster}{Path to the directory containing raster files in TIFF format.}
 

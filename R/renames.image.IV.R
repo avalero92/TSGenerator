@@ -19,7 +19,7 @@
 #' @examples
 #' # Rename TIF files in the specified folder
 #' rename_files("path/to/folder")
-function(input_folder=NULL){
+renames.image.IV <- function(input_folder=NULL){
   #Listar los archivos TIF enla carpeta
   archivos <- list.files(input_folder, pattern = "\\.tif$", full.names = TRUE)
   length(archivos)

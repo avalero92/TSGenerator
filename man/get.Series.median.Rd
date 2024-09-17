@@ -3,6 +3,9 @@
 \name{get.Series.median}
 \alias{get.Series.median}
 \title{get.Series.median}
+\usage{
+get.Series.median(pathRaster = NULL, shapefile = NULL, factorR = NULL)
+}
 \arguments{
 \item{pathRaster}{Path to the directory containing the raster files in TIFF format.}
 

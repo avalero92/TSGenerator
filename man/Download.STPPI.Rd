@@ -3,6 +3,20 @@
 \name{Download.STPPI}
 \alias{Download.STPPI}
 \title{Download.STPPI}
+\usage{
+Download.STPPI(
+  user,
+  password,
+  dataset_id,
+  productType,
+  platformSerialIdentifier,
+  tileId,
+  start,
+  end,
+  bbox,
+  download_path
+)
+}
 \arguments{
 \item{user}{User in which it is used in the WEkEO platform}
 
