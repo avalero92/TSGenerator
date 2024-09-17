@@ -1,12 +1,11 @@
 Package: TSGenerator
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: The TSGenerator package has been created with the aim of facilitating time series extraction of HRVPP data from Copernicus for users with different levels of R programming.
+Version: 1.0.0.2024
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+    person("Alexey", "Valero", , "avalero@cita-aragon.es", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Description: Time series generator of High Resolution Vegetation Productivity and Phenology data from the Copernicus program.
+License: MIT
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.0
