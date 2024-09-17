@@ -26,7 +26,6 @@
 #'password = "Password",
 #'dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VI",
 #'productType = "NDVI",
-#'productGroupId = "s1",
 #'platformSerialIdentifier = "S2A",
 #'tileId = "30TXL",
 #'start = "2020-01-01T00:00:00.000Z",
