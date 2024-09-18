@@ -3,6 +3,7 @@
 export(Download.HRVPP)
 export(Download.STPPI)
 export(Download.VI)
+export(extract_dates_from_tiff_files)
 export(get.Clean.IV)
 export(get.Series.VPP)
 export(get.Series.mean)
