@@ -1,9 +1,13 @@
 #' get.Series.median
 #'
 #' Get Series from Raster Files
+#' @import utils
+#' @import parallel
+#' @import doParallel
+#' @import raster
+#' @import sf
+#' @importFrom stats median
 #'
-#' This function extracts time series reflectance data from raster files in TIFF format
-#' and calculates the median of the values within an area defined by a shapefile.
 #'@name get.Series.median
 #'
 #' @param pathRaster Path to the directory containing the raster files in TIFF format.

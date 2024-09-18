@@ -20,10 +20,6 @@ Date (date corresponding to the raster file) and Median (median of the extracted
 \description{
 Get Series from Raster Files
 }
-\details{
-This function extracts time series reflectance data from raster files in TIFF format
-and calculates the median of the values within an area defined by a shapefile.
-}
 \examples{
 Example of use: #' #' result <- get_series(pathRaster = "path/to/them/tifs",
 #' shapefile = my_shapefile, #' factorR = 10000)

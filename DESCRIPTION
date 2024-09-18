@@ -15,4 +15,7 @@ Imports:
     doParallel,
     raster,
     sf,
-    reticulate
+    reticulate,
+    stringr,
+    parallel,
+    utils

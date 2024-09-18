@@ -26,7 +26,7 @@ Download.HRVPP(
 
 \item{productType}{Select the type of product to download (example: Start of Season_date(SOSD)). For other product types see WEkEO documentation.}
 
-\item{tileId}{ndicate the tesserae (mosaic) you want to download}
+\item{tileId}{Indicate the tesserae (mosaic) you want to download}
 
 \item{start}{Start date with structure: "yyyy-mm-ddT00:00:00:00.000Z".}
 
@@ -46,7 +46,7 @@ Download.HRVPP
 }
 \examples{
 #' Download.HRVPP (
-user = "user_name",
+user = "user",
 password = "Password",
 dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VPP",
 productType = "SOSD",
