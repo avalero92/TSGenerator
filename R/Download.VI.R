@@ -21,7 +21,8 @@
 #' @export
 #'
 #' @examples
-#' Download.VI(
+#' # It is necessary to configure the PATH where python.exe and the hda module are located by creating the object "ruta_python".
+#' ruta_python <- "PATTH/python.exe"#' Download.VI(
 #'user = "user_name",
 #'password = "Password",
 #'dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VI",
@@ -37,6 +38,19 @@ Download.VI <- function(user, password, dataset_id, productType,
                               platformSerialIdentifier, tileId, start, end, bbox, download_path) {
 
   library(reticulate)
+
+  # Function to configure Python
+  configurar_python <- function(ruta_python) {
+    if (file.exists(ruta_python)) {
+      use_python(ruta_python, required = TRUE)
+      message("Python configurado correctamente en: ", ruta_python)
+    } else {
+      stop("La ruta especificada no existe: ", ruta_python)
+    }
+  }
+
+  # Configurar Python
+  configurar_python(ruta_python)
 
   # Importar hda
   hda <- import("hda")

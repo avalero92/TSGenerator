@@ -45,7 +45,8 @@ Set of .tif files relating to the selected VI(s)
 Download.VI
 }
 \examples{
-Download.VI(
+# It is necessary to configure the PATH where python.exe and the hda module are located by creating the object "ruta_python".
+ruta_python <- "PATTH/python.exe"#' Download.VI(
 user = "user_name",
 password = "Password",
 dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VI",

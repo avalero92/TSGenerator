@@ -45,6 +45,8 @@ Set of .tif files related to PPI Seasonal Trajectory(s)
 Download.STPPI
 }
 \examples{
+# It is necessary to configure the PATH where python.exe and the hda module are located by creating the object "ruta_python".
+ruta_python <- "PATTH/python.exe"
 Download.STPPI(
 user = "user_name",
 password = "Password",
