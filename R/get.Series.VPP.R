@@ -19,7 +19,7 @@
 #'
 #' @examples
 #' Extracting indexes from a raster directory and a shapefile
-#' índices <- extraer_índices("ruta/a/carpeta", shapefile = mi_shapefile, factorR = 10000)
+#' Series <- get.Series.VPP("ruta/a/carpeta", shapefile = mi_shapefile, factorR = 10000)
 get.Series.VPP <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL) {
   options(warn = -1)
 
@@ -32,7 +32,6 @@ get.Series.VPP <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL) 
 
   files <- list.files(pathRaster, pattern = "\\.tif$", full.names = TRUE)
   dates <- list.files(pathRaster, pattern = "\\.tif$", full.names = FALSE)
-  #dates <- extract_dates_from_tiff_files(dates)
 
   if (length(files) == 0) {
     message("Please provide raster files in TIFF format")
@@ -47,9 +46,9 @@ get.Series.VPP <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL) 
       rs <- brick(files[k])
 
       if (class(shapefile)[1] == "sf") {
-        r.extract<-crop( rs,extent(shape))
+        r.extract<-crop( rs,extent(shapefile))
         r.extract_1 <- raster::extract(r.extract, shapefile, fun = median, na.rm = TRUE)
-        data.write <- cbind(ID = rownames(shape), Date = rep(dates[k], length(r.extract_1)), Mean = r.extract_1/factorR)
+        data.write <- cbind(ID = rownames(shapefile), Date = rep(dates[k], length(r.extract_1)), Mean = r.extract_1/factorR)
         list.indices[[k]] <- data.write
       } else {
         message("Please provide an 'sf' object for extraction.")

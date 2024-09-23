@@ -47,9 +47,9 @@ get.Series.mean <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL)
       rs <- brick(files[k])
 
       if (class(shapefile)[1] == "sf") {
-        r.extract<-crop( rs,extent(shape))
+        r.extract<-crop( rs,extent(shapefile))
         r.extract_1 <- raster::extract(r.extract, shapefile, fun = mean, na.rm = TRUE)
-        data.write <- cbind(ID = rownames(shape), Date = rep(dates[k], length(r.extract_1)), Mean = r.extract_1/factorR)
+        data.write <- cbind(ID = rownames(shapefile), Date = rep(dates[k], length(r.extract_1)), Mean = r.extract_1/factorR)
         list.indices[[k]] <- data.write
       } else {
         message("Please provide an 'sf' object for extraction.")
@@ -61,4 +61,32 @@ get.Series.mean <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL)
   close(progress_bar)
   data.export <- do.call(rbind.data.frame, list.indices)
   return(data.export)
+}
+
+#' extract_dates_from_tiff_files
+#'
+#' @name extract_dates_from_tiff_files
+#'
+#' @param tiff_files List of files in .tif format
+#'
+#' @return The names of each of the files in the formats %Y-%m-%d or YYYYYYYMMDD
+#' @export
+#'
+#' @examples
+#' Esta función se utiliza dentro de get.Series.
+extract_dates_from_tiff_files <- function (tiff_files)
+{
+  dates <- vector("list", length(tiff_files))
+  for (i in seq_along(tiff_files)) {
+    regex <- "\\d{4}-\\d{2}-\\d{2}|\\d{8}"
+    date_str <- stringr::str_extract(tiff_files[i], regex)
+    if (!is.na(date_str)) {
+      dates[[i]] <- date_str
+    }
+    else {
+      dates[[i]] <- "missing"
+      stop("files should contained date in this format: %Y-%m-%d or YYYYMMDD")
+    }
+  }
+  return(unlist(dates[!is.na(dates)]))
 }
