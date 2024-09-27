@@ -17,50 +17,50 @@
 #' @export
 #'
 #' @examples
-#' Estimar la calidad  series temporales de NDVI en diferentes parcelas
+#' Estimate the quality of NDVI time series in different plots.
 #' quality.Series(df = data, id_col = "ID", fecha_col = "Date", value_col = "NDVI")
 quality.Series<- function(df, id_col, fecha_col, value_col) {
   # Asegurarse de que las columnas sean del tipo correcto
   df[[fecha_col]] <- as.Date(df[[fecha_col]])
 
-  # Generar los cortes de 91 días
+  # Generate 91-day cut-offs
   start <- floor_date(min(df[[fecha_col]]), "day")
   end <- ceiling_date(max(df[[fecha_col]]), "day")
   cut <- seq(start, end, by = "91 days")
 
-  # Inicializar un dataframe vacío para almacenar los resultados
+  # Initialize an empty dataframe for storing results
   df_calidad <- data.frame(id_col = character(),
                            period = character(),
                            observations = numeric(),
-                           stringsAsFactors = FALSE)  # Especificar que no convierta a factores
+                           stringsAsFactors = FALSE)  # Specify not to convert to factors
 
-  # Obtener la lista de IDs únicos
+  # Obtain the list of unique IDs
   ids <- unique(df[[id_col]])
 
-  # Bucle sobre cada ID
+  # Loop over each ID
   for (id in ids) {
-    # Filtrar el dataframe para el ID actual
+    # Filter the dataframe for the current ID
     df_id <- df %>% filter(!!rlang::sym(id_col) == id)
 
-    # Contar observaciones en cada periodo
-    for (i in seq_len(length(cut) - 1)) {  # -1 para evitar el último índice
+    # Count observations in each period
+    for (i in seq_len(length(cut) - 1)) {  # -1 to avoid the last index
       inicio_periodo <- cut[i]
       fin_periodo <- cut[i + 1]
 
-      # Filtrar por periodo usando el df_id filtrado
+      # Filter by period using filtered df_id
       observations <- df_id %>%
         filter(!!rlang::sym(fecha_col) >= inicio_periodo & !!rlang::sym(fecha_col) < fin_periodo) %>%
         summarise(observations = sum(!is.na(!!rlang::sym(value_col)), na.rm = TRUE)) %>%
         pull(observations)
 
-      # Si no hay observaciones, asignar cero
+      # If there are no observations, assign zero
       if (length(observations) == 0) {
         observations <- 0
       }
 
-      # Añadir resultados al dataframe df_calidad correctamente
+      # Add results to dataframe df_quality correctly
       df_calidad <- rbind(df_calidad,
-                          data.frame(id_col = id,  # Usando la asignación correcta
+                          data.frame(id_col = id,  # Using the correct assignment
                                      period = paste(inicio_periodo, "to", fin_periodo),
                                      observations = observations,
                                      stringsAsFactors = FALSE))
@@ -77,11 +77,10 @@ quality.Series<- function(df, id_col, fecha_col, value_col) {
       TRUE ~ "Unknown"
     ))
 
-  # Especificar de nuevo la columna id_col
+  # Specify the id_col column again
   colnames(df_calidad)[which(colnames(df_calidad) == "id_col")] <- id_col
 
-  # Crear la gráfica de líneas con colores personalizados
-  # Crear la gráfica de líneas con colores personalizados
+  # Create line chart with custom colors
   p <- ggplot(df_calidad, aes_string(x = "period", y = "observations", fill = "quality", group = id_col)) +
     geom_point()+
     geom_bar(stat = "identity") +
@@ -94,12 +93,12 @@ quality.Series<- function(df, id_col, fecha_col, value_col) {
          y = "Number of Observations",
          fill = "Quality") +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Etiquetas en diagonal
-    facet_wrap(as.formula(paste("~", id_col)))  # Asegúrate de que id_col esté bien asignado
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Diagonal labels
+    facet_wrap(as.formula(paste("~", id_col)))
 
-  # Convertir a gráfico interactivo con plotly
+  # Convert to interactive graphic with plotly
   interactive_plot <- ggplotly(p)
 
-  # Devolver el gráfico y el dataframe
+  # Return graph and dataframe
   return(list(plot = interactive_plot, data = df_calidad))
 }
