@@ -59,5 +59,6 @@ get.Series.VPP <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL) 
 
   close(progress_bar)
   data.export <- do.call(rbind.data.frame, list.indices)
+  data.export$Date <- gsub("\\.tif$", "", data.export$Date)
   return(data.export)
 }

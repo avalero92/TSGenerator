@@ -28,5 +28,5 @@ returned as a data frame.
 }
 \examples{
 Extracting indexes from a raster directory and a shapefile
-índices <- extraer_índices("ruta/a/carpeta", shapefile = mi_shapefile, factorR = 10000)
+Series <- get.Series.VPP("ruta/a/carpeta", shapefile = mi_shapefile, factorR = 10000)
 }
