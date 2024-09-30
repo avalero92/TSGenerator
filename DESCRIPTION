@@ -4,8 +4,7 @@ Version: 1.0.0.2024
 Authors@R: 
     person("Alexey", "Valero", , "avalero@cita-aragon.es", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Time series generator of High Resolution Vegetation Productivity and Phenology data from the Copernicus program: 1) Vegetation Indices (NDVI, PPI, LAI, fAPAR and the quality product QFLAG); 
-Seasonal trajectories of the PPI and 3) Parameters of productivity and phenology of the vegetation.
+Description: Time series generator of High Resolution Vegetation Productivity and Phenology data from the Copernicus program: 1) Vegetation Indices (NDVI, PPI, LAI, fAPAR and the quality product QFLAG); Seasonal trajectories of the PPI and 3) Parameters of productivity and phenology of the vegetation.
 License: MIT
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
