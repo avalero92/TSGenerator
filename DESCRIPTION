@@ -24,4 +24,5 @@ Imports:
     plotly,
     lubridate,
     dplyr,
-    tidyverse
+    tidyverse,
+    VIM
