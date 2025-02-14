@@ -20,4 +20,4 @@ Puedes instalar el paquete directamente desde GitHub utilizando el siguiente có
 install.packages("devtools")
 
 # Instala TSGenerator desde GitHub
-devtools::install_github("tu_usuario/TSGenerator")
+devtools::install_github("avalero92/TSGenerator")
