@@ -40,7 +40,7 @@ devtools::install_github("avalero92/TSGenerator")
 
 This tool uses certain Python libraries to function properly. Before you can use the TSGenerator package, you must make sure you have the following Python libraries installed:
 
--hda (Harmonized Data Acces): For more information on HDA-API developed by WEkEO see: https://help.wekeo.eu/en/articles/9515753-what-is-the-harmonized-data-access-hda-api
+- hda (Harmonized Data Acces): For more information on HDA-API developed by WEkEO see: https://help.wekeo.eu/en/articles/9515753-what-is-the-harmonized-data-access-hda-api
 
 In order to interoperate with the Python environment in R, be sure to install the "reticulate" package.
 
@@ -50,4 +50,5 @@ The main functions of TSGenerator are grouped into several modules which are pre
 
  
 ### Download module
- 1- Download.VPP function
+ 1- Download.HRVPP function: is used for the discharge of the different products of phenology and productivity of the vegetation.
+ 2- Download.VI function: Se utiliza para la descarga de los diferentes índices de vegetación crudos (NDVI, LAI, fAPAR y PPI)
