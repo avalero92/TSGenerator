@@ -46,4 +46,4 @@ In order to interoperate with the Python environment in R, be sure to install th
 
 ## Main Functions
 The main functions of TSGenerator are grouped into several modules which are presented below:
-# Módulo de descarga
+### Módulo de descarga
