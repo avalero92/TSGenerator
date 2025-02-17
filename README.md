@@ -9,7 +9,7 @@
 
 **Contributor:** Dra. Ma. Auxiliadora Casterad
 
-## Tabla de Contenidos
+## Table of Contents
 
 - [Installation](#installation)
 - [Use](#use)
@@ -18,7 +18,7 @@
 - [Contributions](#contributions)
 - [License](#license)
 
-## Instalación
+## Installation
 
 You can install the package directly from GitHub using the following code:
 
@@ -28,3 +28,13 @@ install.packages("devtools")
 
 # Install TSGenerator from GitHub
 devtools::install_github("avalero92/TSGenerator")
+
+## Use
+
+This tool uses certain Python libraries to function properly. Before you can use the TSGenerator package, you must make sure you have the following Python libraries installed:
+
+-hda (Harmonized Data Analysis)
+
+In order to interoperate with the Python environment in R, be sure to install the "reticulate" package.
+
+## Main Functions
