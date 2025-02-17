@@ -59,3 +59,9 @@ The main functions of TSGenerator are grouped into several modules which are pre
  
  2- **getCleanIV** function: from the created raster-stack files, noisy pixels are removed from the IV images (clouds, cloud shadows, water, etc.), using the QFLAG2 product as a criterion (values != 1 are considered noisy).
 
+
+
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
