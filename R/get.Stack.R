@@ -1,8 +1,8 @@
 #' get.Stack
 #'
-#' rocesses vegetation index files and adds QFLAG layers.
+#' Processes vegetation index files and adds QFLAG layers.
 #'
-#' Ehis function searches for .TIFF files of vegetation indexes (VI) in a specified directory,
+#' This function searches for .TIFF files of vegetation indexes (VI) in a specified directory,
 #' and for each file, it tries to find a corresponding QFLAG file.
 #' If found, the QFLAG file is re-scaled to match
 #' the resolution of the VI file and is added as a new layer.
