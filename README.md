@@ -36,7 +36,7 @@ devtools::install_github("avalero92/TSGenerator")
 
 This tool uses certain Python libraries to function properly. Before you can use the TSGenerator package, you must make sure you have the following Python libraries installed:
 
--hda (Harmonized Data Analysis)
+-hda (Harmonized Data Acces): For more information on HDA-API developed by WEkEO see: https://help.wekeo.eu/en/articles/9515753-what-is-the-harmonized-data-access-hda-api
 
 In order to interoperate with the Python environment in R, be sure to install the "reticulate" package.
 
