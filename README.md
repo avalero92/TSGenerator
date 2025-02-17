@@ -3,9 +3,11 @@
 
 **TSGenerator** es un paquete en R diseñado para facilitar la generación y análisis de series temporales. Este paquete incluye funciones para la imputación de datos, análisis y visualización. Es un paquete 
 que surge 
-- [Autoría y colaboración]#
+## Autor y colaboradores
 **Autor:** MSc.Alexey Valero Jorge; **Email:** avalero@cita-aragon.es
+
 **Colaborador:** Dr. José Tomás Alcalá
+
 **Colaborador:** Dra. Ma. Auxiliadora Casterad
 
 ## Tabla de Contenidos
