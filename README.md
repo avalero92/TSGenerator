@@ -45,4 +45,5 @@ This tool uses certain Python libraries to function properly. Before you can use
 In order to interoperate with the Python environment in R, be sure to install the "reticulate" package.
 
 ## Main Functions
-Las principales funciones de TSGenerator están agrupadas en varios módulos que se presentan a continuación.
+The main functions of TSGenerator are grouped into several modules which are presented below:
+# Módulo de descarga
