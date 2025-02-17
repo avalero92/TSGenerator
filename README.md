@@ -28,6 +28,7 @@ install.packages("devtools")
 
 # Install TSGenerator from GitHub
 devtools::install_github("avalero92/TSGenerator")
+```
 
 ## Use
 
