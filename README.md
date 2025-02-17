@@ -49,9 +49,9 @@ In order to interoperate with the Python environment in R, be sure to install th
 The main functions of TSGenerator are grouped into several modules which are presented below:
 
 ### Download module
- 1- Download.HRVPP function: it is used for the discharge of the different products of phenology and productivity of the vegetation.
+ 1- **Download.HRVPP** function: it is used for the discharge of the different products of phenology and productivity of the vegetation.
  
- 2- Download.VI function: it is used for downloading the different raw vegetation indices (NDVI, LAI, fAPAR and PPI) and the quality product QFLAG2.
+ 2- **Download.VI** function: it is used for downloading the different raw vegetation indices (NDVI, LAI, fAPAR and PPI) and the quality product QFLAG2.
  
- 3- Download.STPPI function : is used to download the seasonal trajectories of the PPI.
+ 3- **Download.STPPI** function : is used to download the seasonal trajectories of the PPI.
 ### Preprocessing module
