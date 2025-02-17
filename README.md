@@ -3,7 +3,9 @@
 
 **TSGenerator** is an R package designed to facilitate the generation and analysis of time series. This package includes functions for data imputation, analysis and visualization.
 ## Author and collaborators
-**Author:** MSc.Alexey Valero Jorge; **Email:** avalero@cita-aragon.es
+**Author:** MSc.Alexey Valero Jorge; 
+
+**Email:** avalero@cita-aragon.es
 
 **Contributor:** Dr. José Tomás Alcalá
 
