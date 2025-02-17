@@ -56,5 +56,6 @@ The main functions of TSGenerator are grouped into several modules which are pre
  3- **Download.STPPI** function : is used to download the seasonal trajectories of the PPI.
 ### Preprocessing module
  1- **getStack** function: this function searches for .TIFF files of vegetation indexes (VI) in a specified directory, and for each IV file, it tries to find a QFLAG file corresponding to its date. As a result, it generates a new raster-stack file. 
- 2- **getCleanIV** function: 
+ 
+ 2- **getCleanIV** function: from the created raster-stack files, noisy pixels are removed from the IV images (clouds, cloud shadows, water, etc.), using the QFLAG2 product as a criterion (values != 1 are considered noisy).
 
