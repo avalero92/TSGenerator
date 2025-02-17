@@ -1,31 +1,30 @@
 # TSGenerator
 ![TSGenerator](Logo1.png)
 
-**TSGenerator** es un paquete en R diseñado para facilitar la generación y análisis de series temporales. Este paquete incluye funciones para la imputación de datos, análisis y visualización. Es un paquete 
-que surge 
-## Autor y colaboradores
-**Autor:** MSc.Alexey Valero Jorge; **Email:** avalero@cita-aragon.es
+**TSGenerator** is an R package designed to facilitate the generation and analysis of time series. This package includes functions for data imputation, analysis and visualization.
+## Author and collaborators
+**Author:** MSc.Alexey Valero Jorge; **Email:** avalero@cita-aragon.es
 
-**Colaborador:** Dr. José Tomás Alcalá
+**Contributor:** Dr. José Tomás Alcalá
 
-**Colaborador:** Dra. Ma. Auxiliadora Casterad
+**Contributor:** Dra. Ma. Auxiliadora Casterad
 
 ## Tabla de Contenidos
 
-- [Instalación](#instalación)
-- [Uso](#uso)
-- [Funciones Principales](#funciones-principales)
-- [Ejemplos](#ejemplos)
-- [Contribuciones](#contribuciones)
-- [Licencia](#licencia)
+- [Installation](#installation)
+- [Use](#use)
+- [Main Functions](#functions-main)
+- [Examples](#examples)
+- [Contributions](#contributions)
+- [License](#license)
 
 ## Instalación
 
-Puedes instalar el paquete directamente desde GitHub utilizando el siguiente código:
+You can install the package directly from GitHub using the following code:
 
 ```r
-# Instala devtools si no lo tienes
+# Install devtools if you do not have it
 install.packages("devtools")
 
-# Instala TSGenerator desde GitHub
+# Install TSGenerator from GitHub
 devtools::install_github("avalero92/TSGenerator")
