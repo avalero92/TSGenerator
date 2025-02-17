@@ -55,3 +55,4 @@ The main functions of TSGenerator are grouped into several modules which are pre
  
  3- **Download.STPPI** function : is used to download the seasonal trajectories of the PPI.
 ### Preprocessing module
+ 1- **getStack** function: 
