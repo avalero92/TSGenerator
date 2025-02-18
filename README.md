@@ -107,8 +107,8 @@ output_path <- "C/directory where the raster-stacks will be stored"
 # We use the function
 get.Stack(IV_path, QFLAG, output_path)
 
-
 ```
+![Raster-Stack](image/RasterStack.jpg)
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
