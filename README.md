@@ -78,18 +78,20 @@ The main functions of TSGenerator are grouped into several modules which are pre
 
 ```r
 # It is necessary to configure the PATH where python.exe and the hda module are located by creating the object "ruta_python".
-ruta_python <- "PATTH/python.exe"
+ruta_python <- "PATH/python.exe" # replace "PATH" with the path to the directorywhere the python executable is located
+
+# Use of the "Download.VI" function
 Download.VI(
-user = "user_name",
-password = "Password",
-dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VI",
-productType = "NDVI",
+user = "user_name", # replace "user_name" with the user registered in the WEkEO platform
+password = "Password", # replace "password" with the password connected to the same user
+dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VI", # product identifier
+productType = "NDVI", 
 platformSerialIdentifier = "S2A",
 tileId = "30TXL",
 start = "2020-01-01T00:00:00.000Z",
 end = "2020-01-10T00:00:00.000Z",
 bbox = c(-0.89285, 41.48762, -0.86284, 41.50456),
-download_path = "local_directory"
+download_path = "local_directory" # replace with the directory where the data is to be stored
 )
 ```
 
