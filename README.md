@@ -61,7 +61,9 @@ The main functions of TSGenerator are grouped into several modules which are pre
 
 ### Time series extraction
 
+
 1- GetSeriesVI
+
 
 
 
