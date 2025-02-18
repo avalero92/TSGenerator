@@ -101,7 +101,7 @@ download_path = "local_directory" # replace with the directory where the data is
 ```r
 # Example of use of the get.Stack function
 
-# We declare the function parameters
+## We declare the function parameters
 IV_path <- "C/directory where VI data is located"
 QFLAG <- "C/directory where QFLAG data is located"
 output_path <- "C/directory where the raster-stacks will be stored"
@@ -112,7 +112,18 @@ get.Stack(IV_path, QFLAG, output_path)
 ```
 ![Figure 2. Input and output elements during the process of obtaining raster-stacks](image/RasterStack.jpg)
 
+```r
+# Example of the use of the get.CleanIV function
 
+## We declare the function parameters
+stack_folder <- "C/path where the raster-stacks files are stored"
+output_folder <- "C/path where the new files free of noisy pixels will be stored"
+
+get.Clean.IV(stack_folder, output_folder)
+
+```
+
+# Example of use of the get.Stack function
 
 ## License
 
