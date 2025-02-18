@@ -95,8 +95,13 @@ download_path = "local_directory" # replace with the directory where the data is
 )
 ```
 
-```r
 
+```r
+# Example of use of the get.Stack function
+
+IV_path <- "C/directory where VI data is located"
+
+get.Stack(IV_path, QFLAG, output_path)
 
 
 ```
