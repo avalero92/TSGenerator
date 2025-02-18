@@ -6,7 +6,7 @@
 Within the pan-European component the Copernicus Land Monitoring Service produces and disseminates a set of products with high spatial resolution on phenology and vegetation productivity (10 m2) and high repetition frequency (WEkEO, 2021; Eklundh et al., 2023; Goihl, 2023). These products are derived from the Sentinel-2 satellite constellation (2A and 2B) and cover 32 EU member countries, UK and 6 cooperating countries of the Western Balkans since January 2017 with daily, decadal and annual frequency. Thirty-one types of HR-VPP products are contained in three groups, a total of 1522 files and more than 900 000 mosaics per year, totaling a volume of 80 Tera bytes per year. These data are free of charge and freely accessible through the WEkEO Data and Information Access Service.
 
 ## Author and collaborators
-**Author:** *MSc.Alexey Valero Jorge;* 
+**Author:** *MSc.Alexey Valero Jorge* 
 
 **Email:** avalero@cita-aragon.es
 
@@ -68,8 +68,14 @@ The main functions of TSGenerator are grouped into several modules which are pre
 
 3- **get.Series.VPP** function: is used to extract median phenology and productivity data from Copernicus (SOS, EOS, MAX, etc).
 
+### Missing data analysis and visualization
+
+1- **general.Quality** function: is used to obtain the average percentage of the quality of all time series (in case of multiple time series) as a function of the number of observations in each series.
+
 
 
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
+## References
