@@ -122,4 +122,6 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 CLMS releases HR-VPP product to assess ecosystems and biodiversity. (2021). WEkEO. https://www.wekeo.eu/news/clms-releases-hr-vpp-product-to-assess-ecosystems-and-biodiversity
 
+Eklundh, L., Jin, H., & Cai, Z. (2023). Deliverable. https://crossdro.csic.es/wp-content/uploads/2023/03/
+
 Goihl, S. (2023). Determining the usefulness of the Copernicus High-Resolution Vegetation Phenology and Productivity Product (HR-VPP) with official agricultural data on cropland in case of the 2018 drought in the Federal State of Saxony, Germany. Journal of Water and Climate Change, 14(11), 3931-3949.
