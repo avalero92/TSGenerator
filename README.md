@@ -133,6 +133,13 @@ get.Clean.IV(stack_folder, output_folder)
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
+## Financing
+
+The **TSGenerator** package was created within the LAIcKA, I+D+i project *PID2021-124029OR-I00*, funded by MICIU/AEI/10.13039/501100011033 and FEDER/EU.
+
+The author gratefully acknowledges grant *PRE2022-102328* funded by MICIU/AEI/10.13039/501100011033 and FSE+.
+
+
 ## References
 
 CLMS releases HR-VPP product to assess ecosystems and biodiversity. (2021). WEkEO. https://www.wekeo.eu/news/clms-releases-hr-vpp-product-to-assess-ecosystems-and-biodiversity
