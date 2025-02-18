@@ -99,8 +99,12 @@ download_path = "local_directory" # replace with the directory where the data is
 ```r
 # Example of use of the get.Stack function
 
+# We declare the function parameters
 IV_path <- "C/directory where VI data is located"
+QFLAG <- "C/directory where QFLAG data is located"
+output_path <- "C/directory where the raster-stacks will be stored"
 
+# We use the function
 get.Stack(IV_path, QFLAG, output_path)
 
 
