@@ -75,6 +75,8 @@ The main functions of TSGenerator are grouped into several modules which are pre
 
 1- **general.Quality** function: is used to obtain the average percentage of the quality of all time series (in case of multiple time series) as a function of the number of observations in each series.
 
+2- **count.NA** function: aims to count and visualize the number of NA values in a dataset related to plot observations over time.
+
 
 ## Examples
 
