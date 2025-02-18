@@ -55,6 +55,7 @@ The main functions of TSGenerator are grouped into several modules which are pre
  
  3- **Download.STPPI** function : is used to download the seasonal trajectories of the PPI.
 ### Preprocessing module
+
  1- **getStack** function: this function searches for .TIFF files of vegetation indexes (VI) in a specified directory, and for each IV file, it tries to find a QFLAG file corresponding to its date. As a result, it generates a new raster-stack file. 
  
  2- **getCleanIV** function: from the created raster-stack files, noisy pixels are removed from the IV images (clouds, cloud shadows, water, etc.), using the QFLAG2 product as a criterion (values != 1 are considered noisy).
@@ -73,6 +74,24 @@ The main functions of TSGenerator are grouped into several modules which are pre
 1- **general.Quality** function: is used to obtain the average percentage of the quality of all time series (in case of multiple time series) as a function of the number of observations in each series.
 
 
+## Examples
+
+```r
+# It is necessary to configure the PATH where python.exe and the hda module are located by creating the object "ruta_python".
+ruta_python <- "PATTH/python.exe"
+Download.VI(
+user = "user_name",
+password = "Password",
+dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VI",
+productType = "NDVI",
+platformSerialIdentifier = "S2A",
+tileId = "30TXL",
+start = "2020-01-01T00:00:00.000Z",
+end = "2020-01-10T00:00:00.000Z",
+bbox = c(-0.89285, 41.48762, -0.86284, 41.50456),
+download_path = "local_directory"
+)
+```
 
 ## License
 
