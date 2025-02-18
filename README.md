@@ -1,5 +1,5 @@
 # TSGenerator
-![TSGenerator](Logo1.png)
+![TSGenerator](image/TSGenerator.png)
 
 **TSGenerator** is an R package designed to facilitate the generation and time series analysis of Copernicus HR-VPP products. This package includes functions for data imputation, analysis and visualization.
 
