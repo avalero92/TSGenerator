@@ -44,7 +44,7 @@ This tool uses certain Python libraries to function properly. Before you can use
 
 - hda (Harmonized Data Acces): For more information on HDA-API developed by WEkEO see: https://help.wekeo.eu/en/articles/9515753-what-is-the-harmonized-data-access-hda-api
 
-In order to interoperate with the Python environment in R, be sure to install the **reticulate** package.
+In order to interoperate with the Python environment in R, be sure to install the **reticulate** package (Ushey et al., 2024).
 
 ## Main Functions
 
@@ -125,3 +125,5 @@ CLMS releases HR-VPP product to assess ecosystems and biodiversity. (2021). WEkE
 Eklundh, L., Jin, H., & Cai, Z. (2023). Deliverable. https://crossdro.csic.es/wp-content/uploads/2023/03/
 
 Goihl, S. (2023). Determining the usefulness of the Copernicus High-Resolution Vegetation Phenology and Productivity Product (HR-VPP) with official agricultural data on cropland in case of the 2018 drought in the Federal State of Saxony, Germany. Journal of Water and Climate Change, 14(11), 3931-3949.
+
+Kevin Ushey, JJ Allaire, & Yuan Tang. (2024). Reticulate: Interface to «Python». R package version 1.39.0. https://rstudio.github.io/reticulate/
