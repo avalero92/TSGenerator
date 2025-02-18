@@ -24,6 +24,7 @@ Within the pan-European component the Copernicus Land Monitoring Service produce
 - [Examples](#examples)
 - [Contributions](#contributions)
 - [License](#license)
+- [Financing](#financing)
 - [References](#references)
 
 ## Installation
