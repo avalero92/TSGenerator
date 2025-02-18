@@ -125,7 +125,6 @@ get.Clean.IV(stack_folder, output_folder)
 
 ![Figure 3. Imagen de NDVI libre de pixeles ruidosos resultado del uso de la función **getCleanIV**.](image/NDVI_clean.jpeg)
 
-# Example of use of the get.Stack function
 
 ## License
 
