@@ -62,8 +62,11 @@ The main functions of TSGenerator are grouped into several modules which are pre
 ### Time series extraction
 
 
-1- GetSeriesVI
+1- **get.Series.mean** function: used to extract the average time series of the IVs from a shapefile of the area of interest.
 
+2- **get.Series.median** function: used to extract the median time series of the IVs from a shapefile of the area of interest.
+
+3- **get.Series.VPP** function: is used to extract median phenology and productivity data from Copernicus (SOS, EOS, MAX, etc).
 
 
 
