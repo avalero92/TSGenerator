@@ -14,11 +14,11 @@
 #' column where the time series of the VI data is stored (example: NDVI)
 #'
 #' @return
-#' Un nuevo archivo similar al data frame original pero con una nueva columna donde se alacenan los datos imputados
+#' A new file similar to the original data frame but with a new column where the imputed data is stored.
 #' @export
 #'
 #' @examples
-#' #Ejemplo de aplicación de la función TsImpute
+#' #Example of application of the TsImpute function
 #' new_Data <- TsImpute(df, group_col = "ID", value_col = "NDVI")
 
 
