@@ -24,7 +24,7 @@ mrplot <- function(data, doy_col = "DOY", serie_col = "NDVI", colors = c("green4
   }
 
   # Seleccionar las columnas necesarias
-  selected_data <- data %>% select(!!sym(doy_col), !!sym(serie_col))
+  selected_data <- data %>% dplyr::select(!!sym(doy_col), !!sym(serie_col))
 
   # Crear el gráfico de marginplot
   marginplot(selected_data, col = colors)
