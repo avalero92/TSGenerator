@@ -19,7 +19,7 @@
 #' @export
 #'
 #' @examples
-#' Example of use: #' #' result <- get_series(pathRaster = "path/to/them/tifs",
+#' Example of use: #' #' result <- get.Series.median(pathRaster = "path/to/them/tifs",
 #'#' shapefile = my_shapefile, #' factorR = 10000)
 get.Series.median <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL) {
   options(warn = -1)
