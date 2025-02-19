@@ -179,6 +179,42 @@ ggplot_na_imputations(data$NDVI,data_imputada$NDVI_completed,
 ```
 ![Figure 7. Graph of actual and imputed data](image/ggimpute.png)
 
+```r
+# Create a data frame for comparison
+comparison_ndvi <- data.frame(
+  Original = data_imputada$NDVI,
+  Imputado = data_imputada$NDVI_completed
+)
+
+# Combines original and imputed data
+data_comparacion <- data.frame(
+  NDVI = c(data$NDVI, data_imputada$NDVI_completed),
+  Tipo = rep(c("Original", "Imputado"), each = nrow(data))
+)
+
+# Create the boxplot
+ggplot(data_comparacion, aes(x = Tipo, y = NDVI)) +
+  geom_boxplot(na.rm = FALSE) +
+  labs(title = "Comparison of Original and Imputed NDVI",
+       x = "NDVI type",
+       y = "NDVI values") +
+  theme_bw()
+
+
+# Transformar el data frame para density comparison
+comparison_long <- reshape2::melt(comparison_ndvi)
+
+ggplot(comparison_long, aes(x = value, fill = variable)) +
+  geom_density(alpha = 0.3, na.rm = FALSE) +
+  labs(title = "Density Comparison: Original vs Imputed NDVI (Barley)",
+       x = "NDVI",
+       y = "Densidad") +
+  scale_fill_manual(name = "Tipo", values = c("Original" = "blue4", "Imputado" = "orange")) +
+  xlim(0, 1) +
+  theme_bw()
+
+```
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
