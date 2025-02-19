@@ -182,7 +182,7 @@ data('Barley')
 
 data_imputada <- Ts.Impute(data, "fid", "NDVI")
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-# Plot of actual and imputed data using the **ggplot_na_imputations** function of the imputeTS package.
+# Plot of actual and imputed data using the ggplot_na_imputations function of the imputeTS package.
 ggplot_na_imputations(data$NDVI,data_imputada$NDVI_completed,
                       theme = ggplot2::theme_bw())
 ```
