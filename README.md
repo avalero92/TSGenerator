@@ -167,6 +167,9 @@ The results of using the count.NA function are stored in a list: an object of ty
 The **Ts.Impute** function is used to impute missing values in a time series by group using the Kalman smoothing method. An example of how to use the function is shown below.
 
 ```r
+data('Barley')
+
+
 
 ```
 ## License
