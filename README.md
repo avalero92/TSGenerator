@@ -165,7 +165,7 @@ The results of using the count.NA function are stored in a list: an object of ty
 ![Figure 6. Interactive graph generated using the **na.Count** function.](image/na_Count.png)
 
 The **Ts.Impute** function is used to impute missing values in a time series by group using the Kalman (Jain and Singh,
-2011) smoothing method. An example of how to use the function is shown below. Para profundizar respecto al uso del filtro de Kalman para imputar datos missing ver **na_kalman** del paquete imputeTS. 
+2011) smoothing method. An example of how to use the function is shown below. Para profundizar respecto al uso del filtro de Kalman para imputar datos missing ver **na_kalman** del paquete imputeTS (https://rdrr.io/cran/imputeTS/man/na_kalman.html). 
 
 ```r
 data('Barley')
