@@ -136,8 +136,9 @@ To perform the extraction of the time series you must take into account that you
 ## We declare the function parameters
 pathRaster <- "C/directory where the .tiff files are located"
 shapefile <- shapefile to be used for time series extraction: it can be a single or multipolygon file.
-factorR <- 10000 # este es un factor de escala con el cual se dividen los valores de los VI, ejemplo: NDVI = 25356/10000
-#NDVI = 0.25356
+factorR <- 10000 # this is a scaling factor with which the VI values are divided, example:
+# NDVI = 25356/10000
+# NDVI = 0.25356
 
 series <- get_series(pathRaster = pathRaster, shapefile = shapefile, factorR = factorR)
 
