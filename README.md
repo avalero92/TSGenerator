@@ -126,12 +126,12 @@ get.Clean.IV(stack_folder, output_folder)
 
 ```
 
-![Figure 3. Imagen de NDVI libre de pixeles ruidosos resultado del uso de la función **getCleanIV**.](image/NDVI_clean.jpeg)
+![Figure 3. NDVI image free of noisy pixels resulting from the use of the **getCleanIV** function.](image/NDVI_clean.jpeg)
 
 To perform the extraction of the time series you must take into account that you must use a shapefile with a geometry of type **polygon**.
 
 ```r
-# Ejemplo de uso de la función get.Series.median
+# Example of use of the get.Series.median function
 
 ## We declare the function parameters
 pathRaster <- "C/directory where the .tiff files are located"
