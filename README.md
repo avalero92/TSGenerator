@@ -8,13 +8,20 @@ Within the pan-European component the Copernicus Land Monitoring Service produce
 ![Figure 1. Copernicus HR-VPP processing system](image/HRVPP.jpg)
 
 ## Author and collaborators
-**Author:** *MSc.Alexey Valero Jorge* 
+**Author:** *MSc.Alexey Valero Jorge* (1) 
 
 **Email:** avalero@cita-aragon.es
 
-**Contributor:** *Dr. José Tomás Alcalá*
+**Contributor:** *Dr. José Tomás Alcalá* (2)
 
-**Contributor:** *Dra. Ma. Auxiliadora Casterad*
+**Contributor:** *Dra. Ma. Auxiliadora Casterad* (1)
+
+
+### Affiliations
+
+1 Departamento de Sistemas Agrarios, Silvicultura y Medio Ambiente (Unidad asociada a suelos y riego de la EEAD-CSIC), Centro de Investigación y Tecnología Agroalimentaria de Aragón (CITA)
+
+2 Facultad de Ciencias de la Universidad de Zaragoza; Instituto de Investigación de Matemáticas y Aplicaciones (IUMA), Universidad de Zaragoza
 
 ## Table of Contents
 
