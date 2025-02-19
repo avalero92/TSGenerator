@@ -169,9 +169,16 @@ The **Ts.Impute** function is used to impute missing values in a time series by 
 ```r
 data('Barley')
 
+# Use of the function
 
-
+data_imputada <- Ts.Impute(data, "fid", "NDVI")
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Plot of actual and imputed data using the **ggplot_na_imputations** function of the imputeTS package.
+ggplot_na_imputations(data$NDVI,data_imputada$NDVI_completed,
+                      theme = ggplot2::theme_bw())
 ```
+![Figure 7. Interactive graph generated using the **na.Count** function.](image/ggimpute.png)
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
