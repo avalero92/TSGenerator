@@ -162,6 +162,9 @@ The results of using the count.NA function are stored in a list: an object of ty
 
 ![Figure 5. Counting of missing data before and after vegetation phenophases.](image/na.Count_result.png)
 
+![Figure 6. Gráfica interactiva generada utilizando la función **na.Count**.](image/na_Count.png)
+
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
