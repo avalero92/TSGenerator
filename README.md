@@ -215,6 +215,8 @@ ggplot(comparison_long, aes(x = value, fill = variable)) +
 
 ```
 
+![Figure 8.Density graph](image/Density.png)
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
