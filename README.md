@@ -143,6 +143,7 @@ factorR <- 10000 # this is a scaling factor with which the VI values are divided
 series <- get_series(pathRaster = pathRaster, shapefile = shapefile, factorR = factorR)
 
 ```
+![Figure 4. Time series corresponding to Copernicus ST_PPI product for multiple Barley plots.](image/ST_PPI.jpeg)
 
 ## License
 
