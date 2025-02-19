@@ -177,7 +177,7 @@ data_imputada <- Ts.Impute(data, "fid", "NDVI")
 ggplot_na_imputations(data$NDVI,data_imputada$NDVI_completed,
                       theme = ggplot2::theme_bw())
 ```
-![Figure 7. Interactive graph generated using the **na.Count** function.](image/ggimpute.png)
+![Figure 7. Graph of actual and imputed data](image/ggimpute.png)
 
 ## License
 
