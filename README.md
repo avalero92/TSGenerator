@@ -145,6 +145,20 @@ series <- get_series(pathRaster = pathRaster, shapefile = shapefile, factorR = f
 ```
 ![Figure 4. Time series corresponding to Copernicus ST_PPI product for multiple Barley plots.](image/ST_PPI.png)
 
+```r
+# Example of use of the count.NA function
+data("Barley")
+
+sos <- 47  # Replace with your real value
+maxd <- 105  # Replace with your real value
+eos <- 151  # Replace with your real value
+
+# Call the function with your data
+result <- count.NA(data, sos, maxd, eos,doy_col = "DOY", year_col = "Year", na_col = "NDVI", fid_col = "fid")
+print(result$interactive_plot)
+
+```
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
