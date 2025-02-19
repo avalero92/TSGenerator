@@ -164,7 +164,7 @@ The results of using the count.NA function are stored in a list: an object of ty
 
 ![Figure 6. Interactive graph generated using the **na.Count** function.](image/na_Count.png)
 
-La función `Ts.Impute` se utiliza para imputar valores faltantes en una serie de tiempo por grupo utilizando el método de suavizado de Kalman. A continuación se muestra un ejemplo de cómo utilizar la función.
+The **Ts.Impute** function is used to impute missing values in a time series by group using the Kalman smoothing method. An example of how to use the function is shown below.
 
 ```r
 
