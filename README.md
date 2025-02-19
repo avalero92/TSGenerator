@@ -158,6 +158,9 @@ result <- count.NA(data, sos, maxd, eos,doy_col = "DOY", year_col = "Year", na_c
 print(result$interactive_plot)
 
 ```
+The results of using the count.NA function are stored in a list: an object of type *tibble* showing the count of missing values before and after each phenophase and an object of type *plotly*.
+
+![Figure 5. Counting of missing data before and after vegetation phenophases.](image/na.Count_result.png)
 
 ## License
 
