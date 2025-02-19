@@ -164,7 +164,8 @@ The results of using the count.NA function are stored in a list: an object of ty
 
 ![Figure 6. Interactive graph generated using the **na.Count** function.](image/na_Count.png)
 
-The **Ts.Impute** function is used to impute missing values in a time series by group using the Kalman smoothing method. An example of how to use the function is shown below.
+The **Ts.Impute** function is used to impute missing values in a time series by group using the Kalman (Jain and Singh,
+2011) smoothing method. An example of how to use the function is shown below. Para profundizar respecto al uso del filtro de Kalman para imputar datos missing ver **na_kalman** del paquete imputeTS. 
 
 ```r
 data('Barley')
@@ -235,5 +236,7 @@ CLMS releases HR-VPP product to assess ecosystems and biodiversity. (2021). WEkE
 Eklundh, L., Jin, H., & Cai, Z. (2023). Deliverable. https://crossdro.csic.es/wp-content/uploads/2023/03/
 
 Goihl, S. (2023). Determining the usefulness of the Copernicus High-Resolution Vegetation Phenology and Productivity Product (HR-VPP) with official agricultural data on cropland in case of the 2018 drought in the Federal State of Saxony, Germany. Journal of Water and Climate Change, 14(11), 3931-3949.
+
+Jain, S.K., Singh, S.N., 2011. Harmonics estimation in emerging power system: Key issues and challenges. Electr. Power Syst. Res. 81, 1754 1766.
 
 Kevin Ushey, JJ Allaire, & Yuan Tang. (2024). Reticulate: Interface to «Python». R package version 1.39.0. https://rstudio.github.io/reticulate/
