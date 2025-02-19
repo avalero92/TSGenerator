@@ -201,7 +201,7 @@ ggplot(data_comparacion, aes(x = Tipo, y = NDVI)) +
   theme_bw()
 
 
-# Transformar el data frame para density comparison
+# Transform the data frame for density comparison
 comparison_long <- reshape2::melt(comparison_ndvi)
 
 ggplot(comparison_long, aes(x = value, fill = variable)) +
