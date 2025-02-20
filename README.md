@@ -155,7 +155,7 @@ series <- get.Series.median(pathRaster = pathRaster, shapefile = shapefile, fact
 
 ```r
 # Example of use of the count.NA function
-data("Barley")
+data <- read.csv(system.file("data", "Barley.csv" ,package = "TSGenerator"),sep = ";")  
 
 sos <- 47  # Replace with your real value
 maxd <- 105  # Replace with your real value
@@ -176,7 +176,7 @@ The **Ts.Impute** function is used to impute missing values in a time series by 
 2011) smoothing method. An example of how to use the function is shown below. Para profundizar respecto al uso del filtro de Kalman para imputar datos missing ver **na_kalman** del paquete imputeTS (https://rdrr.io/cran/imputeTS/man/na_kalman.html). 
 
 ```r
-data('Barley')
+data <- read.csv(system.file("data", "Barley.csv" ,package = "TSGenerator"),sep = ";")  
 
 # Use of the function
 
