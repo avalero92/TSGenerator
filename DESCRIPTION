@@ -25,5 +25,6 @@ Imports:
     lubridate,
     dplyr,
     tidyverse,
-    VIM,
-    imputeTs
+    imputeTS,
+    VIM
+    
