@@ -1,6 +1,6 @@
 Package: TSGenerator
 Title: The TSGenerator package has been created with the aim of facilitating time series extraction of HRVPP data from Copernicus for users with different levels of R programming.
-Version: 1.0.0.2024
+Version: 1.0.0.2025
 Authors@R: 
     person("Alexey", "Valero", , "avalero@cita-aragon.es", role = c("aut", "cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-5993-7346"))
