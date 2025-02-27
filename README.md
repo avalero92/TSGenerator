@@ -233,7 +233,7 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 ## Financing
 
-The **TSGenerator** package was created within the LAIcKA, I+D+i project *PID2021-124029OR-I00*, funded by MICIU/AEI/10.13039/501100011033 and FEDER/EU.
+The **TSGenerator** package was created within the LAIKcA, I+D+i project *PID2021-124029OR-I00*, funded by MICIU/AEI/10.13039/501100011033 and FEDER/EU.
 
 The author gratefully acknowledges grant *PRE2022-102328* funded by MICIU/AEI/10.13039/501100011033 and FSE+.
 
