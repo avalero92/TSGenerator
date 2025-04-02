@@ -1,6 +1,6 @@
 #' GAM.missing
 #'
-#'@import mgcv
+#' @import mgcv
 #' @param data Data frame containing the time series information of the vegetation index with presence of missing data
 #' @param year_col Column storing the information of the years corresponding to each time series (yyyy)
 #' @param doy_col Column that stores the information related to the Julian days
