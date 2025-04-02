@@ -11,7 +11,7 @@
 #' @param eos Optional value for the EOS line.
 #' @param max_doy Optional value for the MAX line.
 #'
-#' @return
+#' @return Object of type ggplot that shows the results of the prediction obtained with the GAM.missing function.
 #' @export
 #'
 #' @examples
