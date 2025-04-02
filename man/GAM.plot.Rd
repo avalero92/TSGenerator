@@ -32,6 +32,9 @@ GAM.plot(
 
 \item{max_doy}{Optional value for the MAX line.}
 }
+\value{
+Object of type ggplot that shows the results of the prediction obtained with the GAM.missing function.
+}
 \description{
 GAM.plot
 }
