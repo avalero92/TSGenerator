@@ -8,7 +8,7 @@
 #' @return A list object where the prediction results and the GAM model data are stored.
 #'
 #' @examples
-#' resultado <- GAM.missing(CB_M, "Year", "DOY", "NDVI_median")
+#' resultado <- GAM.missing(data, "Year", "DOY", "NDVI_median")
 #' print(resultado$proporciones)
 #' summary(resultado$model)
 #'

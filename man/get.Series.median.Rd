@@ -21,6 +21,6 @@ Date (date corresponding to the raster file) and Median (median of the extracted
 Get Series from Raster Files
 }
 \examples{
-Example of use: #' #' result <- get_series(pathRaster = "path/to/them/tifs",
+Example of use: #' #' result <- get.Series.median(pathRaster = "path/to/them/tifs",
 #' shapefile = my_shapefile, #' factorR = 10000)
 }

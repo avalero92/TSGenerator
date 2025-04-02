@@ -34,14 +34,14 @@
 #'user = "user_name",
 #'password = "Password",
 #'dataset_id = "EO:EEA:DAT:CLMS_HRVPP_ST",
-#'productType = "PPI,
+#'productType = "PPI",
 #'platformSerialIdentifier = "S2A",
 #'tileId = "30TXL",
 #'start = "2020-01-01T00:00:00.000Z",
 #'end = "2020-01-10T00:00:00.000Z",
 #'bbox = c(-0.89285, 41.48762, -0.86284, 41.50456),
-#'download_path = "local_directory"
-#')
+#'download_path = "local_directory")
+#'
 Download.STPPI <- function(user, password, dataset_id, productType,
          platformSerialIdentifier, tileId, start, end, bbox, download_path) {
 
