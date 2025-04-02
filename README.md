@@ -1,20 +1,13 @@
-# TSGenerator
-![TSGenerator](image/TS.png)
+# TS Generator
 
-**TSGenerator** is an R package designed to facilitate the generation and time series analysis of Copernicus HR-VPP products. This package includes functions for data imputation, analysis and visualization.
-
-Within the pan-European component the Copernicus Land Monitoring Service produces and disseminates a set of products with high spatial resolution on phenology and vegetation productivity \( 10 m^2 \) and high repetition frequency (WEkEO, 2021; Eklundh et al., 2023; Goihl, 2023). These products are derived from the Sentinel-2 satellite constellation (2A and 2B) and cover 32 EU member countries, UK and 6 cooperating countries of the Western Balkans since January 2017 with daily, decadal and annual frequency. Thirty-one types of HR-VPP products are contained in three groups, a total of 1522 files and more than 900 000 mosaics per year, totaling a volume of 80 Tera bytes per year. These data are free of charge and freely accessible through the WEkEO Data and Information Access Service.
-
-![Figure 1. Copernicus HR-VPP processing system](image/HRVPP.jpg)
-
-## Author and collaborators
-**Author:** *MSc.Alexey Valero Jorge* (1) 
+## Authors
+*MSc.Alexey Valero Jorge* (1) 
 
 **Email:** avalero@cita-aragon.es
 
-**Contributor:** *Dr. José Tomás Alcalá* (2)
+*Dra. Ma. Auxiliadora Casterad* (1)
 
-**Contributor:** *Dra. Ma. Auxiliadora Casterad* (1)
+*Dr. José Tomás Alcalá* (2)
 
 
 ### Affiliations
@@ -23,13 +16,22 @@ Within the pan-European component the Copernicus Land Monitoring Service produce
 
 2 Facultad de Ciencias de la Universidad de Zaragoza; Instituto de Investigación de Matemáticas y Aplicaciones (IUMA), Universidad de Zaragoza
 
+
+![](image/TS.png)
+
+**TSGenerator** is an R package designed to facilitate the generation and time series analysis of Copernicus HR-VPP products. This package includes functions for data imputation, analysis and visualization.
+
+Within the pan-European component the Copernicus Land Monitoring Service produces and disseminates a set of products with high spatial resolution on phenology and vegetation productivity \( 10 m^2 \) and high repetition frequency (WEkEO, 2021; Eklundh et al., 2023; Goihl, 2023). These products are derived from the Sentinel-2 satellite constellation (2A and 2B) and cover 32 EU member countries, UK and 6 cooperating countries of the Western Balkans since January 2017 with daily, decadal and annual frequency. Thirty-one types of HR-VPP products are contained in three groups, a total of 1522 files and more than 900 000 mosaics per year, totaling a volume of 80 Tera bytes per year. These data are free of charge and freely accessible through the WEkEO Data and Information Access Service.
+
+![Figure 1. Copernicus HR-VPP processing system](image/HRVPP.jpg)
+
+
 ## Table of Contents
 
 - [Installation](#installation)
 - [Use](#use)
-- [Main Functions](#functions-main)
+- [Functions](#functions)
 - [Examples](#examples)
-- [Contributions](#contributions)
 - [License](#license)
 - [Financing](#financing)
 - [References](#references)
@@ -54,7 +56,7 @@ This tool uses certain Python libraries to function properly. Before you can use
 
 In order to interoperate with the Python environment in R, be sure to install the **reticulate** package (Ushey et al., 2024).
 
-## Main Functions
+## Functions
 
 The main functions of TSGenerator are grouped into several modules which are presented below:
 
@@ -233,7 +235,7 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 ## Financing
 
-The **TSGenerator** package was created within the LAIcKA, I+D+i project *PID2021-124029OR-I00*, funded by MICIU/AEI/10.13039/501100011033 and FEDER/EU.
+The **TSGenerator** package was created within the LAIKcA, I+D+i project *PID2021-124029OR-I00*, funded by MICIU/AEI/10.13039/501100011033 and FEDER/EU.
 
 The author gratefully acknowledges grant *PRE2022-102328* funded by MICIU/AEI/10.13039/501100011033 and FSE+.
 
