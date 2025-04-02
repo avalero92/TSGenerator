@@ -1,5 +1,6 @@
 #' GAM.missing
 #'
+#'@import mgcv
 #' @param data Data frame containing the time series information of the vegetation index with presence of missing data
 #' @param year_col Column storing the information of the years corresponding to each time series (yyyy)
 #' @param doy_col Column that stores the information related to the Julian days
@@ -53,7 +54,4 @@ GAM.missing <- function(data, year_col, doy_col, missing_col) {
   return(list(proporciones = proporciones, model = gam_model))
 }
 
-# Ejemplo de uso
-resultado <- GAM.missing(CB_M, "Year", "DOY", "NDVI_median")
-print(resultado$proporciones)
-summary(resultado$model)
+
