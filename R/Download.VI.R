@@ -22,58 +22,114 @@
 #'
 #' @examples
 #' # It is necessary to configure the PATH where python.exe and the hda module are located by creating the object "ruta_python".
-#' ruta_python <- "PATTH/python.exe"#' Download.VI(
-#'user = "user_name",
-#'password = "Password",
-#'dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VI",
-#'productType = "NDVI",
-#'platformSerialIdentifier = "S2A",
-#'tileId = "30TXL",
-#'start = "2020-01-01T00:00:00.000Z",
-#'end = "2020-01-10T00:00:00.000Z",
-#'bbox = c(-0.89285, 41.48762, -0.86284, 41.50456),
-#'download_path = "local_directory"
-#')
-Download.VI <- function(user, password, dataset_id, productType,
-                              platformSerialIdentifier, tileId, start, end, bbox, download_path) {
+#' ruta_python <- "PATH/python.exe"
+#' Download.VI(user= "Wekeo user", password = "Wekeo password", dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VI", productType = "NDVI",
+#' platformSerialIdentifier = "S2A", tileId = "30TXL",
+#' start = "2020-01-01T00:00:00.000Z", end = "2020-01-10T00:00:00.000Z", bbox = c(-0.89285, 41.48762, -0.86284, 41.50456),
+#' download_path = "C:/Prueba_Fallah", ruta_python = "C:/Python3.9/python.exe")
 
-  library(reticulate)
 
-  # Function to configure Python
-  configurar_python <- function(ruta_python) {
-    if (file.exists(ruta_python)) {
-      use_python(ruta_python, required = TRUE)
-      message("Python configurado correctamente en: ", ruta_python)
-    } else {
-      stop("La ruta especificada no existe: ", ruta_python)
-    }
+Download.VI <- function(user, password, dataset_id, productType = NULL,
+                        platformSerialIdentifier = NULL, tileId = NULL,
+                        start = NULL, end = NULL, bbox = NULL, download_path,
+                        ruta_python = NULL) {
+
+  # Validar parámetros obligatorios
+  if (missing(user) || missing(password) || missing(dataset_id) || missing(download_path)) {
+    stop("Los parámetros user, password, dataset_id y download_path son obligatorios")
   }
 
+  # Verificar que download_path existe
+  if (!dir.exists(download_path)) {
+    stop("La ruta de descarga no existe: ", download_path)
+  }
+
+  # Cargar librería necesaria
+  if (!requireNamespace("reticulate", quietly = TRUE)) {
+    stop("Por favor instala el paquete 'reticulate': install.packages('reticulate')")
+  }
+  library(reticulate)
+
   # Configurar Python
-  configurar_python(ruta_python)
+  tryCatch({
+    if (!is.null(ruta_python)) {
+      if (file.exists(ruta_python)) {
+        use_python(ruta_python, required = TRUE)
+        message("Python configurado correctamente en: ", ruta_python)
+      } else {
+        stop("La ruta de Python especificada no existe: ", ruta_python)
+      }
+    }
 
-  # Importar hda
-  hda <- import("hda")
+    # Importar hda
+    tryCatch({
+      hda <- import("hda")
+    }, error = function(e) {
+      stop("Error al importar el módulo 'hda'. Asegúrate de que está instalado en Python: ", e$message)
+    })
 
-  # Configure user credentials
-  conf <- hda$Configuration(user = user, password = password)
-  hda_client <- hda$Client(config = conf)
+    # Configurar credenciales de usuario
+    tryCatch({
+      conf <- hda$Configuration(user = user, password = password)
+      hda_client <- hda$Client(config = conf)
+    }, error = function(e) {
+      stop("Error en la configuración del cliente HDA: ", e$message)
+    })
 
-  # Select the parameters for downloading
-  query <- list(
-    dataset_id = dataset_id,
-    productType = productType,
-    platformSerialIdentifier = platformSerialIdentifier,
-    tileId = tileId,
-    start = start,
-    end = end,
-    bbox = bbox
-  )
+    # Preparar los parámetros para la búsqueda
+    query <- list(dataset_id = dataset_id)
 
-  # Send your request
-  matches <- hda_client$search(query)
-  print(matches)
+    # Añadir parámetros opcionales si están definidos
+    if (!is.null(productType)) query$productType <- productType
+    if (!is.null(platformSerialIdentifier)) query$platformSerialIdentifier <- platformSerialIdentifier
+    if (!is.null(tileId)) query$tileId <- tileId
+    if (!is.null(start)) query$start <- start
+    if (!is.null(end)) query$end <- end
+    if (!is.null(bbox)) query$bbox <- bbox
 
-  # Download data in the specified path
-  matches$download(download_path)
+    # Realizar la búsqueda
+    mensaje <- paste("Iniciando búsqueda con los siguientes parámetros:",
+                     paste(names(query), unlist(query), sep = "=", collapse = ", "))
+    message(mensaje)
+
+    matches <- tryCatch({
+      hda_client$search(query)
+    }, error = function(e) {
+      stop("Error en la búsqueda: ", e$message)
+    })
+
+    # Mostrar número de resultados encontrados
+    num_matches <- length(matches)
+    message("Se encontraron ", num_matches, " resultados")
+
+    # Descargar datos si hay resultados
+    if (num_matches > 0) {
+      message("Descargando datos en: ", download_path)
+      result <- tryCatch({
+        matches$download(download_path)
+        TRUE
+      }, error = function(e) {
+        warning("Error en la descarga: ", e$message)
+        FALSE
+      })
+
+      return(list(
+        success = result,
+        matches = matches,
+        count = num_matches
+      ))
+    } else {
+      message("No se encontraron resultados para descargar")
+      return(list(
+        success = FALSE,
+        matches = matches,
+        count = 0
+      ))
+    }
+
+  }, error = function(e) {
+    stop("Error general: ", e$message)
+  })
 }
+
+
