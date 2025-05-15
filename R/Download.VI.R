@@ -22,7 +22,6 @@
 #'
 #' @examples
 #' # It is necessary to configure the PATH where python.exe and the hda module are located by creating the object "ruta_python".
-#' ruta_python <- "PATH/python.exe"
 #' Download.VI(user= "Wekeo user", password = "Wekeo password", dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VI", productType = "NDVI",
 #' platformSerialIdentifier = "S2A", tileId = "30TXL",
 #' start = "2020-01-01T00:00:00.000Z", end = "2020-01-10T00:00:00.000Z", bbox = c(-0.89285, 41.48762, -0.86284, 41.50456),
