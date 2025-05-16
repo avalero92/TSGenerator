@@ -36,7 +36,7 @@
 #'
 #' @importFrom shiny runApp
 #' @export
-function (app = "DownloadVI")
+runApp <- function (app = "DownloadVI")
 {
   valid_apps <- c("DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
                   "getStack", "renamesVI", "renamesVPP")
