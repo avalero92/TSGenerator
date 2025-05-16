@@ -34,13 +34,13 @@ Las aplicaciones disponibles son:
 \examples{
 \dontrun{
 # Lanzar la aplicación DownloadVI (predeterminada)
-TSGenerator::runApp()
+TSGenerator::runTSapp()
 
 # Especificar explícitamente la aplicación DownloadVI
-TSGenerator::runApp("DownloadVI")
+TSGenerator::runTSapp("DownloadVI")
 
 # Lanzar la aplicación getClean
-TSGenerator::runApp("getClean")
+TSGenerator::runTSapp("getClean")
 }
 
 }
