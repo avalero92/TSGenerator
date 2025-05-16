@@ -29,6 +29,11 @@ Imports:
     mgcv,
     scales,
     shiny,
-    VIM
+    VIM,
+    magick
+    shinydashboard,
+    shinyjs,
+    shinycssloaders
+    
 
     
