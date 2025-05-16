@@ -31,11 +31,11 @@ Imports:
     shiny,
     VIM
   Suggests:
-    DownloadVI (>= 1.0.0),
-    DownloadSTPPI (>= 1.0.0),
-    DownloadVPP (>= 1.0.0),
-    getCleanVI (>= 1.0.0),
-    getStack (>= 1.0.0),
-    renamesVI (>= 1.0.0),
-    renamesVPP (>= 1.0.0)
+    DownloadVI,
+    DownloadSTPPI,
+    DownloadVPP,
+    getCleanVI,
+    getStack,
+    renamesVI,
+    renamesVPP
     
