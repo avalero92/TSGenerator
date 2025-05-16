@@ -1,6 +1,12 @@
-r
-dashboardPage(
+library(shiny)
+library(shinydashboard)
+library(shinyjs)
+library(shinycssloaders)
+
+# UI definition with improved styling
+ui <- dashboardPage(
   dashboardHeader(title = "Download-STPPI"),
+
   dashboardSidebar(
     sidebarMenu(
       menuItem("Búsqueda y Descarga", tabName = "search", icon = icon("search")),
@@ -8,50 +14,52 @@ dashboardPage(
       menuItem("Configuración", tabName = "config", icon = icon("cog"))
     )
   ),
+
   dashboardBody(
     useShinyjs(),
     tags$head(
       tags$style(HTML("
-            .content-wrapper, .right-side {
-              background-color: #f8f9fa;
-            }
-            .box {
-              border-top: 3px solid #007bff;
-            }
-            .thumbnail {
-              display: inline-block;
-              margin: 10px;
-              border: 1px solid #ddd;
-              border-radius: 4px;
-              padding: 5px;
-              transition: transform 0.2s;
-            }
-            .thumbnail:hover {
-              transform: scale(1.05);
-              box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            }
-            .thumbnail img {
-              width: 150px;
-              height: auto;
-            }
-            .thumbnail-caption {
-              text-align: center;
-              margin-top: 5px;
-              font-size: 0.8em;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-width: 150px;
-            }
-            #errorMessages {
-              color: #dc3545;
-              margin: 10px 0;
-            }
-            .info-box {
-              margin-bottom: 15px;
-            }
-          "))
+        .content-wrapper, .right-side {
+          background-color: #f8f9fa;
+        }
+        .box {
+          border-top: 3px solid #007bff;
+        }
+        .thumbnail {
+          display: inline-block;
+          margin: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 5px;
+          transition: transform 0.2s;
+        }
+        .thumbnail:hover {
+          transform: scale(1.05);
+          box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .thumbnail img {
+          width: 150px;
+          height: auto;
+        }
+        .thumbnail-caption {
+          text-align: center;
+          margin-top: 5px;
+          font-size: 0.8em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 150px;
+        }
+        #errorMessages {
+          color: #dc3545;
+          margin: 10px 0;
+        }
+        .info-box {
+          margin-bottom: 15px;
+        }
+      "))
     ),
+
     tabItems(
       # Search and Download tab
       tabItem(tabName = "search",
@@ -69,6 +77,7 @@ dashboardPage(
                                icon = icon("check"), class = "btn-success")
                 )
               ),
+
               fluidRow(
                 box(
                   title = "Parámetros de Búsqueda", status = "primary", solidHeader = TRUE, width = 12,
@@ -94,6 +103,7 @@ dashboardPage(
                   )
                 )
               ),
+
               fluidRow(
                 box(
                   title = "Resultados de Búsqueda", status = "primary", solidHeader = TRUE, width = 12,
@@ -101,6 +111,7 @@ dashboardPage(
                 )
               )
       ),
+
       # Visualization tab
       tabItem(tabName = "visualization",
               fluidRow(
@@ -116,6 +127,7 @@ dashboardPage(
                 )
               )
       ),
+
       # Configuration tab
       tabItem(tabName = "config",
               fluidRow(
