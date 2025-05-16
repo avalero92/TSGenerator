@@ -6,8 +6,8 @@
 #'
 #' @import shiny
 #' @name runTSapp
-#' @param app Cadena de caracteres. Especifica qué aplicación Shiny ejecutar.
-#'   Opciones válidas: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
+#' @param app Character string. Specifies which Shiny application to run.
+#'   Valid options: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
 #'   "getStack", "renamesVI", "renamesVPP". Por defecto es "DownloadVI".
 #'
 #' @return It does not return a value, but runs a Shiny application in the default web browser.
