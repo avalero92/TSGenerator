@@ -30,7 +30,7 @@ Imports:
     scales,
     shiny,
     VIM,
-    magick
+    magick,
     shinydashboard,
     shinyjs,
     shinycssloaders
