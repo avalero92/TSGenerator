@@ -46,15 +46,8 @@ runTSapp <- function(app = "DownloadVI") {
                paste(valid_apps, collapse = ", ")), call. = FALSE)
   }
 
-  # Para desarrollo (paquete no instalado)
-  devDir <- file.path("inst", "applications", app)
-  if (dir.exists(devDir)) {
-    cat("Running development version from:", devDir, "\n")
-    return(shiny::runApp(devDir, display.mode = "normal"))
-  }
-
   # Para versión instalada
-  appDir <- system.file("applications", app, package = "TSGenerator")
+  appDir <- system.file("inst"/"applications", app, package = "TSGenerator")
   cat("Directorio de la aplicación:", appDir, "\n")  # Mensaje de depuración
   if (appDir == "" || !dir.exists(appDir)) {
     stop("Could not find application directory. Try re-installing `TSGenerator`.",
@@ -63,5 +56,4 @@ runTSapp <- function(app = "DownloadVI") {
   shiny::runApp(appDir, display.mode = "normal")
 }
 
-runTSapp()
 
