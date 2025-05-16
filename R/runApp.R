@@ -46,26 +46,26 @@ runApp <- function (app = "DownloadVI")
   }
 
   if (app == "DownloadVI") {
-    appDir <- system.file("appDir", "DownloadVI", package = "TSGenerator")
+    appDir <- system.file("applications", "DownloadVI", package = "TSGenerator")
   }
   else if (app == "DownloadSTPPI") {
-    appDir <- system.file("appDir", "DownloadSTPPI",
+    appDir <- system.file("applications", "DownloadSTPPI",
                           package = "TSGenerator")
   }
   else if (app == "DownloadVPP") {
-    appDir <- system.file("appDir", "DownloadVPP", package = "TSGenerator")
+    appDir <- system.file("applications", "DownloadVPP", package = "TSGenerator")
   }
   else if (app == "getClean") {
-    appDir <- system.file("appDir", "getClean", package = "TSGenerator")
+    appDir <- system.file("applications", "getClean", package = "TSGenerator")
   }
   else if (app == "getStack") {
-    appDir <- system.file("appDir", "getStack", package = "TSGenerator")
+    appDir <- system.file("applications", "getStack", package = "TSGenerator")
   }
   else if (app == "renamesVI") {
-    appDir <- system.file("appDir", "renamesVI", package = "TSGenerator")
+    appDir <- system.file("applications", "renamesVI", package = "TSGenerator")
   }
   else if (app == "renamesVPP") {
-    appDir <- system.file("appDir", "renamesVPP", package = "TSGenerator")
+    appDir <- system.file("applications", "renamesVPP", package = "TSGenerator")
   }
 
   if (appDir == "") {
