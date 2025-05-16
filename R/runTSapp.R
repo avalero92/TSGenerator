@@ -3,7 +3,7 @@
 #' Esta función lanza diferentes aplicaciones Shiny que forman parte del paquete TSGenerator.
 #' Cada aplicación proporciona una interfaz gráfica para realizar diferentes operaciones
 #' relacionadas con series temporales.
-#'@name runApp
+#'@name runTSapp
 #' @param app Cadena de caracteres. Especifica qué aplicación Shiny ejecutar.
 #'   Opciones válidas: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
 #'   "getStack", "renamesVI", "renamesVPP". Por defecto es "DownloadVI".
@@ -36,7 +36,7 @@
 #'
 #' @importFrom shiny runApp
 #' @export
-runApp <- function (app = "DownloadVI")
+runTSapp <- function (app = "DownloadVI")
 {
   valid_apps <- c("DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
                   "getStack", "renamesVI", "renamesVPP")
