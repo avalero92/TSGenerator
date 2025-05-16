@@ -27,13 +27,13 @@
 #' @examples
 #' \dontrun{
 #' # Lanzar la aplicación DownloadVI (predeterminada)
-#' TSGenerator::runApp()
+#' TSGenerator::runTSapp()
 #'
 #' # Especificar explícitamente la aplicación DownloadVI
-#' TSGenerator::runApp("DownloadVI")
+#' TSGenerator::runTSapp("DownloadVI")
 #'
 #' # Lanzar la aplicación getClean
-#' TSGenerator::runApp("getClean")
+#' TSGenerator::runTSapp("getClean")
 #' }
 #'
 #' @importFrom shiny runApp
@@ -47,7 +47,7 @@ runTSapp <- function(app = "DownloadVI") {
   }
 
   # Para versión instalada
-  appDir <- system.file("inst", "applications", app, package = "TSGenerator")
+  appDir <- system.file("applications", app, package = "TSGenerator")
   cat("Directorio de la aplicación:", appDir, "\n")  # Mensaje de depuración
   if (appDir == "" || !dir.exists(appDir)) {
     stop("Could not find application directory. Try re-installing `TSGenerator`.",
