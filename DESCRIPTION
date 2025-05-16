@@ -30,12 +30,5 @@ Imports:
     scales,
     shiny,
     VIM
-  Suggests:
-    DownloadVI,
-    DownloadSTPPI,
-    DownloadVPP,
-    getCleanVI,
-    getStack,
-    renamesVI,
-    renamesVPP
+
     
