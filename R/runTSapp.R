@@ -3,6 +3,8 @@
 #' Esta función lanza diferentes aplicaciones Shiny que forman parte del paquete TSGenerator.
 #' Cada aplicación proporciona una interfaz gráfica para realizar diferentes operaciones
 #' relacionadas con series temporales.
+#'
+#' @import shiny
 #'@name runTSapp
 #' @param app Cadena de caracteres. Especifica qué aplicación Shiny ejecutar.
 #'   Opciones válidas: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
@@ -37,18 +39,18 @@
 #' @importFrom shiny runApp
 #' @export
 runTSapp <- function(app = "DownloadVI") {
-  valid_apps <- c("DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
-                  "getStack", "renamesVI", "renamesVPP")
+  valid_apps <- c("DownloadVI", "DownloadSTPPI", "DownloadVPP",
+                  "getClean", "getStack", "renamesVI", "renamesVPP")
 
   if (!app %in% valid_apps) {
     stop(paste("Invalid app specified. Please choose one of the following options:",
                paste(valid_apps, collapse = ", ")), call. = FALSE)
   }
 
-  # Cambiado de "appDir" a "applications"
   appDir <- system.file("applications", app, package = "TSGenerator")
+  cat("Directorio de la aplicación:", appDir, "\n")  # Mensaje de depuración
 
-  if (appDir == "") {
+  if (appDir == "" || !dir.exists(appDir)) {
     stop("Could not find example directory. Try re-installing `TSGenerator`.",
          call. = FALSE)
   }
