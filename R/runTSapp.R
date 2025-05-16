@@ -5,7 +5,7 @@
 #' relacionadas con series temporales.
 #'
 #' @import shiny
-#'@name runTSapp
+#' @name runTSapp
 #' @param app Cadena de caracteres. Especifica qué aplicación Shiny ejecutar.
 #'   Opciones válidas: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
 #'   "getStack", "renamesVI", "renamesVPP". Por defecto es "DownloadVI".
