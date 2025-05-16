@@ -36,41 +36,22 @@
 #'
 #' @importFrom shiny runApp
 #' @export
-runTSapp <- function (app = "DownloadVI")
-{
+runTSapp <- function(app = "DownloadVI") {
   valid_apps <- c("DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
                   "getStack", "renamesVI", "renamesVPP")
+
   if (!app %in% valid_apps) {
     stop(paste("Invalid app specified. Please choose one of the following options:",
                paste(valid_apps, collapse = ", ")), call. = FALSE)
   }
 
-  if (app == "DownloadVI") {
-    appDir <- system.file("applications", "DownloadVI", package = "TSGenerator")
-  }
-  else if (app == "DownloadSTPPI") {
-    appDir <- system.file("applications", "DownloadSTPPI",
-                          package = "TSGenerator")
-  }
-  else if (app == "DownloadVPP") {
-    appDir <- system.file("applications", "DownloadVPP", package = "TSGenerator")
-  }
-  else if (app == "getClean") {
-    appDir <- system.file("applications", "getClean", package = "TSGenerator")
-  }
-  else if (app == "getStack") {
-    appDir <- system.file("applications", "getStack", package = "TSGenerator")
-  }
-  else if (app == "renamesVI") {
-    appDir <- system.file("applications", "renamesVI", package = "TSGenerator")
-  }
-  else if (app == "renamesVPP") {
-    appDir <- system.file("applications", "renamesVPP", package = "TSGenerator")
-  }
+  # Cambiado de "appDir" a "applications"
+  appDir <- system.file("applications", app, package = "TSGenerator")
 
   if (appDir == "") {
     stop("Could not find example directory. Try re-installing `TSGenerator`.",
          call. = FALSE)
   }
+
   shiny::runApp(appDir, display.mode = "normal")
 }
