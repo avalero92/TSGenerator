@@ -2,44 +2,44 @@
 % Please edit documentation in R/runTSapp.R
 \name{runTSapp}
 \alias{runTSapp}
-\title{Ejecuta aplicaciones Shiny del paquete TSGenerator}
+\title{Run Shiny applications from the TSGenerator package}
 \usage{
 runTSapp(app = "DownloadVI")
 }
 \arguments{
-\item{app}{Cadena de caracteres. Especifica qué aplicación Shiny ejecutar.
-Opciones válidas: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
+\item{app}{Character string. Specifies which Shiny application to run.
+Valid options: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
 "getStack", "renamesVI", "renamesVPP". Por defecto es "DownloadVI".}
 }
 \value{
-No devuelve un valor, pero ejecuta una aplicación Shiny en el navegador web predeterminado.
+It does not return a value, but runs a Shiny application in the default web browser.
 }
 \description{
-Esta función lanza diferentes aplicaciones Shiny que forman parte del paquete TSGenerator.
-Cada aplicación proporciona una interfaz gráfica para realizar diferentes operaciones
-relacionadas con series temporales.
+This function launches different Shiny applications that are part of the TSGenerator package.
+Each application provides a graphical interface for performing different operations
+related to time series.
 }
 \details{
-Las aplicaciones disponibles son:
+The available applications are:
 \itemize{
-\item \code{DownloadVI}: Interfaz para descargar datos de VI (Vegetación e Índices).
-\item \code{DownloadSTPPI}: Interfaz para descargar datos de STPPI.
-\item \code{DownloadVPP}: Interfaz para descargar datos de VPP.
-\item \code{getClean}: Herramienta para limpiar y procesar datos.
-\item \code{getStack}: Herramienta para apilar conjuntos de datos.
-\item \code{renamesVI}: Utilidad para renombrar archivos VI.
-\item \code{renamesVPP}: Utilidad para renombrar archivos VPP.
+\item \code{DownloadVI}: Interface for downloading VI data (NDVI, fAPAR, LAI and PPI).
+\item \code{DownloadSTPPI}: Interface for downloading PPI seasonal trajectory data (ST).
+\item \code{DownloadVPP}: Interface for downloading VPP data.
+\item \code{getClean}: Data cleaning and processing tool.
+\item \code{getStack}: Tool for stacking data sets.
+\item \code{renamesVI}: VI file renaming utility.
+\item \code{renamesVPP}: Utility to rename VPP files.
 }
 }
 \examples{
 \dontrun{
-# Lanzar la aplicación DownloadVI (predeterminada)
+# Launch the DownloadVI application (default)
 TSGenerator::runTSapp()
 
-# Especificar explícitamente la aplicación DownloadVI
+# Explicitly specify the DownloadVI application
 TSGenerator::runTSapp("DownloadVI")
 
-# Lanzar la aplicación getClean
+# Launch the getClean application
 TSGenerator::runTSapp("getClean")
 }
 
