@@ -40,7 +40,7 @@
 #' @export
 runTSapp <- function(app = "DownloadVI") {
   valid_apps <- c("DownloadVI", "DownloadSTPPI", "DownloadVPP",
-                  "getClean", "getStack", "renamesVI", "renamesVPP")
+                  "getCleanVI", "getStack", "renamesVI", "renamesVPP")
   if (!app %in% valid_apps) {
     stop(paste("Invalid app specified. Please choose one of the following options:",
                paste(valid_apps, collapse = ", ")), call. = FALSE)
