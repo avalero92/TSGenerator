@@ -2,7 +2,6 @@
 # Download_STPPI_App - Interfaz Shiny idéntica a DownloadVI
 # Con selector de carpetas que muestra todos los discos locales
 # ============================================================================
-
 library(shiny)
 library(shinydashboard)
 library(shinyjs)
@@ -11,7 +10,7 @@ library(shinyFiles)
 library(reticulate)
 library(magick)
 library(fs)
-library(rlang)  # Para el operador %||%
+library(rlang)  # Para %||%
 
 # ============================================================================
 # UI
@@ -402,7 +401,7 @@ ui <- dashboardPage(
 server <- function(input, output, session) {
 
   # ==========================================================================
-  # DETECCIÓN AUTOMÁTICA DE TODOS LOS DISCOS LOCALES
+  # DETECCIÓN DE TODOS LOS DISCOS LOCALES
   # ==========================================================================
   volumes <- c()
 
@@ -510,13 +509,13 @@ server <- function(input, output, session) {
       incProgress(0.5, detail = "Procesando consulta...")
       tryCatch({
         query <- list(
-          dataset_id = input$dataset_id,
-          productType = input$productType,
-          platformSerialIdentifier = input$platformSerialIdentifier,
-          tileId = input$tileId,
-          start = input$start,
-          end = input$end
+          dataset_id = input$dataset_id
         )
+        if (input$productType != "") query$productType <- input$productType
+        if (input$platformSerialIdentifier != "") query$platformSerialIdentifier <- input$platformSerialIdentifier
+        if (input$tileId != "") query$tileId <- input$tileId
+        if (input$start != "") query$start <- input$start
+        if (input$end != "") query$end <- input$end
         if (input$bbox != "") {
           bbox_vals <- as.numeric(unlist(strsplit(input$bbox, ",")))
           if (length(bbox_vals) == 4) query$bbox <- bbox_vals
@@ -524,8 +523,8 @@ server <- function(input, output, session) {
 
         values$search_results <- values$hda_client$search(query)
         incProgress(0.5, detail = "Finalizando búsqueda...")
-        if (length(values$search_results) > 0) {
-          showNotification(paste("🎉", length(values$search_results), "productos encontrados"), type = "message", duration = 6)
+        if (py_len(values$search_results) > 0) {
+          showNotification(paste("🎉", py_len(values$search_results), "productos encontrados"), type = "message", duration = 6)
         } else {
           showNotification("⚠️ No se encontraron productos con los criterios especificados", type = "warning", duration = 8)
         }
@@ -536,27 +535,31 @@ server <- function(input, output, session) {
   })
 
   # ==========================================================================
-  # RESULTADOS DE BÚSQUEDA
+  # RESULTADOS DE BÚSQUEDA (CORREGIDO PARA hda)
   # ==========================================================================
   output$result <- renderPrint({
     if (!is.null(values$search_results)) {
+      total <- py_len(values$search_results)
       cat("📊 RESULTADOS DE LA BÚSQUEDA\n")
       cat("═══════════════════════════════\n\n")
-      cat("🔢 Total de productos encontrados:", length(values$search_results), "\n\n")
-      if (length(values$search_results) > 0) {
+      cat("🔢 Total de productos encontrados:", total, "\n\n")
+      if (total > 0) {
         cat("📋 Detalles de los primeros 5 resultados:\n")
         cat("─────────────────────────────────────────\n")
-        max_show <- min(5, length(values$search_results))
+        max_show <- min(5, total)
         for (i in 1:max_show) {
           item <- values$search_results[[i]]
+          props <- item$properties %||% py_dict()
           cat(sprintf("🖼️ Producto %d:\n", i))
           cat(sprintf(" 🆔 ID: %s\n", item$id %||% "N/A"))
-          cat(sprintf(" 📅 Fecha: %s\n", item$date %||% "N/A"))
-          cat(sprintf(" 📏 Tamaño: %s\n\n", item$size %||% "N/A"))
+          cat(sprintf(" 🏷️ Título: %s\n", props$title %||% "N/A"))
+          cat(sprintf(" 📅 Fecha: %s\n", props$date %||% props$startDate %||% "N/A"))
+          cat(sprintf(" 📏 Tamaño: %s\n\n", props$size %||% "N/A"))
         }
-        if (length(values$search_results) > 5) {
-          cat(sprintf("... y %d productos más.\n\n", length(values$search_results) - 5))
+        if (total > 5) {
+          cat(sprintf("... y %d productos más.\n\n", total - 5))
         }
+        cat("💡 Consejo: Use el botón 'Descargar Resultados' para descargar todos.\n")
       }
       cat("\n⏰ Búsqueda realizada:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
     } else {
@@ -570,10 +573,10 @@ server <- function(input, output, session) {
   })
 
   # ==========================================================================
-  # DESCARGA
+  # DESCARGA (MÉTODO NATIVO DE hda - MÁS EFICIENTE)
   # ==========================================================================
   observeEvent(input$download, {
-    if (is.null(values$search_results) || length(values$search_results) == 0) {
+    if (is.null(values$search_results) || py_len(values$search_results) == 0) {
       showNotification("⚠️ No hay resultados para descargar. Realice una búsqueda primero.", type = "warning", duration = 8)
       return()
     }
@@ -584,28 +587,20 @@ server <- function(input, output, session) {
 
     dir.create(download_path(), recursive = TRUE, showWarnings = FALSE)
 
-    withProgress(message = '⬇️ Descargando productos...', {
-      total_files <- length(values$search_results)
-      failed_downloads <- 0
-      for (i in seq_along(values$search_results)) {
-        incProgress(1/total_files, detail = sprintf("Descargando %d de %d...", i, total_files))
-        tryCatch({
-          values$search_results[[i]]$download(download_path())
-        }, error = function(e) {
-          failed_downloads <<- failed_downloads + 1
-        })
-      }
-
-      values$downloaded_files <- list.files(download_path(), pattern = "\\.(tif|zip|jpg|png)$", full.names = TRUE, ignore.case = TRUE)
-
-      success_msg <- sprintf("✅ %d productos descargados", length(values$downloaded_files))
-      if (failed_downloads > 0) success_msg <- paste(success_msg, sprintf("(%d fallaron)", failed_downloads))
-      showNotification(success_msg, type = "message", duration = 8)
+    withProgress(message = '⬇️ Descargando todos los productos...', value = 0, {
+      tryCatch({
+        values$search_results$download(download_path())
+        incProgress(1)
+        values$downloaded_files <- list.files(download_path(), pattern = "\\.(tif|zip|jpg|png)$", full.names = TRUE, ignore.case = TRUE)
+        showNotification(paste("✅ Descarga completada:", length(values$downloaded_files), "archivos"), type = "message", duration = 8)
+      }, error = function(e) {
+        showNotification(paste("❌ Error durante la descarga:", e$message), type = "error", duration = 10)
+      })
     })
   })
 
   # ==========================================================================
-  # GALERÍA Y VISUALIZACIÓN (idéntica a DownloadVI)
+  # GALERÍA DE MINIATURAS
   # ==========================================================================
   output$thumbnails <- renderUI({
     if (!is.null(values$downloaded_files) && length(values$downloaded_files) > 0) {
@@ -745,7 +740,8 @@ server <- function(input, output, session) {
     cat(sprintf("📁 Ruta descarga: %s\n", ifelse(!is.null(download_path()), download_path(), "No seleccionada")))
     cat("\n📊 ESTADÍSTICAS DE DATOS:\n")
     cat("─────────────────────────────\n")
-    cat(sprintf("🔍 Productos encontrados: %d\n", ifelse(!is.null(values$search_results), length(values$search_results), 0)))
+    total_found <- ifelse(!is.null(values$search_results), py_len(values$search_results), 0)
+    cat(sprintf("🔍 Productos encontrados: %d\n", total_found))
     cat(sprintf("⬇️ Archivos descargados: %d\n", ifelse(!is.null(values$downloaded_files), length(values$downloaded_files), 0)))
     cat(sprintf("🖼️ Archivo seleccionado: %s\n", ifelse(!is.null(values$selected_image), basename(values$selected_image), "Ninguno")))
     cat("\n⏱️ Última actualización: ", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
