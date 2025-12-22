@@ -1,6 +1,7 @@
 
 # ============================================================================
-# Download_HRVPP_App - Interfaz Shiny idéntica a DownloadVI
+# Download_HRVPP_App - Interfaz Shiny completa, estilo idéntico a DownloadVI
+# Con selector de carpetas que muestra todos los discos locales
 # ============================================================================
 
 library(shiny)
@@ -11,6 +12,7 @@ library(shinyFiles)
 library(reticulate)
 library(magick)
 library(fs)
+library(rlang)
 
 # ============================================================================
 # UI
@@ -59,7 +61,7 @@ ui <- dashboardPage(
 
     tags$head(
       tags$style(HTML("
-        /* === CSS EXACTAMENTE IGUAL QUE EN DownloadVI === */
+        /* CSS COMPLETAMENTE IDÉNTICO A DownloadVI */
         .content-wrapper, .right-side {
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           min-height: 100vh;
@@ -221,10 +223,6 @@ ui <- dashboardPage(
           background: linear-gradient(45deg, #56ab2f, #a8e6cf);
           color: white;
         }
-        .status-warning {
-          background: linear-gradient(45deg, #f7971e, #ffd200);
-          color: white;
-        }
         .status-error {
           background: linear-gradient(45deg, #ff6b6b, #ee5a52);
           color: white;
@@ -286,19 +284,19 @@ ui <- dashboardPage(
                             column(4,
                                    div(class = "form-group",
                                        tags$label("📊 ID del Dataset:", class = "control-label"),
-                                       textInput("dataset_id", "EO:EEA:DAT:CLMS_HRVPP_VI", placeholder = "EO:EEA:DAT:CLMS_HRVPP_VI")
+                                       textInput("dataset_id", "EO:EEA:DAT:CLMS_HRVPP_VPP", placeholder = "EO:EEA:DAT:CLMS_HRVPP_VPP")
                                    )
                             ),
                             column(4,
                                    div(class = "form-group",
                                        tags$label("🛰️ Product Type:", class = "control-label"),
-                                       textInput("productType", "", placeholder = "Ej: NDVI300_V2")
+                                       textInput("productType", "", placeholder = "Ej: SOSD")
                                    )
                             ),
                             column(4,
                                    div(class = "form-group",
                                        tags$label("🗂️ Product Group ID:", class = "control-label"),
-                                       textInput("productGroupId", "", placeholder = "Ej: NDVI")
+                                       textInput("productGroupId", "", placeholder = "Ej: s1")
                                    )
                             )
                           ),
@@ -356,7 +354,7 @@ ui <- dashboardPage(
       ),
 
       # ========================================================================
-      # PESTAÑA: VISUALIZACIÓN (idéntica a DownloadVI)
+      # PESTAÑA: VISUALIZACIÓN
       # ========================================================================
       tabItem(tabName = "visualization",
               div(class = "fade-in",
@@ -397,7 +395,7 @@ ui <- dashboardPage(
                     box(title = "ℹ️ Información de la Aplicación", status = "info", solidHeader = TRUE, width = 12, collapsible = TRUE,
                         div(
                           h4("📖 Acerca de Download HRVPP", style = "color: #495057; margin-bottom: 15px;"),
-                          p("Aplicación Shiny para búsqueda, descarga y visualización de productos HRVPP a través de la API HDA.", style = "text-align: justify;"),
+                          p("Aplicación Shiny para búsqueda, descarga y visualización de productos HRVPP (High Resolution Vegetation Parameters) a través de la API HDA.", style = "text-align: justify;"),
                           h5("🚀 Características principales:", style = "color: #495057; margin-top: 20px;"),
                           tags$ul(
                             tags$li("✅ Interfaz intuitiva y moderna"),
@@ -407,6 +405,13 @@ ui <- dashboardPage(
                             tags$li("⬇️ Descarga automática con progreso"),
                             tags$li("🖼️ Visualización interactiva de imágenes"),
                             tags$li("📱 Diseño completamente responsivo")
+                          ),
+                          h5("🛠️ Requisitos del sistema:", style = "color: #495057; margin-top: 20px;"),
+                          tags$ul(
+                            tags$li("R ≥ 4.0"),
+                            tags$li("Python ≥ 3.6 con paquete 'hda' instalado"),
+                            tags$li("Credenciales válidas para HDA"),
+                            tags$li("Conexión a internet estable")
                           )
                         )
                     )
@@ -422,16 +427,45 @@ ui <- dashboardPage(
 # ============================================================================
 server <- function(input, output, session) {
 
-  # Selección de carpeta de descarga
-  shinyDirChoose(input, "download_dir", roots = c(home = fs::path_home()))
+  # ==========================================================================
+  # DETECCIÓN AUTOMÁTICA DE TODOS LOS DISCOS LOCALES
+  # ==========================================================================
+  volumes <- c()
+
+  if (.Platform$OS.type == "windows") {
+    # Windows: detectar todas las unidades existentes (C:, D:, E:, etc.)
+    drives <- sapply(LETTERS[1:26], function(l) {
+      drive <- paste0(l, ":/")
+      if (dir.exists(drive)) drive else NULL
+    })
+    volumes <- unlist(drives)
+    names(volumes) <- paste0(volumes, " ")  # Para que se vean bonitos en el selector
+  } else {
+    # Linux / macOS
+    volumes <- c("Raíz (/)" = "/", "Home" = fs::path_home())
+  }
+
+  # Permitir crear carpetas nuevas
+  shinyDirChoose(input, "download_dir", roots = volumes, allowDirCreate = TRUE)
+
+  # Ruta seleccionada
   download_path <- reactive({
-    if (is.null(input$download_dir)) return(NULL)
-    parseDirPath(roots = c(home = fs::path_home()), input$download_dir)
-  })
-  output$download_path_display <- renderPrint({
-    cat(ifelse(is.null(download_path()), "Ninguna carpeta seleccionada", download_path()))
+    req(input$download_dir)
+    parseDirPath(roots = volumes, input$download_dir)
   })
 
+  # Mostrar ruta seleccionada
+  output$download_path_display <- renderPrint({
+    if (is.null(input$download_dir)) {
+      cat("Ninguna carpeta seleccionada")
+    } else {
+      cat(download_path())
+    }
+  })
+
+  # ==========================================================================
+  # VALORES REACTIVOS
+  # ==========================================================================
   values <- reactiveValues(
     python_configured = FALSE,
     hda_client = NULL,
@@ -440,7 +474,9 @@ server <- function(input, output, session) {
     selected_image = NULL
   )
 
-  # Verificación de configuración
+  # ==========================================================================
+  # VERIFICACIÓN DE CONFIGURACIÓN
+  # ==========================================================================
   observeEvent(input$check_config, {
     withProgress(message = '🔧 Verificando configuración...', {
       incProgress(1/3, detail = "Configurando Python...")
@@ -477,7 +513,9 @@ server <- function(input, output, session) {
     })
   })
 
-  # Búsqueda
+  # ==========================================================================
+  # BÚSQUEDA
+  # ==========================================================================
   observeEvent(input$search, {
     html("errorMessages", "")
     errors <- character()
@@ -503,13 +541,13 @@ server <- function(input, output, session) {
       incProgress(0.5, detail = "Procesando consulta...")
       tryCatch({
         query <- list(
-          dataset_id = input$dataset_id,
-          productType = input$productType %||% NULL,
-          productGroupId = input$productGroupId %||% NULL,
-          tileId = input$tileId %||% NULL,
-          start = input$start %||% NULL,
-          end = input$end %||% NULL
+          dataset_id = input$dataset_id
         )
+        if (input$productType != "") query$productType <- input$productType
+        if (input$productGroupId != "") query$productGroupId <- input$productGroupId
+        if (input$tileId != "") query$tileId <- input$tileId
+        if (input$start != "") query$start <- input$start
+        if (input$end != "") query$end <- input$end
         if (input$bbox != "") {
           bbox_vals <- as.numeric(unlist(strsplit(input$bbox, ",")))
           if (length(bbox_vals) == 4) query$bbox <- bbox_vals
@@ -528,7 +566,9 @@ server <- function(input, output, session) {
     })
   })
 
-  # Resultados de búsqueda
+  # ==========================================================================
+  # RESULTADOS DE BÚSQUEDA
+  # ==========================================================================
   output$result <- renderPrint({
     if (!is.null(values$search_results)) {
       cat("📊 RESULTADOS DE LA BÚSQUEDA\n")
@@ -548,6 +588,7 @@ server <- function(input, output, session) {
         if (length(values$search_results) > 5) {
           cat(sprintf("... y %d productos más.\n\n", length(values$search_results) - 5))
         }
+        cat("💡 Consejo: Use el botón 'Descargar' para obtener todos los productos.\n")
       }
       cat("\n⏰ Búsqueda realizada:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
     } else {
@@ -556,11 +597,14 @@ server <- function(input, output, session) {
       cat("🔍 Para comenzar:\n")
       cat(" 1. Configure Python y las credenciales\n")
       cat(" 2. Complete los parámetros de búsqueda\n")
-      cat(" 3. Haga clic en 'Buscar Productos'\n")
+      cat(" 3. Haga clic en 'Buscar Productos'\n\n")
+      cat("💡 Asegúrese de que todos los campos obligatorios estén completos.")
     }
   })
 
-  # Descarga
+  # ==========================================================================
+  # DESCARGA
+  # ==========================================================================
   observeEvent(input$download, {
     if (is.null(values$search_results) || length(values$search_results) == 0) {
       showNotification("⚠️ No hay resultados para descargar. Realice una búsqueda primero.", type = "warning", duration = 8)
@@ -593,7 +637,9 @@ server <- function(input, output, session) {
     })
   })
 
-  # Galería de miniaturas (idéntica a DownloadVI)
+  # ==========================================================================
+  # GALERÍA DE MINIATURAS
+  # ==========================================================================
   output$thumbnails <- renderUI({
     if (!is.null(values$downloaded_files) && length(values$downloaded_files) > 0) {
       thumbnails <- lapply(values$downloaded_files, function(file) {
@@ -672,13 +718,17 @@ server <- function(input, output, session) {
     }
   })
 
-  # Selección de imagen
+  # ==========================================================================
+  # SELECCIÓN DE ARCHIVO
+  # ==========================================================================
   observeEvent(input$selected_file, {
     values$selected_image <- input$selected_file
     showNotification(paste("🖼️ Archivo seleccionado:", basename(input$selected_file)), type = "message", duration = 3)
   })
 
-  # Visualización detallada (idéntica a DownloadVI)
+  # ==========================================================================
+  # VISUALIZACIÓN DETALLADA
+  # ==========================================================================
   output$selected_image <- renderPlot({
     if (!is.null(values$selected_image) && file.exists(values$selected_image)) {
       tryCatch({
@@ -719,7 +769,9 @@ server <- function(input, output, session) {
     }
   })
 
-  # Estado del sistema (adaptado)
+  # ==========================================================================
+  # ESTADO DEL SISTEMA
+  # ==========================================================================
   output$system_info <- renderPrint({
     cat("🖥️ ESTADO DEL SISTEMA - DOWNLOAD HRVPP\n")
     cat("═══════════════════════════════════════════\n\n")
@@ -735,7 +787,19 @@ server <- function(input, output, session) {
     cat(sprintf("🔍 Productos encontrados: %d\n", ifelse(!is.null(values$search_results), length(values$search_results), 0)))
     cat(sprintf("⬇️ Archivos descargados: %d\n", ifelse(!is.null(values$downloaded_files), length(values$downloaded_files), 0)))
     cat(sprintf("🖼️ Archivo seleccionado: %s\n", ifelse(!is.null(values$selected_image), basename(values$selected_image), "Ninguno")))
-    cat("\n⏱️ Última actualización: ", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
+    cat("\n🔧 INFORMACIÓN DEL SISTEMA:\n")
+    cat("─────────────────────────────\n")
+    cat(sprintf("📅 Fecha actual: %s\n", format(Sys.Date(), "%Y-%m-%d")))
+    cat(sprintf("⏰ Hora actual: %s\n", format(Sys.time(), "%H:%M:%S")))
+    cat("\n📋 RESUMEN DEL ESTADO:\n")
+    cat("─────────────────────────────\n")
+    system_status <- "✅ OPERATIVO"
+    if (!values$python_configured) system_status <- "⚠️ CONFIGURACIÓN PENDIENTE"
+    if (is.null(values$hda_client)) system_status <- "❌ DESCONECTADO"
+    cat(sprintf("🚥 Estado general: %s\n", system_status))
+    cat(sprintf("⏱️ Última actualización: %s\n", format(Sys.time(), "%Y-%m-%d %H:%M:%S")))
+    cat("\n" , rep("═", 40), "\n")
+    cat("💡 Sugerencia: Mantenga todas las configuraciones actualizadas para un funcionamiento óptimo.\n")
   })
 }
 
