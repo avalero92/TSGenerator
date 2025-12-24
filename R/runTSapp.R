@@ -22,7 +22,7 @@
 #'   \item \code{getStack}: Tool for stacking data sets.
 #'   \item \code{renamesVI}: VI file renaming utility.
 #'   \item \code{renamesVPP}: Utility to rename VPP files.
-#'   \item \code{GAM}: GAM model to analysis NA data
+#'   \item \code{GAM}: model to analysis NA data
 #' }
 #'
 #' @examples
