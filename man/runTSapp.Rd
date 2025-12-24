@@ -8,8 +8,8 @@ runTSapp(app = "DownloadVI")
 }
 \arguments{
 \item{app}{Character string. Specifies which Shiny application to run.
-Valid options: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getClean",
-"getStack", "renamesVI", "renamesVPP". Por defecto es "DownloadVI".}
+Valid options: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getCleanVI",
+"getStack", "renamesVI", "renamesVPP", "GAM". Por defecto es "DownloadVI".}
 }
 \value{
 It does not return a value, but runs a Shiny application in the default web browser.
@@ -25,10 +25,11 @@ The available applications are:
 \item \code{DownloadVI}: Interface for downloading VI data (NDVI, fAPAR, LAI and PPI).
 \item \code{DownloadSTPPI}: Interface for downloading PPI seasonal trajectory data (ST).
 \item \code{DownloadVPP}: Interface for downloading VPP data.
-\item \code{getClean}: Data cleaning and processing tool.
+\item \code{getCleanVI}: Data cleaning and processing tool.
 \item \code{getStack}: Tool for stacking data sets.
 \item \code{renamesVI}: VI file renaming utility.
 \item \code{renamesVPP}: Utility to rename VPP files.
+\item \code{GAM}: GAM model to analysis NA data
 }
 }
 \examples{
@@ -40,7 +41,7 @@ TSGenerator::runTSapp()
 TSGenerator::runTSapp("DownloadVI")
 
 # Launch the getClean application
-TSGenerator::runTSapp("getClean")
+TSGenerator::runTSapp("getCleanVI")
 }
 
 }
