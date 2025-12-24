@@ -16,8 +16,7 @@
 # - Validación de entrada robusta
 # - Interfaz moderna y responsiva
 #
-# Autor: [Tu nombre]
-# Fecha: [Fecha]
+# Autor: [Alexey Valero-Jorge]
 # Versión: 2.0
 # ============================================================================
 
