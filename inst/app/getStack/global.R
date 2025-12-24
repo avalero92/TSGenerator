@@ -1,12 +1,24 @@
+# global.R --------------------------------------------------------------------
 library(shiny)
-library(shinydashboard)  # Para mejorar la UI
-library(shinyjs)  # Para mejorar la funcionalidad de JavaScript
-library(shinycssloaders)  # Para spinners de carga
+library(shinydashboard)
+library(shinyjs)
+library(shinycssloaders)
+library(shinyFiles)
+library(raster)
+library(parallel)
+library(doParallel)
+library(foreach)
+library(fs)
 
-# Supongamos que la función get.Stack está definida en otro lugar
-# Aquí solo se incluye como un placeholder para la función real
-get.Stack <- function(IV_path, QFLAG, output_path) {
-  # Simulación de la función para propósitos de demostración
-  Sys.sleep(2)  # Simula tiempo de procesamiento
-  return(paste("Stacks raster creados en:", output_path))
+# Detección de todos los discos locales (para shinyFiles)
+volumes <- c()
+if (.Platform$OS.type == "windows") {
+  drives <- sapply(LETTERS[1:26], function(l) {
+    drive <- paste0(l, ":/")
+    if (dir.exists(drive)) drive else NULL
+  })
+  volumes <- unlist(drives)
+  names(volumes) <- paste0(volumes, " ")
+} else {
+  volumes <- c("Raíz (/)" = "/", "Home" = fs::path_home())
 }
