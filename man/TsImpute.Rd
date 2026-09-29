@@ -20,6 +20,7 @@ A new file similar to the original data frame but with a new column where the im
 TsImpute
 }
 \examples{
-#Example of application of the TsImpute function
+\dontrun{
 new_Data <- TsImpute(df, group_col = "ID", value_col = "NDVI")
+}
 }

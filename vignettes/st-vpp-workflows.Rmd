@@ -1,0 +1,137 @@
+---
+title: "ST and VPP workflows"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ST and VPP workflows}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+```
+
+## Seasonal Trajectories (ST)
+
+### Preview
+
+```{r}
+library(TSGenerator)
+
+st_preview <- download_st(
+  start = "2020-04-01",
+  end = "2020-06-30",
+  tile_id = "30TXM",
+  product = c("PPI", "QFLAG"),
+  download = FALSE
+)
+```
+
+### Download
+
+```{r}
+st_download <- download_st(
+  start = "2020-04-01",
+  end = "2020-06-30",
+  tile_id = "30TXM",
+  product = c("PPI", "QFLAG"),
+  output_dir = "HRVPP_ST",
+  overwrite = FALSE,
+  prompt = TRUE
+)
+```
+
+### Extract PPI
+
+```{r}
+st_ts <- extract_ts(
+  x = "HRVPP_ST/PPI",
+  polygons = parcels,
+  id_col = "Parcel_ID",
+  fun = "median"
+)
+```
+
+### Assess temporal completeness
+
+```{r}
+plan <- temporal_plan(st_ts, expected_step = 10)
+missingness <- summarize_missingness(plan)
+completeness <- assess_ts_quality(plan)
+```
+
+Do not interpret these completeness classes as ST-QFLAG confidence classes.
+
+### Apply ST-QFLAG when required
+
+```{r}
+st_qflag_classes <- quality_info("ST")
+
+st_clean <- mask_quality(
+  x = st_raster,
+  quality = st_qflag_raster,
+  type = "ST",
+  min_quality = 4
+)
+```
+
+The default ST quality policy and any stricter threshold should be reported in the methods of a scientific analysis.
+
+## Vegetation Phenology and Productivity (VPP)
+
+### Preview/download selected parameters
+
+```{r}
+vpp_preview <- download_vpp(
+  start = "2020-01-01",
+  end = "2020-12-31",
+  tile_id = "30TXM",
+  product = c("SOSD", "MAXD", "EOSD", "LENGTH", "MAXV", "AMPL"),
+  season = "s1",
+  download = FALSE
+)
+```
+
+### Product-aware extraction
+
+```{r}
+vpp <- extract_vpp(
+  x = "HRVPP_VPP",
+  polygons = parcels,
+  id_col = "Parcel_ID",
+  fun = "median"
+)
+```
+
+The output separates `Date` and numeric `Value`. This avoids treating encoded phenological dates like continuous spectral values.
+
+### VPP quality
+
+```{r}
+quality_info("VPP")
+
+vpp_clean <- mask_quality(
+  x = vpp_raster,
+  quality = vpp_qflag,
+  type = "VPP"
+)
+```
+
+The default VPP mask retains medium/high confidence codes. Use explicit `keep_codes` when the study requires a different policy.
+
+## Missingness modelling
+
+For a table containing `Year`, `DOY`, and the analysed variable:
+
+```{r}
+fit <- model_missingness(
+  missingness_data,
+  year_col = "Year",
+  doy_col = "DOY",
+  value_col = "Value"
+)
+
+plot_missingness(fit, sos = 85, max_doy = 160, eos = 280)
+```
+
+The model and plot are separate objects. This makes the statistical result reusable without hidden plotting side effects.

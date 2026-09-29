@@ -39,10 +39,8 @@ Object of type ggplot that shows the results of the prediction obtained with the
 GAM.plot
 }
 \examples{
-# Ejemplo de uso
-# Without graphing phenological metrics
+\dontrun{
 GAM.plot(proporciones)
-
-# With phenological metrics
 GAM.plot(proporciones, sos = 11, eos = 163, max_doy = 74)
+}
 }

@@ -1,0 +1,121 @@
+---
+title: "Migrating from TSGenerator 1.x to 2.0"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Migrating from TSGenerator 1.x to 2.0}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+```
+
+## Why 2.0 changes the workflow
+
+TSGenerator 1.x combined workflows for VI products, QFLAG2 preprocessing, raster-stack construction, polygon extraction, imputation, and interactive missing-data analysis. Several assumptions no longer fit the current HR-VPP ecosystem.
+
+TSGenerator 2.0 therefore focuses on supported ST/VPP products and separates acquisition, geospatial processing, product quality, temporal completeness, imputation, and modelling.
+
+## Function migration table
+
+| 1.x | 2.0 | Status |
+|---|---|---|
+| `Download.STPPI()` | `download_st()` | deprecated wrapper retained |
+| `Download.HRVPP()` | `download_vpp()` | deprecated wrapper retained |
+| `Download.VI()` | none | discontinued workflow; migration guard |
+| `get.Stack()` | none | legacy VI/QFLAG2 workflow |
+| `get.Clean.IV()` | `mask_quality()` where applicable | old QFLAG2 workflow retired |
+| `QFLAG2.Mask()` | `mask_quality()` | use only with current ST/VPP QFLAG semantics |
+| `get.Series.mean()` | `extract_ts(..., fun = "mean")` | deprecated wrapper retained |
+| `get.Series.median()` | `extract_ts(..., fun = "median")` | deprecated wrapper retained |
+| `get.Series.VPP()` | `extract_vpp()` | old generic scaling retired |
+| `renames.image.VPP()` | none | filenames preserved for provenance |
+| `quality.Series()` | `assess_ts_quality()` | legacy algorithm retired |
+| `general.Quality()` | `summarize_missingness()` / `assess_ts_quality()` | legacy algorithm retired |
+| `count_missing()` | `summarize_missingness()` | phenology-specific Plotly workflow retired |
+| `TsImpute()` | `impute_ts()` | deprecated wrapper retained |
+| `GAM.missing()` | `model_missingness()` | deprecated wrapper retained |
+| `GAM.plot()` | `plot_missingness()` | deprecated wrapper retained |
+
+## Acquisition
+
+Old scripts may contain Python/`reticulate` setup. Remove it.
+
+Instead of:
+
+```{r}
+# 1.x concept
+Download.STPPI(...)
+```
+
+use:
+
+```{r}
+download_st(...)
+```
+
+and replace `Download.HRVPP()` with `download_vpp()`.
+
+## Raster extraction
+
+Replace separate mean/median functions with one API:
+
+```{r}
+extract_ts(
+  x = rasters,
+  polygons = parcels,
+  id_col = "Parcel_ID",
+  fun = "median"
+)
+```
+
+The 2.0 core uses `terra`, validates CRS, and uses explicit feature IDs instead of row names.
+
+## VPP extraction
+
+Do not migrate `get.Series.VPP()` by reproducing a global `factorR`. VPP parameters have different encodings and units. Use:
+
+```{r}
+extract_vpp(
+  x = vpp_files,
+  polygons = parcels,
+  id_col = "Parcel_ID"
+)
+```
+
+Preserve original CLMS filenames; 2.0 parses provenance from them.
+
+## Quality
+
+The discontinued VI/QFLAG2 workflow is not equivalent to current ST-QFLAG or VPP-QFLAG. Use the 2.0 product-quality functions:
+
+```{r}
+quality_info("ST")
+quality_info("VPP")
+classify_quality(...)
+summarize_quality(...)
+mask_quality(...)
+```
+
+Do not bilinearly resample categorical QFLAG rasters.
+
+## Missingness and completeness
+
+Replace generic NA counting with explicit expected-date accounting:
+
+```{r}
+plan <- temporal_plan(series, expected_step = 10)
+summarize_missingness(plan)
+assess_ts_quality(plan)
+```
+
+This distinguishes absent dates from rows containing `NA`.
+
+## Imputation
+
+Use `impute_ts()` rather than `TsImpute()`. The original value is retained, imputed values are flagged, long gaps can be protected, and ST re-imputation is blocked by default.
+
+## Legacy policy
+
+The 2.0 development series retains selected deprecated wrappers to ease migration. Functions tied only to discontinued VI/QFLAG2 behaviour act as migration guards or remain archived under `legacy/`. They should not be used for new analyses and are candidates for removal in a future major release.

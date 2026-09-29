@@ -4,10 +4,10 @@
 \alias{renames.image.VPP}
 \title{renames.image.VPP}
 \usage{
-renames.image.VPP(input_folder)
+renames.image.VPP(...)
 }
 \arguments{
-\item{input_folder}{Path to the directory containing TIF files.}
+\item{...}{Legacy arguments.}
 }
 \value{
 Does not return a value, but renames the TIF files in the specified directory.
@@ -19,8 +19,4 @@ Rename TIF files in a directory according to the year extracted from the name.
 This function searches for TIF files in a specified directory and
 renames them using the year extracted from the filename.
 The new file name shall be in the format 'yyyy.tif'.
-}
-\examples{
-# Rename TIF files in the specified folder
-rename_files("path/to/folder")
 }

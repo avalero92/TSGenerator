@@ -4,3 +4,10 @@
 .httr-oauth
 .DS_Store
 .quarto
+
+# Local credentials / secrets (TSGenerator 2.0 development)
+token.txt
+*.token
+.env
+.env.*
+.Renviron

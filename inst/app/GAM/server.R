@@ -1,5 +1,4 @@
 # Cargar script global
-source("global.R")
 
 # server.R --------------------------------------------------------------------
 server <- function(input, output, session) {
@@ -48,11 +47,11 @@ server <- function(input, output, session) {
     withProgress(message = '📊 Ejecutando modelo GAM...', {
       incProgress(0.3, detail = "Preparando datos...")
       result <- tryCatch({
-        GAM.missing(
+        model_missingness(
           data = data(),
           year_col = input$year_col,
           doy_col = input$doy_col,
-          missing_col = input$missing_col
+          value_col = input$missing_col
         )
       }, error = function(e) {
         showNotification(paste("❌ Error:", e$message), type = "error")
@@ -70,21 +69,21 @@ server <- function(input, output, session) {
   output$gam_table <- DT::renderDT({
     req(gam_result())
     DT::datatable(
-      gam_result()$proporciones,
+      gam_result()$data,
       options = list(scrollX = TRUE, pageLength = 20),
       rownames = FALSE
     ) %>%
-      DT::formatRound(c("Proporcion_Missing", "Predicted"), digits = 4)
+      DT::formatRound(c("MissingProportion", "Predicted"), digits = 4)
   })
 
   # Gráfico
   output$gam_plot <- renderPlot({
     req(gam_result())
-    df <- gam_result()$proporciones
-    ggplot(df, aes(x = !!sym(input$doy_col))) +
-      geom_point(aes(y = Proporcion_Missing, color = "Observado"), size = 2, alpha = 0.7) +
+    df <- gam_result()$data
+    ggplot(df, aes(x = DOY)) +
+      geom_point(aes(y = MissingProportion, color = "Observado"), size = 2, alpha = 0.7) +
       geom_line(aes(y = Predicted, color = "Predicción GAM"), size = 1.2) +
-      facet_wrap(as.formula(paste("~", input$year_col)), scales = "free_y") +
+      facet_wrap(~Year, scales = "free_y") +
       scale_color_manual(values = c("Observado" = "#e74c3c", "Predicción GAM" = "#3498db")) +
       labs(
         title = "Proporción de Datos Faltantes por Día del Año",

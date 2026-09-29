@@ -28,8 +28,3 @@ extract_dates_from_tiff_files
 
 extract_dates_from_tiff_files
 }
-\examples{
-Esta función se utiliza dentro de get.Series.
-Esta función se utiliza dentro de get.Series.
-Esta función se utiliza dentro de get.Series.
-}
