@@ -1,0 +1,72 @@
+{
+  "title": "TSGenerator 2.0.0: Tools for Copernicus HR-VPP Vegetation Time-Series Processing",
+  "version": "2.0.0",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "mit",
+  "language": "eng",
+  "description": "TSGenerator 2.0.0 is an open-source R package for acquiring, extracting, quality-assessing, and analysing vegetation time series derived from Copernicus High Resolution Vegetation Phenology and Productivity (HR-VPP) products. Version 2.0 provides native R access to the WEkEO Harmonised Data Access service through hdar for Seasonal Trajectories (ST) and Vegetation Phenology and Productivity (VPP) products; terra-based geospatial extraction and product-aware quality handling; temporal completeness assessment, optional imputation, and missingness diagnostics; and a unified Shiny application implementing an Acquire–Prepare/Extract–Quality–Analyze–Export workflow. Selected TSGenerator 1.x functions and historical source code are retained for migration and legacy traceability.",
+  "creators": [
+    {
+      "name": "Valero-Jorge, Alexey",
+      "orcid": "0000-0002-5993-7346",
+      "affiliation": "Departamento de Sistemas Agrícolas, Forestales y Medio Ambiente (Unidad asociada a EEAD-CSIC Suelos y Riegos), Centro de Investigación y Tecnología Agroalimentaria de Aragón (CITA), Zaragoza, Spain"
+    },
+    {
+      "name": "Casterad Seral, Mª Auxiliadora",
+      "orcid": "0000-0003-4458-6966",
+      "affiliation": "Departamento de Sistemas Agrícolas, Forestales y Medio Ambiente (Unidad asociada a EEAD-CSIC Suelos y Riegos), Centro de Investigación y Tecnología Agroalimentaria de Aragón (CITA), Zaragoza, Spain"
+    },
+    {
+      "name": "Alcalá Nalvaiz, José-Tomás",
+      "orcid": "0000-0001-7549-8825",
+      "affiliation": "Departamento de Métodos Estadísticos, Instituto Universitario de Investigación en Matemáticas y Aplicaciones (IUMA), Universidad de Zaragoza, Zaragoza, Spain"
+    }
+  ],
+  "keywords": [
+    "remote sensing",
+    "Copernicus",
+    "HR-VPP",
+    "vegetation phenology",
+    "vegetation time series",
+    "Seasonal Trajectories",
+    "Vegetation Phenology and Productivity",
+    "WEkEO",
+    "R package",
+    "geospatial analysis",
+    "quality assessment",
+    "time-series completeness",
+    "missing data",
+    "Shiny"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.17398/3101-7177.2.123",
+      "relation": "isDocumentedBy",
+      "resource_type": "publication-article"
+    },
+    {
+      "identifier": "10.3390/engproc2025094004",
+      "relation": "isReferencedBy",
+      "resource_type": "publication-article"
+    },
+    {
+      "identifier": "https://github.com/avalero92/TSGenerator",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ],
+  "references": [
+    "Valero-Jorge, A., Casterad, M. A., & Alcalá, J.-T. (2026). TSGenerator: librería R de código abierto para el procesado integrado de productos fenológicos HR-VPP de Copernicus. Congresos UEx, Actas de Congresos, 2. https://doi.org/10.17398/3101-7177.2.123",
+    "Valero-Jorge, A., Casterad, M. A., & Alcalá, J.-T. (2025). Evaluating the Influence of Missing Data from the Crop Vegetation Index Time Series on Copernicus HR-VPP Phenological Products. Engineering Proceedings, 94(1), 4. https://doi.org/10.3390/engproc2025094004"
+  ],
+  "grants": [
+    {
+      "id": "PID2021-124029OR-I00"
+    },
+    {
+      "id": "PRE2022-102328"
+    }
+  ],
+  "notes": "TSGenerator was created within the LAIKcA R&D project PID2021-124029OR-I00, funded by MICIU/AEI/10.13039/501100011033 and ERDF/EU. Alexey Valero-Jorge acknowledges predoctoral grant PRE2022-102328, funded by MICIU/AEI/10.13039/501100011033 and ESF+. Contact: avalero@cita-aragon.es."
+}
