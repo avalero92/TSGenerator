@@ -60,13 +60,5 @@
     "Valero-Jorge, A., Casterad, M. A., & Alcalá, J.-T. (2026). TSGenerator: librería R de código abierto para el procesado integrado de productos fenológicos HR-VPP de Copernicus. Congresos UEx, Actas de Congresos, 2. https://doi.org/10.17398/3101-7177.2.123",
     "Valero-Jorge, A., Casterad, M. A., & Alcalá, J.-T. (2025). Evaluating the Influence of Missing Data from the Crop Vegetation Index Time Series on Copernicus HR-VPP Phenological Products. Engineering Proceedings, 94(1), 4. https://doi.org/10.3390/engproc2025094004"
   ],
-  "grants": [
-    {
-      "id": "PID2021-124029OR-I00"
-    },
-    {
-      "id": "PRE2022-102328"
-    }
-  ],
   "notes": "TSGenerator was created within the LAIKcA R&D project PID2021-124029OR-I00, funded by MICIU/AEI/10.13039/501100011033 and ERDF/EU. Alexey Valero-Jorge acknowledges predoctoral grant PRE2022-102328, funded by MICIU/AEI/10.13039/501100011033 and ESF+. Contact: avalero@cita-aragon.es."
 }
