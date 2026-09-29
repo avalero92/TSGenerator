@@ -1,5 +1,4 @@
 # Cargar script global
-source("global.R")
 
 # ui.R ------------------------------------------------------------------------
 ui <- dashboardPage(

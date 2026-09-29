@@ -19,7 +19,3 @@ A list of files that stores a new data frame and an interactive graphic.
 \description{
 general.Quality
 }
-\examples{
-Estimation of the average quality of all NDVI time series.
-general.Quality(df = "Data base", period_col = "Periods", observations_col = "Observations")
-}

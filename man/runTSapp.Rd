@@ -2,46 +2,29 @@
 % Please edit documentation in R/runTSapp.R
 \name{runTSapp}
 \alias{runTSapp}
-\title{Run Shiny applications from the TSGenerator package}
+\title{Run the TSGenerator graphical interface}
 \usage{
-runTSapp(app = "DownloadVI")
+runTSapp(app = "TSGenerator2")
 }
 \arguments{
-\item{app}{Character string. Specifies which Shiny application to run.
-Valid options: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getCleanVI",
-"getStack", "renamesVI", "renamesVPP", "GAM". Por defecto es "DownloadVI".}
+\item{app}{Character string. Application to launch. The default, \code{"TSGenerator2"}, launches the unified 2.0 interface. Compatibility options are \code{"DownloadSTPPI"}, \code{"DownloadVPP"}, and \code{"GAM"}.}
 }
 \value{
-It does not return a value, but runs a Shiny application in the default web browser.
+Invisibly returns the result of \code{shiny::runApp()}.
 }
 \description{
-This function launches different Shiny applications that are part of the TSGenerator package.
-Each application provides a graphical interface for performing different operations
-related to time series.
+Launches the unified TSGenerator 2.0 Shiny application. Selected 1.x/early-2.0 mini-apps remain temporarily accessible for compatibility, but new development is concentrated in the unified interface.
 }
 \details{
-The available applications are:
-\itemize{
-\item \code{DownloadVI}: Interface for downloading VI data (NDVI, fAPAR, LAI and PPI).
-\item \code{DownloadSTPPI}: Interface for downloading PPI seasonal trajectory data (ST).
-\item \code{DownloadVPP}: Interface for downloading VPP data.
-\item \code{getCleanVI}: Data cleaning and processing tool.
-\item \code{getStack}: Tool for stacking data sets.
-\item \code{renamesVI}: VI file renaming utility.
-\item \code{renamesVPP}: Utility to rename VPP files.
-\item \code{GAM}: model to analysis NA data
-}
+The unified application is a graphical layer over the public TSGenerator 2.0 API. Scientific algorithms are not reimplemented in the Shiny server.
 }
 \examples{
 \dontrun{
-# Launch the DownloadVI application (default)
 TSGenerator::runTSapp()
-
-# Explicitly specify the DownloadVI application
-TSGenerator::runTSapp("DownloadVI")
-
-# Launch the getClean application
-TSGenerator::runTSapp("getCleanVI")
+TSGenerator::runTSapp("DownloadVPP")
 }
-
 }
+\seealso{
+Other applications: \code{runTSapp()}
+}
+\concept{applications}

@@ -7,13 +7,13 @@
 GAM.missing(data, year_col, doy_col, missing_col)
 }
 \arguments{
-\item{data}{Data frame containing the time series information of the vegetation index with presence of missing data}
+\item{data}{Data frame containing the missingness time-series information.}
 
-\item{year_col}{Column storing the information of the years corresponding to each time series (yyyy)}
+\item{year_col}{Name of the column containing years.}
 
-\item{doy_col}{Column that stores the information related to the Julian days}
+\item{doy_col}{Name of the column containing day-of-year values.}
 
-\item{missing_col}{}
+\item{missing_col}{Name of the column containing the missingness/value indicator used by the legacy wrapper.}
 }
 \value{
 A list object where the prediction results and the GAM model data are stored.
@@ -22,8 +22,12 @@ A list object where the prediction results and the GAM model data are stored.
 GAM.missing
 }
 \examples{
-resultado <- GAM.missing(data, "Year", "DOY", "NDVI_median")
-print(resultado$proporciones)
-summary(resultado$model)
-
+\dontrun{
+resultado <- GAM.missing(
+  data,
+  year_col = "Year",
+  doy_col = "DOY",
+  missing_col = "NDVI_median"
+)
+}
 }

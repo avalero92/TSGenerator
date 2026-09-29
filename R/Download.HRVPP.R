@@ -1,86 +1,31 @@
-#' Download.HRVPP
+#' Legacy wrapper for HR-VPP VPP download
 #'
-#' @import reticulate
-#' @import stringr
-#' @import parallel
+#' `Download.HRVPP()` is retained for compatibility with TSGenerator 1.x.
+#' It now delegates to [download_vpp()] and no longer requires Python or
+#' `reticulate`. New code should call `download_vpp()` directly.
 #'
-#' @name Download.HRVPP
-#'
-#' @param user
-#' User in which it is used in the WEkEO platform
-#' @param password
-#' Password used by the user on the WEkEO platform
-#' @param dataset_id
-#' Database where the product to be downloaded is stored, see WEkEO documentation. En el cso de los productos HRVPP usar: "EO:EEA:DAT:CLMS_HRVPP_VPP"
-#' @param productType Select the type of product to download (example: Start of Season_date(SOSD)). For other product types see WEkEO documentation.
-#' @param tileId Indicate the tesserae (mosaic) you want to download
-#' @param productGroupID The product group will be selected, which can be Season 1 or 2 (example: s2).
-#' @param start Start date with structure: "yyyy-mm-ddT00:00:00:00.000Z".
-#' @param end End date with structure: "yyyy-mm-ddT00:00:00:00.000Z".
-#' @param bbox Coordinates of the study area: Xmin,Ymin,Xmax,Ymax
-#' @param download_path Directory where the .tif files will be stored
-#'
-#' @return Set of .tif files relating to the selected HRVPP product(s)
-#'
+#' @param user,password Optional WEkEO credentials. If omitted, `hdar` reads
+#'   credentials from `~/.hdarc`.
+#' @param dataset_id Legacy dataset identifier.
+#' @param productType VPP parameter, e.g. `SOSD`, `EOSD`, `TPROD`.
+#' @param productGroupId Season (`s1` or `s2`).
+#' @param tileId Sentinel-2 tile identifier.
+#' @param start,end Date/time range.
+#' @param bbox Optional EPSG:4326 bounding box.
+#' @param download_path Output directory.
+#' @return A `tsg_vpp_download` object.
 #' @export
-#'
-#' @examples
-#' # It is necessary to configure the PATH where python.exe and the hda module are located by creating the object "ruta_python".
-#' ruta_python <- "PATTH/python.exe"
-#' Download.HRVPP (
-#'user = "user",
-#'password = "Password",
-#'dataset_id = "EO:EEA:DAT:CLMS_HRVPP_VPP",
-#'productType = "SOSD",
-#'productGroupId = "s1",
-#'tileId = "30TXL",
-#'start = "2020-01-01T00:00:00.000Z",
-#'end = "2020-01-10T00:00:00.000Z",
-#'bbox = c(-0.89285, 41.48762, -0.86284, 41.50456),
-#'download_path = "local_directory"
-#')
-
-Download.HRVPP <- function(user, password, dataset_id, productType,productGroupId,
-                              tileId, start, end, bbox, download_path) {
-
-  library(reticulate)
-
-  # Función para configurar Python
-  configurar_python <- function(ruta_python) {
-    if (file.exists(ruta_python)) {
-      use_python(ruta_python, required = TRUE)
-      message("Python configurado correctamente en: ", ruta_python)
-    } else {
-      stop("La ruta especificada no existe: ", ruta_python)
-    }
+Download.HRVPP <- function(user = NULL, password = NULL,
+                           dataset_id = .VPP_DATASET_ID,
+                           productType = "SOSD", productGroupId = "s1",
+                           tileId = NULL, start, end, bbox = NULL,
+                           download_path = "HRVPP_VPP") {
+  warning("'Download.HRVPP()' is deprecated; use 'download_vpp()'. The legacy wrapper now uses the native R/hdar backend.", call. = FALSE)
+  if (!identical(dataset_id, .VPP_DATASET_ID)) {
+    warning("Legacy 'dataset_id' is ignored; using the supported VPP dataset: ", .VPP_DATASET_ID, call. = FALSE)
   }
-
-  # Configurar Python
-  configurar_python(ruta_python)
-
-   # Importar hda
-  hda <- import("hda")
-
-  # Configure user credentials
-  conf <- hda$Configuration(user = user, password = password)
-  hda_client <- hda$Client(config = conf)
-
-  # Select the parameters for downloading
-  query <- list(
-    dataset_id = dataset_id,
-    productType = productType,
-    productGroupId = productGroupId,
-    tileId = tileId,
-    start = start,
-    end = end,
-    bbox = bbox
-  )
-
-  # Send your request
-  matches <- hda_client$search(query)
-  print(matches)
-
-  # Download data in the specified path
-  matches$download(download_path)
+  client <- hda_client(username = user, password = password)
+  download_vpp(start = start, end = end, output_dir = download_path,
+               product = productType, season = productGroupId,
+               tile_id = tileId, bbox = bbox, client = client)
 }
-

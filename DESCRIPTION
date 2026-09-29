@@ -1,10 +1,10 @@
 Package: TSGenerator
-Title: The TSGenerator package has been created with the aim of facilitating time series extraction of HRVPP data from Copernicus for users with different levels of R programming.
-Version: 1.0.0.2025
+Title: Tools for Copernicus HR-VPP Vegetation Time-Series Processing
+Version: 2.0.0
 Authors@R: 
     person("Alexey", "Valero", , "avalero@cita-aragon.es", role = c("aut", "cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-5993-7346"))
-Description: Time series generator of High Resolution Vegetation Productivity and Phenology data from the Copernicus program: 1) Vegetation Indices (NDVI, PPI, LAI, fAPAR and the quality product QFLAG); Seasonal trajectories of the PPI and 3) Parameters of productivity and phenology of the vegetation.
+Description: Tools for extracting, assessing, and analysing vegetation time series derived from Copernicus High Resolution Vegetation Phenology and Productivity (HR-VPP) products. The 2.0 development series focuses on currently supported Seasonal Trajectories (ST) and Vegetation Phenology and Productivity (VPP) products while retaining selected 1.x functions for legacy compatibility.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -12,25 +12,24 @@ RoxygenNote: 7.3.3
 URL: https://github.com/avalero92/TSGenerator
 BugReports: https://github.com/avalero92/TSGenerator/issues
 Imports:
-    doParallel,
-    raster,
-    sf,
-    reticulate,
+    hdar,
+    jsonlite,
     stringr,
-    parallel,
     utils,
     ggplot2,
-    rlang,
-    plotly,
-    lubridate,
-    dplyr,
-    tidyverse,
-    imputeTS,
     mgcv,
     scales,
     shiny,
-    VIM,
-    magick,
     shinydashboard,
     shinyjs,
-    shinycssloaders
+    shinycssloaders,
+    DT,
+    readr,
+    terra
+Suggests:
+    imputeTS,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

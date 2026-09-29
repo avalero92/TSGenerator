@@ -1,61 +1,51 @@
-#' Run Shiny applications from the TSGenerator package
+#' Run the TSGenerator graphical interface
 #'
-#' This function launches different Shiny applications that are part of the TSGenerator package.
-#' Each application provides a graphical interface for performing different operations
-#' related to time series.
+#' Launches the unified TSGenerator 2.0 Shiny application. Selected 1.x/early-2.0
+#' mini-apps remain temporarily accessible for compatibility, but new development
+#' is concentrated in the unified interface.
 #'
-#' @import shiny
-#' @name runTSapp
-#' @param app Character string. Specifies which Shiny application to run.
-#'   Valid options: "DownloadVI", "DownloadSTPPI", "DownloadVPP", "getCleanVI",
-#'   "getStack", "renamesVI", "renamesVPP", "GAM". Por defecto es "DownloadVI".
+#' @param app Character string. Application to launch. The default, `"TSGenerator2"`,
+#'   launches the unified 2.0 interface. Compatibility options are `"DownloadSTPPI"`,
+#'   `"DownloadVPP"`, and `"GAM"`.
 #'
-#' @return It does not return a value, but runs a Shiny application in the default web browser.
+#' @return Invisibly returns the result of [shiny::runApp()].
 #'
 #' @details
-#' The available applications are:
-#' \itemize{
-#'   \item \code{DownloadVI}: Interface for downloading VI data (NDVI, fAPAR, LAI and PPI).
-#'   \item \code{DownloadSTPPI}: Interface for downloading PPI seasonal trajectory data (ST).
-#'   \item \code{DownloadVPP}: Interface for downloading VPP data.
-#'   \item \code{getCleanVI}: Data cleaning and processing tool.
-#'   \item \code{getStack}: Tool for stacking data sets.
-#'   \item \code{renamesVI}: VI file renaming utility.
-#'   \item \code{renamesVPP}: Utility to rename VPP files.
-#'   \item \code{GAM}: model to analysis NA data
-#' }
+#' The unified application is a graphical layer over the public TSGenerator 2.0 API.
+#' Scientific algorithms are not reimplemented in the Shiny server.
 #'
 #' @examples
 #' \dontrun{
-#' # Launch the DownloadVI application (default)
 #' TSGenerator::runTSapp()
-#'
-#' # Explicitly specify the DownloadVI application
-#' TSGenerator::runTSapp("DownloadVI")
-#'
-#' # Launch the getClean application
-#' TSGenerator::runTSapp("getCleanVI")
+#' TSGenerator::runTSapp("DownloadVPP")
 #' }
 #'
-#' @importFrom shiny runApp
+#' @family applications
 #' @export
-runTSapp <- function(app = "DownloadVI") {
-  valid_apps <- c("DownloadVI", "DownloadSTPPI", "DownloadVPP",
-                  "getCleanVI", "getStack", "renamesVI", "renamesVPP", "GAM")
-  if (!app %in% valid_apps) {
-    stop(paste("Invalid app specified. Please choose one of the following options:",
-               paste(valid_apps, collapse = ", ")), call. = FALSE)
+runTSapp <- function(app = "TSGenerator2") {
+  active_apps <- c("TSGenerator2", "DownloadSTPPI", "DownloadVPP", "GAM")
+  legacy_apps <- c("DownloadVI", "getCleanVI", "getStack", "renamesVI", "renamesVPP")
+
+  if (app %in% legacy_apps) {
+    stop(
+      paste0(
+        "The '", app, "' Shiny interface belongs to the discontinued 1.x VI/QFLAG workflow ",
+        "and is not included in the TSGenerator 2.0 active interface."
+      ),
+      call. = FALSE
+    )
+  }
+  if (!app %in% active_apps) {
+    stop(
+      paste("Invalid app specified. Choose one of:", paste(active_apps, collapse = ", ")),
+      call. = FALSE
+    )
   }
 
-  appDirBase <- system.file(package = "TSGenerator")
-  appDir <- file.path(appDirBase, "app", app)
-  cat("Directorio de la aplicación:", appDir, "\n")
-  if (!dir.exists(appDir)) {
-    stop("Could not find application directory ).", call. = FALSE)
+  app_dir <- system.file("app", app, package = "TSGenerator")
+  if (!nzchar(app_dir) || !dir.exists(app_dir)) {
+    stop("Could not find the requested TSGenerator application directory.", call. = FALSE)
   }
 
-  shiny::runApp(appDir, display.mode = "normal")
-
+  shiny::runApp(app_dir, display.mode = "normal")
 }
-
-

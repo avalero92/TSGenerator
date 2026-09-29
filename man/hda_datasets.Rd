@@ -1,0 +1,2 @@
+% Generated from roxygen source during Phase 5.2; regenerate with roxygen2 before release.
+\name{hda_datasets}\alias{hda_datasets}\title{Discover WEkEO datasets}\usage{hda_datasets(pattern = NULL, client = NULL)}\arguments{\item{pattern}{Optional text used to filter the WEkEO catalogue.}\item{client}{Optional authenticated HDA client.}}\value{Dataset records returned by \pkg{hdar}.}\description{Queries the WEkEO catalogue through the native HDA client.}\seealso{\code{\link{hda_query_template}}}\concept{WEkEO acquisition}

@@ -1,2 +1,12 @@
 ^TSGenerator\.Rproj$
 ^\.Rproj\.user$
+^token\.txt$
+^\.env.*$
+^\.Renviron$
+
+^legacy$
+^legacy/
+^development$
+^development/
+^PHASE.*
+^Logo1?\.png$

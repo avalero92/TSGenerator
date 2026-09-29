@@ -1,87 +1,33 @@
-# Function to download Seasonal Trayectories of PPI data using hda
-#' Download.STPPI
+#' Legacy wrapper for Seasonal Trajectories download
 #'
-#' @name Download.STPPI
+#' `Download.STPPI()` is retained for compatibility with TSGenerator 1.x.
+#' It now delegates to [download_st()] and no longer requires Python or
+#' `reticulate`. New code should call `download_st()` directly.
 #'
-#' @param user
-#' User in which it is used in the WEkEO platform
-#' @param password
-#' Password used by the user on the WEkEO platform
-#' @param dataset_id
-#' Database where the product to be downloaded is stored, see WEkEO documentation. In this case use: "EO:EEA:DAT:CLMS_HRVPP_ST".
-#' @param productType
-#' Enter the type of products to download (PPI)
-#' @param platformSerialIdentifier
-#' Select the platform from which the data comes from (example: S2A).
-#' @param tileId
-#' Indicate the tesserae (mosaic) you want to download
-#' @param start
-#' Start date with structure: "yyyy-mm-ddT00:00:00:00.000Z".
-#' @param end
-#' End date with structure: "yyyy-mm-ddT00:00:00:00.000Z".
-#' @param bbox
-#' Coordinates of the study area: Xmin,Ymin,Xmax,Ymax
-#' @param download_path
-#' Directory where the .tif files will be stored
-#'
-#' @return Set of .tif files related to PPI Seasonal Trajectory(s)
+#' @param user,password Optional WEkEO credentials. If omitted, `hdar` reads
+#'   credentials from `~/.hdarc`.
+#' @param dataset_id Legacy dataset identifier. Ignored after validation because
+#'   `download_st()` uses the supported ST dataset.
+#' @param productType ST product (`PPI` or `QFLAG`).
+#' @param platformSerialIdentifier Platform filter.
+#' @param tileId Sentinel-2 tile identifier.
+#' @param start,end Date/time range.
+#' @param bbox Optional EPSG:4326 bounding box.
+#' @param download_path Output directory.
+#' @return A `tsg_st_download` object.
 #' @export
-
-#' @examples
-#' # It is necessary to configure the PATH where python.exe and the hda module are located by creating the object "ruta_python".
-#' ruta_python <- "PATTH/python.exe"
-#'Download.STPPI(
-#'user = "user_name",
-#'password = "Password",
-#'dataset_id = "EO:EEA:DAT:CLMS_HRVPP_ST",
-#'productType = "PPI",
-#'platformSerialIdentifier = "S2A",
-#'tileId = "30TXL",
-#'start = "2020-01-01T00:00:00.000Z",
-#'end = "2020-01-10T00:00:00.000Z",
-#'bbox = c(-0.89285, 41.48762, -0.86284, 41.50456),
-#'download_path = "local_directory")
-#'
-Download.STPPI <- function(user, password, dataset_id, productType,
-         platformSerialIdentifier, tileId, start, end, bbox, download_path) {
-
-  library(reticulate)
-
-  # Function to configure Python
-  configurar_python <- function(ruta_python) {
-    if (file.exists(ruta_python)) {
-      use_python(ruta_python, required = TRUE)
-      message("Python configurado correctamente en: ", ruta_python)
-    } else {
-      stop("La ruta especificada no existe: ", ruta_python)
-    }
+Download.STPPI <- function(user = NULL, password = NULL,
+                           dataset_id = .ST_DATASET_ID,
+                           productType = "PPI",
+                           platformSerialIdentifier = "S2A, S2B",
+                           tileId = NULL, start, end, bbox = NULL,
+                           download_path = "HRVPP_ST") {
+  warning("'Download.STPPI()' is deprecated; use 'download_st()'. The legacy wrapper now uses the native R/hdar backend.", call. = FALSE)
+  if (!identical(dataset_id, .ST_DATASET_ID)) {
+    warning("Legacy 'dataset_id' is ignored; using the supported ST dataset: ", .ST_DATASET_ID, call. = FALSE)
   }
-
-  # Configurar Python
-  configurar_python(ruta_python)
-
-  # Importar hda
-  hda <- import("hda")
-
-  # Configure user credentials
-  conf <- hda$Configuration(user = user, password = password)
-  hda_client <- hda$Client(config = conf)
-
-  # Select the parameters for downloading
-  query <- list(
-    dataset_id = dataset_id,
-    productType = productType,
-    platformSerialIdentifier = platformSerialIdentifier,
-    tileId = tileId,
-    start = start,
-    end = end,
-    bbox = bbox
-  )
-
-  # Send your request
-  matches <- hda_client$search(query)
-  print(matches)
-
-  # Download data in the specified path
-  matches$download(download_path)
+  client <- hda_client(username = user, password = password)
+  download_st(start = start, end = end, output_dir = download_path,
+              product = productType, tile_id = tileId, bbox = bbox,
+              platform = platformSerialIdentifier, client = client)
 }

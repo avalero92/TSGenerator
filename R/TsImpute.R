@@ -1,56 +1,32 @@
-
-#' TsImpute
+#' Legacy Kalman imputation wrapper
 #'
-#' @import imputeTS
-#' @import dplyr
+#' `TsImpute()` is retained for TSGenerator 1.x compatibility. New workflows
+#' should use [impute_ts()], which provides explicit temporal safeguards and
+#' preserves provenance of imputed values.
 #'
-#' @name TsImpute
-#'
-#' @param data
-#' data frame where VI time series containing missing data are stored.
-#' @param group_col
-#' column by which the grouping is to be performed (example: ID column)
-#' @param value_col
-#' column where the time series of the VI data is stored (example: NDVI)
-#'
-#' @return
-#' A new file similar to the original data frame but with a new column where the imputed data is stored.
-#' @export
-#'
+#' @param data A data frame.
+#' @param group_col Group identifier column.
+#' @param value_col Numeric value column.
+#' @return The input data with a `<value_col>_completed` column.
 #' @examples
-#' #Example of application of the TsImpute function
+#' \dontrun{
 #' new_Data <- TsImpute(df, group_col = "ID", value_col = "NDVI")
-
-
+#' }
+#' @export
 TsImpute <- function(data, group_col, value_col) {
-
-  library(dplyr)
-  library(imputeTS)
-
-  # Check if the data is a data.frame
-  if (!is.data.frame(data)) {
-    warning("The argument 'data' must be a data.frame.")
-    return(NULL)
-  }
-
-  # Check if columns exist in the data.frame
-  if (!group_col %in% names(data)) {
-    warning(paste("The group column", group_col, "does not exist in the data.frame."))
-    return(NULL)
-  }
-
-  if (!value_col %in% names(data)) {
-    warning(paste("The value column", value_col, "does not exist in the data.frame."))
-    return(NULL)
-  }
-
-  # Make the allocation
-  data %>%
-    group_by(!!sym(group_col)) %>%
-    mutate(!!paste0(value_col, "_completed") := na_kalman(!!sym(value_col),
-                                                          model = "StructTS",
-                                                          smooth = TRUE,
-                                                          type = c("level", "trend", "BSM"),
-                                                          optim.control = "L-BFGS-B")) %>%
-    ungroup()
+  .Deprecated("impute_ts")
+  out <- impute_ts(
+    data = data,
+    id_col = group_col,
+    date_col = if ("Date" %in% names(data)) "Date" else stop("Legacy `TsImpute()` now requires a `Date` column. Use `impute_ts()` for explicit column selection.", call. = FALSE),
+    value_col = value_col,
+    method = "kalman",
+    series_type = "user",
+    allow_edge = TRUE,
+    output_col = paste0(value_col, "_completed")
+  )
+  out$.WasImputed <- NULL
+  out$.InsertedDate <- NULL
+  class(out) <- "data.frame"
+  out
 }

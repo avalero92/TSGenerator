@@ -21,7 +21,3 @@ A list of files where a dataframe with the results of the quality assessment and
 \description{
 quality.Series
 }
-\examples{
-Estimate the quality of NDVI time series in different plots.
-quality.Series(df = data, id_col = "ID", fecha_col = "Date", value_col = "NDVI")
-}
