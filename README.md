@@ -4,6 +4,10 @@
   <img src="man/figures/TSGenerator_logo.png" alt="TSGenerator 2.0 logo" width="360"/>
 </p>
 
+<p align="center">
+  <a href="https://doi.org/10.5281/zenodo.14936909"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.14936909.svg" alt="DOI"></a>
+</p>
+
 **TSGenerator 2.0** is an R package for acquiring, extracting, quality-assessing, and analysing Copernicus HR-VPP **Seasonal Trajectories (ST)** and **Vegetation Phenology and Productivity (VPP)** products.
 
 The 2.0 architecture is built around three explicit components:
@@ -24,7 +28,6 @@ runTSapp()
 ```
 
 The application follows **Acquire → Prepare/Extract → Quality → Analyze → Export** and calls the same public R API used in scripts. Results & Export records available session outputs, acquisition provenance, reproducible R code, and session information. Selected historical mini-apps remain temporarily callable for compatibility, while discontinued VI/QFLAG2 interfaces are blocked.
-
 
 ## Installation
 
@@ -225,9 +228,28 @@ A controlled real-download smoke test should also be completed before a release 
 - `vignette("st-vpp-workflows", package = "TSGenerator")` — acquisition-to-analysis examples.
 - `vignette("migration-1x-to-2x", package = "TSGenerator")` — detailed 1.x → 2.0 migration.
 
-## Authors
+## Authors and affiliations
 
-Alexey Valero Jorge (creator/maintainer), with contributions associated with the original TSGenerator project by Ma. Auxiliadora Casterad and José Tomás Alcalá.
+- **Alexey Valero-Jorge** — creator and maintainer. ORCID: [0000-0002-5993-7346](https://orcid.org/0000-0002-5993-7346).  
+  Departamento de Sistemas Agrícolas, Forestales y Medio Ambiente (Unidad asociada a EEAD-CSIC Suelos y Riegos), Centro de Investigación y Tecnología Agroalimentaria de Aragón (CITA), Avda. Montañana 930, 50059 Zaragoza, Spain.
+
+- **Mª Auxiliadora Casterad Seral** — researcher. ORCID: [0000-0003-4458-6966](https://orcid.org/0000-0003-4458-6966).  
+  Departamento de Sistemas Agrícolas, Forestales y Medio Ambiente (Unidad asociada a EEAD-CSIC Suelos y Riegos), Centro de Investigación y Tecnología Agroalimentaria de Aragón (CITA), Avda. Montañana 930, 50059 Zaragoza, Spain.
+
+- **José-Tomás Alcalá Nalvaiz** — researcher. ORCID: [0000-0001-7549-8825](https://orcid.org/0000-0001-7549-8825).  
+  Departamento de Métodos Estadísticos, Instituto Universitario de Investigación en Matemáticas y Aplicaciones (IUMA), Universidad de Zaragoza, Zaragoza, Spain.
+
+### Contact
+
+**Alexey Valero-Jorge** — `avalero@cita-aragon.es`
+
+## Citation and DOI
+
+TSGenerator is archived in Zenodo. The current project DOI is **10.5281/zenodo.14936909**.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14936909.svg)](https://doi.org/10.5281/zenodo.14936909)
+
+When using TSGenerator in research, please cite the software and the corresponding archived version. A version-specific DOI for TSGenerator 2.0.0 will be added after the 2.0.0 release is archived in Zenodo.
 
 ## Funding
 
