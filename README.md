@@ -251,6 +251,18 @@ TSGenerator is archived in Zenodo. The current project DOI is **10.5281/zenodo.1
 
 When using TSGenerator in research, please cite the software and the corresponding archived version. A version-specific DOI for TSGenerator 2.0.0 will be added after the 2.0.0 release is archived in Zenodo.
 
+## Scientific publications
+
+TSGenerator has been presented and applied in scientific research involving Copernicus HR-VPP products and vegetation time-series processing.
+
+### TSGenerator software publication
+
+Valero-Jorge, A., Casterad, M. A., & Alcalá, J.-T. (2026). **TSGenerator: librería R de código abierto para el procesado integrado de productos fenológicos HR-VPP de Copernicus.** *Congresos UEx, Actas de Congresos*, *2*. [https://doi.org/10.17398/3101-7177.2.123](https://doi.org/10.17398/3101-7177.2.123)
+
+### Research using TSGenerator
+
+Valero-Jorge, A., Casterad, M. A., & Alcalá, J.-T. (2025). **Evaluating the Influence of Missing Data from the Crop Vegetation Index Time Series on Copernicus HR-VPP Phenological Products.** *Engineering Proceedings*, *94*(1), 4. [https://doi.org/10.3390/engproc2025094004](https://doi.org/10.3390/engproc2025094004)
+
 ## Funding
 
 TSGenerator was created within the LAIKcA I+D+i project PID2021-124029OR-I00, funded by MICIU/AEI/10.13039/501100011033 and FEDER/EU. Alexey Valero Jorge acknowledges grant PRE2022-102328 funded by MICIU/AEI/10.13039/501100011033 and FSE+.
