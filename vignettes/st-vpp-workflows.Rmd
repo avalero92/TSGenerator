@@ -8,16 +8,17 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(TSGenerator)
 ```
 
 ## Seasonal Trajectories (ST)
 
 ### Preview
 
-```{r}
-library(TSGenerator)
+Catalogue access requires WEkEO and is therefore shown without being executed during vignette builds.
 
+```{r st-preview, eval=FALSE}
 st_preview <- download_st(
   start = "2020-04-01",
   end = "2020-06-30",
@@ -29,7 +30,7 @@ st_preview <- download_st(
 
 ### Download
 
-```{r}
+```{r st-download, eval=FALSE}
 st_download <- download_st(
   start = "2020-04-01",
   end = "2020-06-30",
@@ -43,7 +44,9 @@ st_download <- download_st(
 
 ### Extract PPI
 
-```{r}
+Raster extraction examples require user-supplied HR-VPP files and polygons and are not executed during the package build.
+
+```{r st-extract, eval=FALSE}
 st_ts <- extract_ts(
   x = "HRVPP_ST/PPI",
   polygons = parcels,
@@ -54,19 +57,35 @@ st_ts <- extract_ts(
 
 ### Assess temporal completeness
 
+The temporal API can be demonstrated with a self-contained series.
+
 ```{r}
-plan <- temporal_plan(st_ts, expected_step = 10)
+st_example <- data.frame(
+  ID = rep(c("parcel_1", "parcel_2"), each = 4),
+  Date = rep(as.Date("2020-04-01") + c(0, 10, 20, 30), 2),
+  Value = c(0.20, 0.31, NA, 0.58, 0.18, 0.29, 0.43, 0.55)
+)
+plan <- temporal_plan(st_example, expected_step = 10)
 missingness <- summarize_missingness(plan)
 completeness <- assess_ts_quality(plan)
+missingness
+completeness
 ```
 
 Do not interpret these completeness classes as ST-QFLAG confidence classes.
 
 ### Apply ST-QFLAG when required
 
+The code definitions themselves are available offline:
+
 ```{r}
 st_qflag_classes <- quality_info("ST")
+st_qflag_classes
+```
 
+Masking requires matching user-supplied target and QFLAG rasters:
+
+```{r st-mask, eval=FALSE}
 st_clean <- mask_quality(
   x = st_raster,
   quality = st_qflag_raster,
@@ -81,7 +100,7 @@ The default ST quality policy and any stricter threshold should be reported in t
 
 ### Preview/download selected parameters
 
-```{r}
+```{r vpp-preview, eval=FALSE}
 vpp_preview <- download_vpp(
   start = "2020-01-01",
   end = "2020-12-31",
@@ -94,7 +113,7 @@ vpp_preview <- download_vpp(
 
 ### Product-aware extraction
 
-```{r}
+```{r vpp-extract, eval=FALSE}
 vpp <- extract_vpp(
   x = "HRVPP_VPP",
   polygons = parcels,
@@ -109,7 +128,9 @@ The output separates `Date` and numeric `Value`. This avoids treating encoded ph
 
 ```{r}
 quality_info("VPP")
+```
 
+```{r vpp-mask, eval=FALSE}
 vpp_clean <- mask_quality(
   x = vpp_raster,
   quality = vpp_qflag,
@@ -121,9 +142,17 @@ The default VPP mask retains medium/high confidence codes. Use explicit `keep_co
 
 ## Missingness modelling
 
-For a table containing `Year`, `DOY`, and the analysed variable:
+A small synthetic table keeps the vignette deterministic and independent of external files.
 
 ```{r}
+missingness_data <- expand.grid(
+  Year = 2020:2021,
+  DOY = seq(20, 340, by = 40),
+  Replicate = 1:3
+)
+missingness_data$Value <- seq_len(nrow(missingness_data)) / nrow(missingness_data)
+missingness_data$Value[seq(3, nrow(missingness_data), by = 7)] <- NA_real_
+
 fit <- model_missingness(
   missingness_data,
   year_col = "Year",
