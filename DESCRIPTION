@@ -1,10 +1,22 @@
 Package: TSGenerator
 Title: Tools for Copernicus HR-VPP Vegetation Time-Series Processing
 Version: 2.0.0
-Authors@R: 
-    person("Alexey", "Valero", , "avalero@cita-aragon.es", role = c("aut", "cre"),
-           comment = c(ORCID = "https://orcid.org/0000-0002-5993-7346"))
-Description: Tools for extracting, assessing, and analysing vegetation time series derived from Copernicus High Resolution Vegetation Phenology and Productivity (HR-VPP) products. The 2.0 development series focuses on currently supported Seasonal Trajectories (ST) and Vegetation Phenology and Productivity (VPP) products while retaining selected 1.x functions for legacy compatibility.
+Authors@R: c(
+    person("Alexey", "Valero-Jorge", , "avalero@cita-aragon.es", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-5993-7346")),
+    person("M. Auxiliadora", "Casterad Seral", role = "aut",
+           comment = c(ORCID = "0000-0003-4458-6966")),
+    person("Jose-Tomas", "Alcala Nalvaiz", role = "aut",
+           comment = c(ORCID = "0000-0001-7549-8825"))
+    )
+Description: Provides tools for acquiring, extracting, quality-assessing, and
+    analysing vegetation time series derived from Copernicus High Resolution
+    Vegetation Phenology and Productivity (HR-VPP) products. Supports Seasonal
+    Trajectories (ST) and Vegetation Phenology and Productivity (VPP) products
+    through native R access to WEkEO, geospatial processing, product-quality
+    assessment, temporal completeness analysis, missingness modelling, and
+    integrated graphical workflows. Selected functions from TSGenerator 1.x are
+    retained to support migration and legacy workflows.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
