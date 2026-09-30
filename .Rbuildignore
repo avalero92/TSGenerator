@@ -4,6 +4,7 @@
 ^\.env.*$
 ^\.Renviron$
 ^\.zenodo\.json$
+^\.github$
 
 ^legacy$
 ^legacy/
