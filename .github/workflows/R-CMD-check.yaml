@@ -49,3 +49,51 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+  CRAN-strict:
+    runs-on: ubuntu-latest
+    name: ubuntu-latest (R devel, --as-cran)
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+      _R_CHECK_CRAN_INCOMING_REMOTE_: false
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: devel
+          http-user-agent: release
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
+      - name: Build source package
+        shell: Rscript {0}
+        run: |
+          pkg <- rcmdcheck::rcmd_build(
+            args = c("--no-manual", "--compact-vignettes=gs+qpdf"),
+            quiet = FALSE
+          )
+          writeLines(normalizePath(pkg), "built-package-path.txt")
+
+      - name: R CMD check --as-cran
+        shell: Rscript {0}
+        run: |
+          pkg <- readLines("built-package-path.txt", warn = FALSE)[1]
+          result <- rcmdcheck::rcmdcheck(
+            path = pkg,
+            args = c("--as-cran", "--no-manual"),
+            error_on = "never",
+            check_dir = "check"
+          )
+          print(result)
+          if (length(result$errors) || length(result$warnings) || length(result$notes)) {
+            quit(status = 1)
+          }
