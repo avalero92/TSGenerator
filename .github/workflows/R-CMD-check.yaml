@@ -113,11 +113,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build source package without rebuilding vignettes
+      - name: Build source package with prebuilt vignettes
         shell: bash
         run: |
           mkdir -p /check
-          R CMD build --no-build-vignettes --no-manual .
+          R CMD build --no-manual .
           mv TSGenerator_*.tar.gz /check/
 
       - name: Check without suggested packages
