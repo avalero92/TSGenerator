@@ -5,6 +5,7 @@
 ^\.Renviron$
 ^\.zenodo\.json$
 ^\.github$
+^\.gitignore$
 
 ^legacy$
 ^legacy/
