@@ -32,7 +32,7 @@ TSGenerator 2.0 therefore focuses on supported ST/VPP products and separates acq
 | `get.Series.VPP()` | `extract_vpp()` | old generic scaling retired |
 | `renames.image.VPP()` | none | filenames preserved for provenance |
 | `quality.Series()` | `assess_ts_quality()` | legacy algorithm retired |
-| `general.Quality()` | `summarize_missingness()` / `assess_ts_quality()` | legacy algorithm retired |
+| `general.Quality()` | `assess_ts_quality()` | legacy algorithm retired |
 | `count_missing()` | `summarize_missingness()` | phenology-specific Plotly workflow retired |
 | `TsImpute()` | `impute_ts()` | deprecated wrapper retained |
 | `GAM.missing()` | `model_missingness()` | deprecated wrapper retained |
@@ -102,7 +102,7 @@ Do not bilinearly resample categorical QFLAG rasters.
 
 ## Missingness and completeness
 
-Replace generic NA counting with explicit expected-date accounting:
+Replace legacy whole-series quality classification with `assess_ts_quality()`. Use `summarize_missingness()` alongside it when a diagnostic breakdown of absent expected dates, explicit `NA` values, and usable observations is required:
 
 ```{r}
 plan <- temporal_plan(series, expected_step = 10)
@@ -110,7 +110,7 @@ summarize_missingness(plan)
 assess_ts_quality(plan)
 ```
 
-This distinguishes absent dates from rows containing `NA`.
+This distinguishes absent dates from rows containing `NA` while keeping `assess_ts_quality()` as the primary replacement for `general.Quality()`.
 
 ## Imputation
 
