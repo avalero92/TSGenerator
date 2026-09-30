@@ -142,7 +142,7 @@ The default VPP mask retains medium/high confidence codes. Use explicit `keep_co
 
 ## Missingness modelling
 
-A small synthetic table keeps the vignette deterministic and independent of external files.
+A small synthetic table keeps the vignette deterministic and independent of external files. A modest basis dimension keeps the example fast and appropriate for the number of unique DOY values.
 
 ```{r}
 missingness_data <- expand.grid(
@@ -157,7 +157,8 @@ fit <- model_missingness(
   missingness_data,
   year_col = "Year",
   doy_col = "DOY",
-  value_col = "Value"
+  value_col = "Value",
+  k = 5
 )
 
 plot_missingness(fit, sos = 85, max_doy = 160, eos = 280)
