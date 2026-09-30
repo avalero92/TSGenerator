@@ -10,7 +10,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-7549-8825"))
     )
 Description: Provides tools for acquiring, extracting, quality-assessing, and
-    analysing vegetation time series derived from 'Copernicus' High Resolution
+    analysing vegetation time series derived from Copernicus High Resolution
     Vegetation Phenology and Productivity (HR-VPP) products. Supports Seasonal
     Trajectories (ST) and Vegetation Phenology and Productivity (VPP) products
     through native R access to WEkEO, geospatial processing, product-quality
