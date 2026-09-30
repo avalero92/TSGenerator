@@ -3,6 +3,7 @@
 ^token\.txt$
 ^\.env.*$
 ^\.Renviron$
+^\.zenodo\.json$
 
 ^legacy$
 ^legacy/
