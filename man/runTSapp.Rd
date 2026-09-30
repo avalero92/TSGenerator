@@ -7,16 +7,16 @@
 runTSapp(app = "TSGenerator2")
 }
 \arguments{
-\item{app}{Character string. Application to launch. The default, \code{"TSGenerator2"}, launches the unified 2.0 interface. Compatibility options are \code{"DownloadSTPPI"}, \code{"DownloadVPP"}, and \code{"GAM"}.}
+\item{app}{Character string. Application to launch. The default, \code{"TSGenerator2"}, launches the unified 2.0 interface. Compatibility options are \code{"DownloadSTPPI"} and \code{"DownloadVPP"}.}
 }
 \value{
 Invisibly returns the result of \code{shiny::runApp()}.
 }
 \description{
-Launches the unified TSGenerator 2.0 Shiny application. Selected 1.x/early-2.0 mini-apps remain temporarily accessible for compatibility, but new development is concentrated in the unified interface.
+Launches the unified TSGenerator 2.0 Shiny application. Selected 1.x/early-2.0 acquisition mini-apps remain temporarily accessible for compatibility, but new development is concentrated in the unified interface.
 }
 \details{
-The unified application is a graphical layer over the public TSGenerator 2.0 API. Scientific algorithms are not reimplemented in the Shiny server.
+The unified application is a graphical layer over the public TSGenerator 2.0 API. Scientific algorithms are not reimplemented in the Shiny server. The historical standalone GAM interface has been retired; missingness modelling remains available through \code{\link[=model_missingness]{model_missingness()}} and \code{\link[=plot_missingness]{plot_missingness()}}.
 }
 \examples{
 \dontrun{
@@ -25,6 +25,8 @@ TSGenerator::runTSapp("DownloadVPP")
 }
 }
 \seealso{
+\code{\link{model_missingness}()}, \code{\link{plot_missingness}()}
+
 Other applications: \code{runTSapp()}
 }
 \concept{applications}
