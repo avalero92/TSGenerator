@@ -22,7 +22,7 @@ Download.STPPI <- function(user = NULL, password = NULL,
                            platformSerialIdentifier = "S2A, S2B",
                            tileId = NULL, start, end, bbox = NULL,
                            download_path = "HRVPP_ST") {
-  warning("'Download.STPPI()' is deprecated; use 'download_st()'. The legacy wrapper now uses the native R/hdar backend.", call. = FALSE)
+  .Deprecated("download_st")
   if (!identical(dataset_id, .ST_DATASET_ID)) {
     warning("Legacy 'dataset_id' is ignored; using the supported ST dataset: ", .ST_DATASET_ID, call. = FALSE)
   }
