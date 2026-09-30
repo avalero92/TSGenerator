@@ -27,7 +27,7 @@ The recommended workflow is:
 
 ## WEkEO configuration
 
-The offline diagnostic is safe to run during package checks. Online authentication is intentionally not evaluated when the vignette is built because it requires external services and user credentials.
+The offline diagnostic is safe to run during package checks. Online authentication is intentionally not evaluated when the vignette is built because it requires an active Internet connection, the external WEkEO service, and valid user credentials. WEkEO service availability is outside the control of TSGenerator; offline processing and package checks do not depend on it.
 
 ```{r}
 check_wekeo()
