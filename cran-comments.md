@@ -13,6 +13,10 @@
 
 0 errors | 0 warnings | 0 notes
 
+The CRAN source package was built and checked with `R CMD check --as-cran`
+on Ubuntu using R-devel. The same package source was also checked successfully
+across the GitHub Actions test matrix listed above.
+
 ## win-builder
 
 0 errors | 0 warnings | 1 note
@@ -31,3 +35,7 @@ R-hub noSuggests:
 
 The package installs, loads, runs its examples and tests, and rebuilds its
 vignettes successfully when the optional `imputeTS` package is unavailable.
+
+## Submission
+
+This is a new submission.
