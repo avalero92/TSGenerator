@@ -20,7 +20,7 @@ Download.HRVPP <- function(user = NULL, password = NULL,
                            productType = "SOSD", productGroupId = "s1",
                            tileId = NULL, start, end, bbox = NULL,
                            download_path = "HRVPP_VPP") {
-  warning("'Download.HRVPP()' is deprecated; use 'download_vpp()'. The legacy wrapper now uses the native R/hdar backend.", call. = FALSE)
+  .Deprecated("download_vpp")
   if (!identical(dataset_id, .VPP_DATASET_ID)) {
     warning("Legacy 'dataset_id' is ignored; using the supported VPP dataset: ", .VPP_DATASET_ID, call. = FALSE)
   }
