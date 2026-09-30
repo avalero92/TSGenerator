@@ -36,7 +36,7 @@ install.packages("devtools")
 devtools::install_github("avalero92/TSGenerator")
 ```
 
-A WEkEO account is required only for online ST/VPP searches and downloads. Credentials can be supplied to `hda_client()` or managed by `hdar` through `~/.hdarc`.
+A WEkEO account is required only for online ST/VPP searches and downloads. These operations also require an active Internet connection and depend on the availability of the external WEkEO service, which is outside the control of TSGenerator. Credentials can be supplied to `hda_client()` or managed by `hdar` through `~/.hdarc`. Offline processing, local diagnostics, and package checks do not require WEkEO access.
 
 ## Quick start
 
