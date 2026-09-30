@@ -6,6 +6,7 @@
 ^\.zenodo\.json$
 ^\.github$
 ^\.gitignore$
+^cran-comments\.md$
 
 ^legacy$
 ^legacy/
