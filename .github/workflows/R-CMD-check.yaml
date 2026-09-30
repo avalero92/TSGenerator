@@ -103,3 +103,32 @@ jobs:
           if (length(result$errors) || length(result$warnings) || length(result$notes)) {
             quit(status = 1)
           }
+
+  noSuggests:
+    runs-on: ubuntu-latest
+    name: R-hub noSuggests (R devel)
+    container:
+      image: ghcr.io/r-hub/containers/nosuggests:latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build source package without rebuilding vignettes
+        shell: bash
+        run: |
+          mkdir -p /check
+          R CMD build --no-build-vignettes --no-manual .
+          mv TSGenerator_*.tar.gz /check/
+
+      - name: Check without suggested packages
+        shell: bash
+        run: r-check
+
+      - name: Preserve noSuggests check results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TSGenerator-noSuggests-results
+          path: /check
+          if-no-files-found: error
+          retention-days: 14
