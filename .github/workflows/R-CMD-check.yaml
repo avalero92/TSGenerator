@@ -77,7 +77,7 @@ jobs:
       - name: Build source package
         shell: bash
         run: |
-          R CMD build --no-manual --compact-vignettes=gs+qpdf .
+          R CMD build --no-manual .
           pkg=$(find .. -maxdepth 1 -type f -name 'TSGenerator_*.tar.gz' -print -quit)
           test -n "$pkg"
           realpath "$pkg" > built-package-path.txt
