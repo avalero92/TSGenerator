@@ -74,21 +74,13 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - name: Build source package
-        shell: bash
-        run: |
-          R CMD build --no-manual .
-          pkg=$(find .. -maxdepth 1 -type f -name 'TSGenerator_*.tar.gz' -print -quit)
-          test -n "$pkg"
-          realpath "$pkg" > built-package-path.txt
-
       - name: R CMD check --as-cran
         shell: Rscript {0}
         run: |
-          pkg <- readLines("built-package-path.txt", warn = FALSE)[1]
           result <- rcmdcheck::rcmdcheck(
-            path = pkg,
+            path = ".",
             args = c("--as-cran", "--no-manual"),
+            build_args = "--no-manual",
             error_on = "never",
             check_dir = "check"
           )
