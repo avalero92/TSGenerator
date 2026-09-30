@@ -118,4 +118,4 @@ Use `impute_ts()` rather than `TsImpute()`. The original value is retained, impu
 
 ## Legacy policy
 
-The 2.0 development series retains selected deprecated wrappers to ease migration. Functions tied only to discontinued VI/QFLAG2 behaviour act as migration guards or remain archived under `legacy/`. They should not be used for new analyses and are candidates for removal in a future major release.
+TSGenerator 2.0 retains selected deprecated wrappers to ease migration. Functions tied only to discontinued VI/QFLAG2 behaviour act as migration guards or remain archived under `legacy/`. They should not be used for new analyses and are candidates for removal in a future major release.
