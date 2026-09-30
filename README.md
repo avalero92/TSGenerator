@@ -1,7 +1,7 @@
 # TSGenerator
 
 <p align="center">
-  <img src="man/figures/TSGenerator_logo.png" alt="TSGenerator 2.0 logo" width="360"/>
+  <img src="inst/app/TSGenerator2/www/TSGenerator.png" alt="TSGenerator 2.0 logo" width="360"/>
 </p>
 
 <p align="center">
@@ -198,7 +198,9 @@ The principal replacements are:
 | `get.Series.median()` | `extract_ts(..., fun = "median")` |
 | `get.Series.VPP()` | `extract_vpp()` |
 | `QFLAG2.Mask()` | `mask_quality()` for current ST/VPP QFLAG |
-| `quality.Series()` / `general.Quality()` | `summarize_missingness()` / `assess_ts_quality()` |
+| `quality.Series()` | `assess_ts_quality()` |
+| `general.Quality()` | `assess_ts_quality()` |
+| `count_missing()` | `summarize_missingness()` |
 | `TsImpute()` | `impute_ts()` |
 | `GAM.missing()` / `GAM.plot()` | `model_missingness()` / `plot_missingness()` |
 
