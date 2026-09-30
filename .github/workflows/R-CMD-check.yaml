@@ -75,13 +75,12 @@ jobs:
           needs: check
 
       - name: Build source package
-        shell: Rscript {0}
+        shell: bash
         run: |
-          pkg <- rcmdcheck::rcmd_build(
-            args = c("--no-manual", "--compact-vignettes=gs+qpdf"),
-            quiet = FALSE
-          )
-          writeLines(normalizePath(pkg), "built-package-path.txt")
+          R CMD build --no-manual --compact-vignettes=gs+qpdf .
+          pkg=$(find .. -maxdepth 1 -type f -name 'TSGenerator_*.tar.gz' -print -quit)
+          test -n "$pkg"
+          realpath "$pkg" > built-package-path.txt
 
       - name: R CMD check --as-cran
         shell: Rscript {0}
