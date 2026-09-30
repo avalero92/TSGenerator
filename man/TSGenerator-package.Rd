@@ -4,17 +4,30 @@
 \name{TSGenerator-package}
 \alias{TSGenerator}
 \alias{TSGenerator-package}
-\title{TSGenerator: Copernicus HR-VPP time-series tools}
+\title{TSGenerator: Copernicus HR-VPP vegetation time-series processing}
 \description{
-TSGenerator provides a native-R workflow for acquiring, extracting, quality
-controlling, and analysing Copernicus High Resolution Vegetation Phenology
-and Productivity (HR-VPP) Seasonal Trajectories (ST) and Vegetation
-Phenology and Productivity (VPP) products.
+TSGenerator provides a native-R workflow for acquiring, extracting,
+quality-assessing, and analysing vegetation time series derived from
+Copernicus High Resolution Vegetation Phenology and Productivity (HR-VPP)
+products, including Seasonal Trajectories (ST) and Vegetation Phenology and
+Productivity (VPP) products.
+}
+\details{
+The stable 2.0 API covers WEkEO acquisition, \code{terra}-based geospatial
+extraction, product-quality assessment, temporal completeness diagnostics,
+optional time-series imputation, missingness modelling, visualization, and
+integrated graphical workflows. Selected TSGenerator 1.x entry points are
+retained as deprecated compatibility wrappers or migration guards.
 }
 \section{Main workflow}{
-Use \code{check_wekeo()} and \code{hda_client()} to validate access,
-\code{download_st()} or \code{download_vpp()} for acquisition,
-\code{extract_ts()} or \code{extract_vpp()} for polygon-level extraction,
-quality functions for HR-VPP flags, and \code{temporal_plan()} for temporal diagnostics.
+Use \code{\link[=check_wekeo]{check_wekeo()}} and \code{\link[=hda_client]{hda_client()}} to validate WEkEO access;
+\code{\link[=download_st]{download_st()}} or \code{\link[=download_vpp]{download_vpp()}} for acquisition; \code{\link[=extract_ts]{extract_ts()}} or
+\code{\link[=extract_vpp]{extract_vpp()}} for polygon-level geospatial extraction; \code{\link[=quality_info]{quality_info()}},
+\code{\link[=classify_quality]{classify_quality()}}, \code{\link[=summarize_quality]{summarize_quality()}}, and \code{\link[=mask_quality]{mask_quality()}} for product
+quality; \code{\link[=temporal_plan]{temporal_plan()}}, \code{\link[=summarize_missingness]{summarize_missingness()}}, and
+\code{\link[=assess_ts_quality]{assess_ts_quality()}} for temporal diagnostics; \code{\link[=impute_ts]{impute_ts()}} for optional
+gap filling; and \code{\link[=model_missingness]{model_missingness()}} with \code{\link[=plot_missingness]{plot_missingness()}} for
+missingness analysis. The integrated graphical workflow is launched with
+\code{\link[=runTSapp]{runTSapp()}}.
 }
 \keyword{internal}
