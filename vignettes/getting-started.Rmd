@@ -8,7 +8,8 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(TSGenerator)
 ```
 
 ## Scope
@@ -26,19 +27,23 @@ The recommended workflow is:
 
 ## WEkEO configuration
 
+The offline diagnostic is safe to run during package checks. Online authentication is intentionally not evaluated when the vignette is built because it requires external services and user credentials.
+
 ```{r}
-library(TSGenerator)
 check_wekeo()
-# check_wekeo(online = TRUE)
+```
+
+```{r wekeo-online, eval=FALSE}
+check_wekeo(online = TRUE)
 ```
 
 Use `hda_client()` when credentials need to be supplied explicitly. TSGenerator does not require Python or `reticulate` for ST/VPP acquisition.
 
 ## ST acquisition and extraction
 
-Preview before downloading:
+WEkEO catalogue queries and downloads are shown but not executed while building the vignette.
 
-```{r}
+```{r st-preview, eval=FALSE}
 st <- download_st(
   start = "2020-04-01",
   end = "2020-04-30",
@@ -50,7 +55,7 @@ st <- download_st(
 
 After downloading PPI GeoTIFFs, extract a parcel statistic:
 
-```{r}
+```{r st-extraction, eval=FALSE}
 st_ts <- extract_ts(
   x = "HRVPP_ST/PPI",
   polygons = parcels,
@@ -63,7 +68,7 @@ st_ts <- extract_ts(
 
 ## VPP acquisition and extraction
 
-```{r}
+```{r vpp-preview, eval=FALSE}
 vpp <- download_vpp(
   start = "2020-01-01",
   end = "2020-12-31",
@@ -74,7 +79,7 @@ vpp <- download_vpp(
 )
 ```
 
-```{r}
+```{r vpp-extraction, eval=FALSE}
 vpp_values <- extract_vpp(
   x = "HRVPP_VPP",
   polygons = parcels,
@@ -87,7 +92,7 @@ vpp_values <- extract_vpp(
 
 ## Product quality versus temporal completeness
 
-These are different concepts.
+These are different concepts. Quality definitions are local package data and can be inspected without network access.
 
 ```{r}
 quality_info("ST")
@@ -96,38 +101,46 @@ quality_info("VPP")
 
 Use `mask_quality()` only when masking is scientifically appropriate. QFLAG is categorical and is not automatically resampled.
 
-For a time series, assess completeness independently:
+For temporal completeness, the following self-contained example distinguishes an expected date absent from the table from a present date whose value is `NA`.
 
 ```{r}
-plan <- temporal_plan(st_ts, expected_step = 10)
+example_ts <- data.frame(
+  ID = c("A", "A", "A", "B", "B", "B"),
+  Date = as.Date(c(
+    "2020-04-01", "2020-04-11", "2020-05-01",
+    "2020-04-01", "2020-04-11", "2020-04-21"
+  )),
+  Value = c(0.22, NA, 0.61, 0.18, 0.35, 0.52)
+)
+
+plan <- temporal_plan(example_ts, expected_step = 10)
 summarize_missingness(plan)
 assess_ts_quality(plan)
 ```
 
-The completeness calculation distinguishes an expected date absent from the table from a present date whose value is `NA`.
-
 ## Imputation policy
 
-Imputation is optional and explicit:
+Imputation is optional and explicit. This example uses only base-R linear interpolation and does not require an external service or optional package.
 
 ```{r}
 imputed <- impute_ts(
-  user_series,
+  example_ts,
   method = "linear",
   series_type = "user",
   complete_grid = TRUE,
   expected_step = 10,
   max_gap = 2
 )
+imputed
 ```
 
 Because ST is already temporally processed, TSGenerator blocks routine ST re-imputation unless `allow_processed = TRUE` is deliberately specified.
 
 ## Live integration check
 
-Before a release or after a material WEkEO change:
+Live integration checks are release/maintenance diagnostics and are never executed while CRAN builds this vignette.
 
-```{r}
+```{r live-integration, eval=FALSE}
 z <- check_wekeo_integration(download = FALSE)
 print(z)
 stopifnot(z$ok)
