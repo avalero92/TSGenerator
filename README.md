@@ -245,9 +245,9 @@ A controlled real-download smoke test should also be completed before a release 
 
 ## Citation and DOI
 
-TSGenerator is archived in Zenodo. The current project DOI is **10.5281/zenodo.14936909**.
+TSGenerator is archived in Zenodo. The current project DOI is **10.5281/zenodo.23265767**.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14936909.svg)](https://doi.org/10.5281/zenodo.14936909)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg)](https://doi.org/10.5281/zenodo.23265767)
 
 When using TSGenerator in research, please cite the software and the corresponding archived version. A version-specific DOI for TSGenerator 2.0.0 will be added after the 2.0.0 release is archived in Zenodo.
 
