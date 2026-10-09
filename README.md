@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://doi.org/10.5281/zenodo.14936909"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.14936909.svg" alt="DOI"></a>
+  <a href="https://doi.org/10.5281/zenodo.23265767"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg" alt="DOI"></a>
 </p>
 
 **TSGenerator 2.0** is an R package for acquiring, extracting, quality-assessing, and analysing Copernicus HR-VPP **Seasonal Trajectories (ST)** and **Vegetation Phenology and Productivity (VPP)** products.
