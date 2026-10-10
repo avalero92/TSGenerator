@@ -13,7 +13,7 @@
 #' @param tileId Sentinel-2 tile identifier.
 #' @param start,end Date/time range.
 #' @param bbox Optional EPSG:4326 bounding box.
-#' @param download_path Output directory.
+#' @param download_path Explicit output directory required for downloads.
 #' @return A `tsg_st_download` object.
 #' @export
 Download.STPPI <- function(user = NULL, password = NULL,
@@ -21,7 +21,7 @@ Download.STPPI <- function(user = NULL, password = NULL,
                            productType = "PPI",
                            platformSerialIdentifier = "S2A, S2B",
                            tileId = NULL, start, end, bbox = NULL,
-                           download_path = "HRVPP_ST") {
+                           download_path = NULL) {
   .Deprecated("download_st")
   if (!identical(dataset_id, .ST_DATASET_ID)) {
     warning("Legacy 'dataset_id' is ignored; using the supported ST dataset: ", .ST_DATASET_ID, call. = FALSE)
