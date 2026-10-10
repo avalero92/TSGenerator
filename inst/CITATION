@@ -1,0 +1,16 @@
+citHeader("To cite TSGenerator 2.0.0 in publications, please use:")
+
+bibentry(
+  bibtype = "Manual",
+  title = "TSGenerator 2.0.0: Tools for Copernicus HR-VPP Vegetation Time-Series Processing",
+  author = c(
+    person("Alexey", "Valero-Jorge"),
+    person("M. Auxiliadora", "Casterad Seral"),
+    person("Jose-Tomas", "Alcala Nalvaiz")
+  ),
+  year = "2026",
+  organization = "Zenodo",
+  version = "2.0.0",
+  doi = "10.5281/zenodo.23265767",
+  url = "https://doi.org/10.5281/zenodo.23265767"
+)
