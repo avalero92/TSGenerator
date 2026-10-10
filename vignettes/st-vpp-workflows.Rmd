@@ -36,7 +36,7 @@ st_download <- download_st(
   end = "2020-06-30",
   tile_id = "30TXM",
   product = c("PPI", "QFLAG"),
-  output_dir = "HRVPP_ST",
+  output_dir = file.path(tempdir(), "HRVPP_ST"),
   overwrite = FALSE,
   prompt = TRUE
 )
@@ -48,7 +48,7 @@ Raster extraction examples require user-supplied HR-VPP files and polygons and a
 
 ```{r st-extract, eval=FALSE}
 st_ts <- extract_ts(
-  x = "HRVPP_ST/PPI",
+  x = file.path(tempdir(), "HRVPP_ST", "PPI"),
   polygons = parcels,
   id_col = "Parcel_ID",
   fun = "median"
@@ -115,7 +115,7 @@ vpp_preview <- download_vpp(
 
 ```{r vpp-extract, eval=FALSE}
 vpp <- extract_vpp(
-  x = "HRVPP_VPP",
+  x = file.path(tempdir(), "HRVPP_VPP"),
   polygons = parcels,
   id_col = "Parcel_ID",
   fun = "median"
