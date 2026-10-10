@@ -10,7 +10,7 @@ dashboardPage(
       dateInput("start","Start date", value=Sys.Date()-30), dateInput("end","End date", value=Sys.Date()),
       checkboxGroupInput("product","Product", choices=c("PPI","QFLAG"), selected="PPI"),
       textInput("tile","Sentinel-2 tile", placeholder="30TXM"),
-      textInput("outdir","Output directory", value=file.path(getwd(),"HRVPP_ST")),
+      textInput("outdir","Output directory", value="", placeholder="Choose a directory before downloading"),
       checkboxInput("overwrite","Overwrite existing files", FALSE),
       actionButton("preview","Preview", icon=icon("search")), actionButton("download","Download", icon=icon("download"))
     ), box(width=6, title="Request summary", status="info", solidHeader=TRUE, tableOutput("summary"), verbatimTextOutput("status")))
