@@ -1,6 +1,7 @@
 #' Legacy alias for phenology-specific missing counts
 #' @inheritParams count_missing
-#' @return This function stops with migration guidance.
+#' @return No return value. This retired compatibility function signals an
+#'   error with migration guidance; use `summarize_missingness()` instead.
 #' @export
 count.NA <- function(data, sos, maxd, eos, doy_col = "DOY", year_col = "Year", na_col = "NDVI", fid_col = "ID") {
   .Deprecated("summarize_missingness")
