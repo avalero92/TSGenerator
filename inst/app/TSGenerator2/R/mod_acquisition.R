@@ -49,7 +49,7 @@ mod_acquisition_ui <- function(id) {
         shiny::numericInput(ns("limit"), "Maximum search results (optional)", value = NA, min = 1, step = 1),
         shiny::actionButton(ns("search"), "Search / Preview", icon = shiny::icon("search"), class = "btn-primary btn-block"),
         shiny::hr(),
-        shiny::textInput(ns("output_dir"), "Download directory", value = file.path(path.expand("~"), "TSGenerator_downloads")),
+        shiny::textInput(ns("output_dir"), "Download directory", value = "", placeholder = "Choose a directory before downloading"),
         shiny::checkboxInput(ns("overwrite"), "Overwrite existing products", FALSE),
         shiny::actionButton(ns("download"), "Download previewed query", icon = shiny::icon("download"), class = "btn-success btn-block"),
         shiny::tags$p(class = "help-block", "Download repeats the validated query using the public download_st()/download_vpp() API. No acquisition algorithm is duplicated in Shiny.")
