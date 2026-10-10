@@ -10,8 +10,13 @@
 #'   available in a `tsg_temporal_plan` object.
 #' @param start,end Optional common analysis limits coercible to `Date`. If omitted,
 #'   each series is assessed between its first and last observed date.
-#' @return A data frame with one row per series and counts/fractions describing
-#'   expected dates, observed dates, absent dates, explicit NA values and usable values.
+#' @return An object of class `tsg_missingness` (also a `data.frame`), with
+#'   one row per series. It contains the identifier column (`id_col`), `start`,
+#'   `end`, `expected_step_days`, `n_expected`, `n_observed_dates`,
+#'   `n_absent_dates`, `n_value_na`, `n_usable`, `date_completeness`,
+#'   `value_completeness`, and `missing_fraction`. Counts distinguish absent
+#'   expected dates from observed dates with missing values; fractions use
+#'   `n_expected` as their denominator and are `NA` if it is zero.
 #' @family time-series analysis
 #' @export
 summarize_missingness <- function(data, id_col = "ID", date_col = "Date",
@@ -73,7 +78,12 @@ summarize_missingness <- function(data, id_col = "ID", date_col = "Date",
 #' @param thresholds Named numeric vector with `high`, `medium`, and `low` lower
 #'   completeness bounds. Defaults to 0.90, 0.75 and 0.50.
 #' @param start,end Optional common assessment limits.
-#' @return An object of class `tsg_ts_quality` with one row per series/window.
+#' @return An object of class `tsg_ts_quality` (also a `data.frame`) with one
+#'   row per series and assessment window. It includes all columns returned by
+#'   `summarize_missingness()`, a numeric `window` index, and an ordered factor
+#'   `Quality` with levels `Very low`, `Low`, `Medium`, and `High`, based on
+#'   `value_completeness`. The result has `thresholds` and `window_days`
+#'   attributes recording the assessment settings.
 #' @family time-series analysis
 #' @export
 assess_ts_quality <- function(data, id_col = "ID", date_col = "Date",
