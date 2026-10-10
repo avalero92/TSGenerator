@@ -1,5 +1,5 @@
 Package: TSGenerator
-Title: Tools for 'Copernicus' HR-VPP Vegetation Time-Series Processing
+Title: 'Copernicus' HR-VPP Vegetation Time-Series Processing
 Version: 2.0.0
 Authors@R: c(
     person("Alexey", "Valero-Jorge", , "avalero@cita-aragon.es", role = c("aut", "cre"),
