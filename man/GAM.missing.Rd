@@ -22,12 +22,18 @@ A list object where the prediction results and the GAM model data are stored.
 GAM.missing
 }
 \examples{
-\dontrun{
-resultado <- GAM.missing(
-  data,
-  year_col = "Year",
-  doy_col = "DOY",
-  missing_col = "NDVI_median"
+# Model fitting is illustrated with synthetic observations.
+\donttest{
+example_data <- expand.grid(
+  Year = 2020:2021, DOY = seq(10, 350, by = 10), replicate = 1:4
 )
+example_data$NDVI_median <- 0.5
+example_data$NDVI_median[
+  (seq_len(nrow(example_data)) \% 7L) < 2L
+] <- NA_real_
+result <- suppressWarnings(GAM.missing(
+  example_data, year_col = "Year", doy_col = "DOY",
+  missing_col = "NDVI_median"
+))
 }
 }
