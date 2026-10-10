@@ -9,7 +9,10 @@ function(input, output, session) {
     output$diag <- renderPrint(TSGenerator::check_wekeo(online=TRUE, client=make_client()))
   })
   run_request <- function(do_download) {
-    req(length(input$product)>0, nzchar(input$tile), nzchar(input$outdir))
+    req(length(input$product)>0, nzchar(input$tile))
+    if (do_download && !nzchar(trimws(input$outdir))) {
+      status("Choose an output directory before downloading."); return(invisible(NULL))
+    }
     status(if (do_download) "Downloading..." else "Searching...")
     x <- TSGenerator::download_st(start=input$start, end=input$end, output_dir=input$outdir,
       product=input$product, tile_id=input$tile, client=make_client(), download=do_download,
