@@ -29,7 +29,7 @@ example_data <- expand.grid(
 )
 example_data$NDVI_median <- 0.5
 example_data$NDVI_median[
-  (seq_len(nrow(example_data)) \% 7L) < 2L
+  (seq_len(nrow(example_data)) \%\% 7L) < 2L
 ] <- NA_real_
 result <- suppressWarnings(GAM.missing(
   example_data, year_col = "Year", doy_col = "DOY",
