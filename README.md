@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://doi.org/10.5281/zenodo.14936909"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.14936909.svg" alt="DOI"></a>
+  <a href="https://doi.org/10.5281/zenodo.23265767"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg" alt="DOI"></a>
 </p>
 
 **TSGenerator 2.0** is an R package for acquiring, extracting, quality-assessing, and analysing Copernicus HR-VPP **Seasonal Trajectories (ST)** and **Vegetation Phenology and Productivity (VPP)** products.
@@ -247,11 +247,13 @@ A controlled real-download smoke test should also be completed before a release 
 
 ## Citation and DOI
 
-TSGenerator is archived in Zenodo. The current project DOI is **10.5281/zenodo.14936909**.
+**Please cite the specific TSGenerator 2.0.0 software release when using this version in research:**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14936909.svg)](https://doi.org/10.5281/zenodo.14936909)
+Valero-Jorge, A., Casterad Seral, M. A., & Alcalá Nalvaiz, J.-T. (2026). **TSGenerator 2.0.0: Tools for Copernicus HR-VPP Vegetation Time-Series Processing** (Version 2.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23265767
 
-When using TSGenerator in research, please cite the software and the corresponding archived version. A version-specific DOI for TSGenerator 2.0.0 will be added after the 2.0.0 release is archived in Zenodo.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg)](https://doi.org/10.5281/zenodo.23265767)
+
+The DOI above identifies the archived **2.0.0 release**. The scientific publications below are separate research outputs and should be cited additionally when relevant.
 
 ## Scientific publications
 
