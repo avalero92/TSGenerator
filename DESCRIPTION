@@ -15,7 +15,7 @@ Description: Provides tools for acquiring, extracting, quality-assessing, and
     Trajectories (ST) and Vegetation Phenology and Productivity (VPP) products
     through native R access to 'WEkEO', geospatial processing, product-quality
     assessment, temporal completeness analysis, missingness modelling, and
-    integrated graphical workflows. Selected functions from TSGenerator 1.x are
+    integrated graphical workflows. Selected functions from 'TSGenerator' 1.x are
     retained to support migration and legacy workflows.
 License: MIT + file LICENSE
 Encoding: UTF-8
