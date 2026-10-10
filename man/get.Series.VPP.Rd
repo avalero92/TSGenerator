@@ -4,3 +4,7 @@
 \usage{get.Series.VPP(pathRaster = NULL, shapefile = NULL, factorR = NULL)}
 \arguments{\item{pathRaster}{Legacy raster directory.}\item{shapefile}{Legacy polygon object.}\item{factorR}{Legacy scale factor.}}
 \description{Retired because one generic scale factor is not scientifically valid across VPP products. Use \code{extract_vpp()}.}
+\value{
+No return value. This retired function always signals an error explaining
+the migration to \code{extract_vpp()}.
+}
