@@ -3,7 +3,7 @@
 Download.STPPI(
   user = NULL, password = NULL, dataset_id = .ST_DATASET_ID,
   productType = "PPI", platformSerialIdentifier = "S2A, S2B",
-  tileId = NULL, start, end, bbox = NULL, download_path = "HRVPP_ST"
+  tileId = NULL, start, end, bbox = NULL, download_path = NULL
 )
 }
 \arguments{
@@ -14,7 +14,7 @@ Download.STPPI(
 \item{tileId}{Optional MGRS tile identifier.}
 \item{start,end}{Start and end dates of the search interval.}
 \item{bbox}{Optional bounding box.}
-\item{download_path}{Directory in which downloaded files are stored.}
+\item{download_path}{Explicit destination required for downloads; no default directory is created.}
 }
 \description{Deprecated TSGenerator 1.x compatibility wrapper. It delegates to \code{download_st()} using the native R/hdar backend and no longer requires Python.}
 \value{A \code{tsg_st_download} object.}

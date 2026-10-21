@@ -9,7 +9,7 @@
 #'   column name `Mean` is preserved even though the statistic is the median.
 #' @export
 get.Series.median <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL) {
-  warning("get.Series.median() is deprecated; use extract_ts(..., fun = 'median').", call. = FALSE)
+  .Deprecated("extract_ts")
   if (is.null(factorR) || !is.numeric(factorR) || length(factorR) != 1L || !is.finite(factorR) || factorR == 0) {
     stop("'factorR' must be one finite non-zero numeric value.", call. = FALSE)
   }

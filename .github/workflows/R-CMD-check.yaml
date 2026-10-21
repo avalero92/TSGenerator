@@ -1,0 +1,170 @@
+# CRAN-oriented CI for TSGenerator 2.0
+# Based on the standard r-lib/actions v2 package workflow.
+
+on:
+  push:
+    branches: [main, master, cran-preparation]
+  pull_request:
+  workflow_dispatch:
+
+name: R-CMD-check
+
+permissions: read-all
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.config.os }} (R ${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: macos-latest,   r: 'release'}
+          - {os: windows-latest, r: 'release'}
+          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,  r: 'release'}
+          - {os: ubuntu-latest,  r: 'oldrel-1'}
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+  CRAN-strict:
+    runs-on: ubuntu-latest
+    name: ubuntu-latest (R devel, --as-cran)
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+      _R_CHECK_CRAN_INCOMING_REMOTE_: false
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: devel
+          http-user-agent: release
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
+      - name: Build CRAN source package
+        shell: bash
+        run: R CMD build --no-manual .
+
+      - name: Preserve CRAN source tarball
+        uses: actions/upload-artifact@v4
+        with:
+          name: TSGenerator-CRAN-source
+          path: TSGenerator_*.tar.gz
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: R CMD check --as-cran
+        shell: Rscript {0}
+        run: |
+          tarball <- Sys.glob("TSGenerator_*.tar.gz")
+          if (length(tarball) != 1L) {
+            stop("Expected exactly one TSGenerator source tarball, found: ", length(tarball))
+          }
+          result <- rcmdcheck::rcmdcheck(
+            path = tarball,
+            args = c("--as-cran", "--no-manual"),
+            error_on = "never",
+            check_dir = "check"
+          )
+          print(result)
+          if (length(result$errors) || length(result$warnings) || length(result$notes)) {
+            quit(status = 1)
+          }
+
+  noSuggests-build:
+    runs-on: ubuntu-latest
+    name: Build source for R-hub noSuggests
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: devel
+          http-user-agent: release
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          needs: check
+
+      - name: Build source package with prebuilt vignettes
+        shell: bash
+        run: R CMD build --no-manual .
+
+      - name: Upload source package for noSuggests
+        uses: actions/upload-artifact@v4
+        with:
+          name: TSGenerator-noSuggests-source
+          path: TSGenerator_*.tar.gz
+          if-no-files-found: error
+          retention-days: 14
+
+  noSuggests:
+    needs: noSuggests-build
+    runs-on: ubuntu-latest
+    name: R-hub noSuggests (R devel)
+    container:
+      image: ghcr.io/r-hub/containers/nosuggests:latest
+
+    steps:
+      - name: Prepare check directory
+        shell: bash
+        run: mkdir -p /check
+
+      - name: Download prebuilt source package
+        uses: actions/download-artifact@v4
+        with:
+          name: TSGenerator-noSuggests-source
+          path: /check
+
+      - name: Check without suggested packages
+        shell: bash
+        run: r-check
+
+      - name: Preserve noSuggests check results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TSGenerator-noSuggests-results
+          path: /check
+          if-no-files-found: error
+          retention-days: 14

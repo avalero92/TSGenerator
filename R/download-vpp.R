@@ -15,7 +15,8 @@
 #'
 #' @param start Start date (`Date`, `POSIXt`, or ISO character string).
 #' @param end End date (`Date`, `POSIXt`, or ISO character string).
-#' @param output_dir Directory where files are downloaded.
+#' @param output_dir Explicit destination directory required when `download = TRUE`.
+#'   Ignored when `download = FALSE`. No directory is created by default.
 #' @param product Character vector of VPP product types. Supported values are
 #'   `MINV`, `MAXD`, `LENGTH`, `SOSD`, `QFLAG`, `EOSV`, `TPROD`, `MAXV`,
 #'   `AMPL`, `SOSV`, `LSLOPE`, `EOSD`, `RSLOPE`, and `SPROD`. Use `"all"`
@@ -58,11 +59,12 @@
 #'   start = "2020-01-01", end = "2021-12-31",
 #'   tile_id = "30TXM",
 #'   product = c("SOSD", "MAXD", "EOSD", "LENGTH"),
-#'   season = c("s1", "s2"), output_dir = "HRVPP_VPP"
+#'   season = c("s1", "s2"),
+#'   output_dir = file.path(tempdir(), "HRVPP_VPP")
 #' )
 #' }
 download_vpp <- function(start, end,
-                         output_dir = "HRVPP_VPP",
+                         output_dir = NULL,
                          product = c("SOSD", "MAXD", "EOSD", "LENGTH"),
                          season = "s1",
                          tile_id = NULL,
@@ -103,6 +105,11 @@ download_vpp <- function(start, end,
   k <- 0L
 
   if (isTRUE(download)) {
+    if (!is.character(output_dir) || length(output_dir) != 1L ||
+        is.na(output_dir) || !nzchar(output_dir)) {
+      stop("'output_dir' must be explicitly specified when 'download = TRUE'.",
+           call. = FALSE)
+    }
     dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
     if (!dir.exists(output_dir)) stop("Could not create output directory: ", output_dir, call. = FALSE)
     output_dir <- normalizePath(output_dir, winslash = "/", mustWork = TRUE)

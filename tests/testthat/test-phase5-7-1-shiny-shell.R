@@ -10,3 +10,10 @@ test_that("unified Shiny 2.0 shell is installed", {
 test_that("runTSapp defaults to unified interface", {
   expect_identical(formals(runTSapp)$app, "TSGenerator2")
 })
+
+test_that("retired standalone GAM app gives migration guidance", {
+  expect_error(
+    runTSapp("GAM"),
+    "model_missingness\\(\\) and plot_missingness\\(\\)"
+  )
+})

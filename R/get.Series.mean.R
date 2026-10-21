@@ -8,7 +8,7 @@
 #' @return A data frame with legacy columns `ID`, `Date`, and `Mean`.
 #' @export
 get.Series.mean <- function(pathRaster = NULL, shapefile = NULL, factorR = NULL) {
-  warning("get.Series.mean() is deprecated; use extract_ts(..., fun = 'mean').", call. = FALSE)
+  .Deprecated("extract_ts")
   if (is.null(factorR) || !is.numeric(factorR) || length(factorR) != 1L || !is.finite(factorR) || factorR == 0) {
     stop("'factorR' must be one finite non-zero numeric value.", call. = FALSE)
   }

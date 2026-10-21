@@ -1,12 +1,12 @@
 \name{download_vpp}\alias{download_vpp}\title{Download Copernicus HR-VPP VPP parameters}
-\usage{download_vpp(start, end, output_dir = "HRVPP_VPP",
+\usage{download_vpp(start, end, output_dir = NULL,
   product = c("SOSD", "MAXD", "EOSD", "LENGTH"), season = "s1",
   tile_id = NULL, bbox = NULL, platform = "S2A, S2B", product_version = NULL,
   client = NULL, download = TRUE, limit = NULL, overwrite = FALSE,
   prompt = interactive(), quiet = FALSE, retries = 2L, backoff = 2)}
 \arguments{
 \item{start,end}{Start and end dates of the WEkEO search interval.}
-\item{output_dir}{Directory for downloaded files.}
+\item{output_dir}{Explicit destination required when \code{download = TRUE}; no default directory is created. Ignored in preview mode.}
 \item{product}{VPP parameter or parameters to query.}
 \item{season}{VPP season identifier.}
 \item{tile_id}{Optional MGRS tile identifier.}

@@ -18,3 +18,12 @@ assess_ts_quality(
 \item{start,end}{Optional start and end dates restricting the assessment period.}
 }
 \description{Classifies time-series completeness from the proportion of expected dates containing usable values. This metric is separate from Copernicus ST/VPP QFLAG product quality.}
+\value{
+An object of class \code{tsg_ts_quality} (also a \code{data.frame}) with
+one row per series and assessment window. It contains the completeness
+columns documented in \code{summarize_missingness()}, a numeric \code{window}
+index, and an ordered factor \code{Quality} with levels \code{Very low},
+\code{Low}, \code{Medium}, and \code{High}, based on
+\code{value_completeness}. Attributes \code{thresholds} and
+\code{window_days} record the assessment settings.
+}

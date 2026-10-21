@@ -39,8 +39,11 @@ Object of type ggplot that shows the results of the prediction obtained with the
 GAM.plot
 }
 \examples{
-\dontrun{
-GAM.plot(proporciones)
-GAM.plot(proporciones, sos = 11, eos = 163, max_doy = 74)
-}
+proportions <- data.frame(
+  Year = rep(2020L, 5), DOY = c(20, 50, 80, 110, 140),
+  Proporcion_Missing = c(0.1, 0.2, 0.3, 0.2, 0.1),
+  Predicted = c(0.12, 0.18, 0.25, 0.18, 0.12)
+)
+p <- suppressWarnings(GAM.plot(proportions))
+inherits(p, "ggplot")
 }

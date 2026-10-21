@@ -20,7 +20,15 @@ A new file similar to the original data frame but with a new column where the im
 TsImpute
 }
 \examples{
-\dontrun{
-new_Data <- TsImpute(df, group_col = "ID", value_col = "NDVI")
+# Kalman imputation requires the optional imputeTS package.
+if (requireNamespace("imputeTS", quietly = TRUE)) {
+  example_data <- data.frame(
+    ID = rep("parcel_1", 12),
+    Date = as.Date("2020-01-01") + 0:11,
+    NDVI = c(0.2, 0.3, NA, 0.4, 0.5, NA, 0.6, 0.7, 0.8, 0.7, 0.6, 0.5)
+  )
+  completed <- suppressWarnings(TsImpute(
+    example_data, group_col = "ID", value_col = "NDVI"
+  ))
 }
 }

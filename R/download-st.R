@@ -12,7 +12,8 @@
 #'
 #' @param start Start date (`Date`, `POSIXt`, or ISO character string).
 #' @param end End date (`Date`, `POSIXt`, or ISO character string).
-#' @param output_dir Directory where files are downloaded.
+#' @param output_dir Explicit destination directory required when `download = TRUE`.
+#'   Ignored when `download = FALSE`. No directory is created by default.
 #' @param product Character vector containing `"PPI"`, `"QFLAG"`, or both.
 #' @param tile_id Optional Sentinel-2 tile identifier, e.g. `"30TXM"`.
 #' @param bbox Optional numeric vector `c(xmin, ymin, xmax, ymax)` in
@@ -50,11 +51,11 @@
 #' x <- download_st(
 #'   start = "2020-04-01", end = "2020-06-30",
 #'   tile_id = "30TXM", product = c("PPI", "QFLAG"),
-#'   output_dir = "HRVPP_ST"
+#'   output_dir = file.path(tempdir(), "HRVPP_ST")
 #' )
 #' }
 download_st <- function(start, end,
-                        output_dir = "HRVPP_ST",
+                        output_dir = NULL,
                         product = "PPI",
                         tile_id = NULL,
                         bbox = NULL,
@@ -103,6 +104,11 @@ download_st <- function(start, end,
   k <- 0L
 
   if (isTRUE(download)) {
+    if (!is.character(output_dir) || length(output_dir) != 1L ||
+        is.na(output_dir) || !nzchar(output_dir)) {
+      stop("'output_dir' must be explicitly specified when 'download = TRUE'.",
+           call. = FALSE)
+    }
     dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
     if (!dir.exists(output_dir)) stop("Could not create output directory: ", output_dir, call. = FALSE)
     output_dir <- normalizePath(output_dir, winslash = "/", mustWork = TRUE)

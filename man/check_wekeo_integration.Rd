@@ -15,7 +15,7 @@ check_wekeo_integration(
   vpp_product = "TPROD",
   vpp_season = "s1",
   download = FALSE,
-  output_dir = tempfile("TSGenerator-WEkEO-"),
+  output_dir = NULL,
   quiet = FALSE
 )
 }
@@ -28,7 +28,7 @@ check_wekeo_integration(
 \item{vpp_product}{VPP parameter used for the smoke test.}
 \item{vpp_season}{VPP season (\code{"s1"} or \code{"s2"}).}
 \item{download}{Logical. Search only by default; optionally download matching files.}
-\item{output_dir}{Destination directory when downloading.}
+\item{output_dir}{Explicit destination required when downloading; no default directory is created.}
 \item{quiet}{Logical; suppress progress messages.}
 }
 \value{A list of class \code{tsg_wekeo_integration}.}

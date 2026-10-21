@@ -1,11 +1,18 @@
 # TSGenerator
 
 <p align="center">
-  <img src="man/figures/TSGenerator_logo.png" alt="TSGenerator 2.0 logo" width="360"/>
+  <img src="inst/app/TSGenerator2/www/TSGenerator.png" alt="TSGenerator 2.0 logo" width="360"/>
 </p>
 
 <p align="center">
-  <a href="https://doi.org/10.5281/zenodo.23265767"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg" alt="DOI"></a>
+  <a href="https://cran.r-project.org/package=TSGenerator"><img src="https://www.r-pkg.org/badges/version/TSGenerator" alt="CRAN version"></a>
+  <a href="https://doi.org/10.5281/zenodo.23265767"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg" alt="Zenodo DOI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"></a>
+  <a href="https://github.com/avalero92/TSGenerator/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/avalero92/TSGenerator/actions/workflows/R-CMD-check.yaml/badge.svg?branch=cran-preparation" alt="R CMD check"></a>
+</p>
+<p align="center">
+  <a href="https://wekeo.copernicus.eu/"><img src="https://img.shields.io/badge/Data%20Access-WEkEO-0077B6" alt="WEkEO data access (not an endorsement)"></a>
+  <a href="https://www.copernicus.eu/"><img src="https://img.shields.io/badge/Data%20Source-Copernicus-00549F" alt="Copernicus data source (not an endorsement)"></a>
 </p>
 
 **TSGenerator 2.0** is an R package for acquiring, extracting, quality-assessing, and analysing Copernicus HR-VPP **Seasonal Trajectories (ST)** and **Vegetation Phenology and Productivity (VPP)** products.
@@ -31,12 +38,20 @@ The application follows **Acquire → Prepare/Extract → Quality → Analyze �
 
 ## Installation
 
+Install the stable release from CRAN:
+
 ```r
-install.packages("devtools")
-devtools::install_github("avalero92/TSGenerator")
+install.packages("TSGenerator")
 ```
 
-A WEkEO account is required only for online ST/VPP searches and downloads. Credentials can be supplied to `hda_client()` or managed by `hdar` through `~/.hdarc`.
+For development versions, install from the GitHub development branch:
+
+```r
+install.packages("remotes")
+remotes::install_github("avalero92/TSGenerator", ref = "cran-preparation")
+```
+
+A WEkEO account is required only for online ST/VPP searches and downloads. These operations also require an active Internet connection and depend on the availability of the external WEkEO service, which is outside the control of TSGenerator. Credentials can be supplied to `hda_client()` or managed by `hdar` through `~/.hdarc`. Offline processing, local diagnostics, and package checks do not require WEkEO access.
 
 ## Quick start
 
@@ -198,7 +213,9 @@ The principal replacements are:
 | `get.Series.median()` | `extract_ts(..., fun = "median")` |
 | `get.Series.VPP()` | `extract_vpp()` |
 | `QFLAG2.Mask()` | `mask_quality()` for current ST/VPP QFLAG |
-| `quality.Series()` / `general.Quality()` | `summarize_missingness()` / `assess_ts_quality()` |
+| `quality.Series()` | `assess_ts_quality()` |
+| `general.Quality()` | `assess_ts_quality()` |
+| `count_missing()` | `summarize_missingness()` |
 | `TsImpute()` | `impute_ts()` |
 | `GAM.missing()` / `GAM.plot()` | `model_missingness()` / `plot_missingness()` |
 
@@ -245,11 +262,13 @@ A controlled real-download smoke test should also be completed before a release 
 
 ## Citation and DOI
 
-TSGenerator is archived in Zenodo. The current project DOI is **10.5281/zenodo.23265767**.
+**Please cite the specific TSGenerator 2.0.0 software release when using this version in research:**
+
+Valero-Jorge, A., Casterad Seral, M. A., & Alcalá Nalvaiz, J.-T. (2026). **TSGenerator 2.0.0: Tools for Copernicus HR-VPP Vegetation Time-Series Processing** (Version 2.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23265767
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg)](https://doi.org/10.5281/zenodo.23265767)
 
-When using TSGenerator in research, please cite the software and the corresponding archived version. A version-specific DOI for TSGenerator 2.0.0 will be added after the 2.0.0 release is archived in Zenodo.
+The DOI above identifies the archived **2.0.0 release**. The scientific publications below are separate research outputs and should be cited additionally when relevant.
 
 ## Scientific publications
 
@@ -262,6 +281,10 @@ Valero-Jorge, A., Casterad, M. A., & Alcalá, J.-T. (2026). **TSGenerator: libre
 ### Research using TSGenerator
 
 Valero-Jorge, A., Casterad, M. A., & Alcalá, J.-T. (2025). **Evaluating the Influence of Missing Data from the Crop Vegetation Index Time Series on Copernicus HR-VPP Phenological Products.** *Engineering Proceedings*, *94*(1), 4. [https://doi.org/10.3390/engproc2025094004](https://doi.org/10.3390/engproc2025094004)
+
+## Data sources and acknowledgements
+
+TSGenerator supports processing of Copernicus HR-VPP products and uses WEkEO for online data access. References to Copernicus and WEkEO identify data sources and services; they do not imply institutional endorsement of TSGenerator.
 
 ## Funding
 

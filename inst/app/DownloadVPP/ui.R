@@ -12,7 +12,7 @@ dashboardPage(
         choices=c("MINV","MAXD","LENGTH","SOSD","QFLAG","EOSV","TPROD","MAXV","AMPL","SOSV","LSLOPE","EOSD","RSLOPE","SPROD"),
         selected=c("SOSD","MAXD","EOSD","LENGTH")),
       checkboxGroupInput("season","Season", choices=c("s1","s2"), selected="s1"),
-      textInput("tile","Sentinel-2 tile", placeholder="30TXM"), textInput("outdir","Output directory", value=file.path(getwd(),"HRVPP_VPP")),
+      textInput("tile","Sentinel-2 tile", placeholder="30TXM"), textInput("outdir","Output directory", value="", placeholder="Choose a directory before downloading"),
       checkboxInput("overwrite","Overwrite existing files", FALSE),
       actionButton("preview","Preview", icon=icon("search")), actionButton("download","Download", icon=icon("download"))
     ), box(width=6, title="Request summary", status="info", solidHeader=TRUE, tableOutput("summary"), verbatimTextOutput("status")))

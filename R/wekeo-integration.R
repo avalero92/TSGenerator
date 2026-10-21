@@ -21,7 +21,8 @@
 #' @param vpp_season VPP season (`"s1"` or `"s2"`).
 #' @param download Logical. If `FALSE` (default), searches only. If `TRUE`,
 #'   matching files are downloaded to `output_dir`.
-#' @param output_dir Destination directory when `download = TRUE`.
+#' @param output_dir Explicit destination directory required when `download = TRUE`.
+#'   No destination is selected or created by default.
 #' @param quiet Logical; suppress progress messages.
 #' @return A list of class `tsg_wekeo_integration` containing diagnostics,
 #'   live temporal field names, ST/VPP results and an overall status.
@@ -38,10 +39,16 @@ check_wekeo_integration <- function(
     vpp_product = "TPROD",
     vpp_season = "s1",
     download = FALSE,
-    output_dir = tempfile("TSGenerator-WEkEO-"),
+    output_dir = NULL,
     quiet = FALSE) {
   if (!is.logical(download) || length(download) != 1L || is.na(download)) {
     stop("'download' must be TRUE or FALSE.", call. = FALSE)
+  }
+  if (isTRUE(download) &&
+      (!is.character(output_dir) || length(output_dir) != 1L ||
+       is.na(output_dir) || !nzchar(output_dir))) {
+    stop("'output_dir' must be explicitly specified when 'download = TRUE'.",
+         call. = FALSE)
   }
   if (is.null(client)) client <- hda_client()
 
@@ -49,8 +56,8 @@ check_wekeo_integration <- function(
   st_fields <- .hda_temporal_fields(.ST_DATASET_ID, client)
   vpp_fields <- .hda_temporal_fields(.VPP_DATASET_ID, client)
 
-  st_dir <- file.path(output_dir, "ST")
-  vpp_dir <- file.path(output_dir, "VPP")
+  st_dir <- if (isTRUE(download)) file.path(output_dir, "ST") else NULL
+  vpp_dir <- if (isTRUE(download)) file.path(output_dir, "VPP")
   st <- tryCatch(download_st(
     start = st_start, end = st_end, tile_id = st_tile,
     product = "PPI", output_dir = st_dir, client = client,
