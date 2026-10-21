@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://cran.r-project.org/package=TSGenerator"><img src="https://www.r-pkg.org/badges/version/TSGenerator" alt="CRAN version"></a>
   <a href="https://doi.org/10.5281/zenodo.23265767"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg" alt="Zenodo DOI"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/avalero92/TSGenerator" alt="MIT License"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"></a>
   <a href="https://github.com/avalero92/TSGenerator/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/avalero92/TSGenerator/actions/workflows/R-CMD-check.yaml/badge.svg?branch=cran-preparation" alt="R CMD check"></a>
 </p>
 <p align="center">
