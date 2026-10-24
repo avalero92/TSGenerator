@@ -64,11 +64,32 @@
 }
 
 .tsg_prepare_vpp_layer <- function(r, spec) {
+  # terra reads GDAL band scale/offset automatically. Inspect the metadata
+  # before operations such as ifel(), which may discard it.
+  so <- terra::scoff(r)
+  if (!is.matrix(so) || nrow(so) != 1L || ncol(so) != 2L)
+    stop("Invalid VPP raster scale/offset metadata.", call. = FALSE)
+  scale <- as.numeric(so[1L, 1L]); offset <- as.numeric(so[1L, 2L])
+  if (!is.finite(scale) || !is.finite(offset))
+    stop("Non-finite VPP raster scale/offset metadata.", call. = FALSE)
   nodata <- spec$NoData
-  if (!is.na(nodata)) r <- terra::ifel(r == nodata, NA, r)
+  if (!is.na(nodata)) {
+    # Product NoData codes refer to the stored pixel domain; compare against
+    # their decoded equivalents when GDAL scaling has already been applied.
+    decoded_nodata <- nodata * scale + offset
+    r <- terra::ifel(r == decoded_nodata, NA, r)
+  }
   if (spec$Type == "date") return(terra::app(r, .tsg_decode_yydoy))
-  if (spec$Type %in% c("ppi","slope","productivity")) return(r / spec$ScaleFactor)
-  r
+  if (!(spec$Type %in% c("ppi", "slope", "productivity"))) return(r)
+  factor <- as.numeric(spec$ScaleFactor)
+  if (length(factor) != 1L || !is.finite(factor) || factor <= 0)
+    stop("Invalid VPP product scale factor.", call. = FALSE)
+  if (isTRUE(all.equal(scale, 1 / factor, tolerance = 1e-10)) &&
+      isTRUE(all.equal(offset, 0, tolerance = 1e-10))) return(r)
+  if (isTRUE(all.equal(scale, 1, tolerance = 1e-10)) &&
+      isTRUE(all.equal(offset, 0, tolerance = 1e-10))) return(r / factor)
+  stop(sprintf("Unsupported VPP scale/offset: %.12g / %.12g", scale, offset),
+       call. = FALSE)
 }
 
 #' Extract HR-VPP phenology and productivity parameters

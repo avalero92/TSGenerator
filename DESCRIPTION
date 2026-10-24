@@ -1,6 +1,6 @@
 Package: TSGenerator
 Title: 'Copernicus' HR-VPP Vegetation Time-Series Processing
-Version: 2.0.0
+Version: 2.0.1
 Authors@R: c(
     person("Alexey", "Valero-Jorge", , "avalero@cita-aragon.es", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-5993-7346")),
@@ -42,6 +42,7 @@ Suggests:
     imputeTS,
     knitr,
     rmarkdown,
+    sf,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3

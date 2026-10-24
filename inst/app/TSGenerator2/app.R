@@ -4,6 +4,22 @@
 library(shiny)
 library(shinydashboard)
 
+# Upload limit for browser-based fileInput() transfers.
+# Existing files / directory bypasses HTTP upload and is preferred for large rasters.
+# Respect a user-specified shiny.maxRequestSize; otherwise use a configurable default.
+if (is.null(getOption("shiny.maxRequestSize"))) {
+  upload_mib <- suppressWarnings(as.numeric(Sys.getenv("TSG_SHINY_UPLOAD_MAX_MIB", "512")))
+  if (length(upload_mib) != 1L || !is.finite(upload_mib) || upload_mib <= 0) {
+    stop("TSG_SHINY_UPLOAD_MAX_MIB must be a positive finite number.", call. = FALSE)
+  }
+  options(shiny.maxRequestSize = upload_mib * 1024^2)
+}
+
+# Derive the visible version from the loaded package (also works with pkgload::load_all()).
+# Stop rather than silently advertising an incorrect release version.
+tsg_app_version <- as.character(utils::packageVersion("TSGenerator"))
+tsg_app_title <- paste("TSGenerator", tsg_app_version)
+
 app_dir <- normalizePath(getwd(), winslash = "/", mustWork = TRUE)
 source(file.path(app_dir, "R", "mod_dashboard.R"), local = TRUE)
 source(file.path(app_dir, "R", "mod_acquisition.R"), local = TRUE)
@@ -14,7 +30,7 @@ source(file.path(app_dir, "R", "mod_export.R"), local = TRUE)
 
 ui <- shinydashboard::dashboardPage(
   skin = "blue",
-  shinydashboard::dashboardHeader(title = "TSGenerator 2.0", titleWidth = 245),
+  shinydashboard::dashboardHeader(title = tsg_app_title, titleWidth = 245),
   shinydashboard::dashboardSidebar(
     width = 245,
     shinydashboard::sidebarMenu(
@@ -36,7 +52,7 @@ ui <- shinydashboard::dashboardPage(
       shinydashboard::tabItem(tabName = "dashboard",
         shiny::tags$div(class = "tsg-brand",
           shiny::tags$img(src = "TSGenerator.png", alt = "TSGenerator logo"),
-          shiny::tags$div(shiny::tags$h2("TSGenerator 2.0"), shiny::tags$p("Copernicus HR-VPP acquisition, processing and time-series analysis"))
+          shiny::tags$div(shiny::tags$h2(tsg_app_title), shiny::tags$p("Copernicus HR-VPP acquisition, processing and time-series analysis"))
         ),
         mod_dashboard_ui("dashboard")
       ),
@@ -56,7 +72,7 @@ ui <- shinydashboard::dashboardPage(
         mod_export_ui("export")
       ),
       shinydashboard::tabItem(tabName = "about",
-        shinydashboard::box(width = 12, title = "About TSGenerator 2.0", status = "info", solidHeader = TRUE,
+        shinydashboard::box(width = 12, title = paste("About", tsg_app_title), status = "info", solidHeader = TRUE,
           shiny::p("The unified Shiny application is a graphical layer over the public TSGenerator 2.0 R API."),
           shiny::p("The GUI must not duplicate scientific algorithms: the same core functions are used by scripted and graphical workflows."),
           shiny::tags$code("library(TSGenerator); runTSapp()")
