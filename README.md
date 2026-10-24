@@ -12,7 +12,7 @@
 </p>
 <p align="center">
   <a href="https://wekeo.copernicus.eu/"><img src="https://img.shields.io/badge/Data%20Access-WEkEO-0077B6" alt="WEkEO data access (not an endorsement)"></a>
-  <a href="https://www.copernicus.eu/"><img src="https://img.shields.io/badge/Data%20Source-Copernicus-00549F" alt="Copernicus data source (not an endorsement)"></a>
+  <a href="https://www.copernicus.eu/en"><img src="https://img.shields.io/badge/Data%20Source-Copernicus-00549F" alt="Copernicus data source (not an endorsement)"></a>
 </p>
 
 **TSGenerator 2.0** is an R package for acquiring, extracting, quality-assessing, and analysing Copernicus HR-VPP **Seasonal Trajectories (ST)** and **Vegetation Phenology and Productivity (VPP)** products.
