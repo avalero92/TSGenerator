@@ -262,7 +262,11 @@ A controlled real-download smoke test should also be completed before a release 
 
 ## Citation and DOI
 
-**Please cite the specific TSGenerator 2.0.0 software release when using this version in research:**
+**Current maintenance version: 2.0.1.** Cite the 2.0.1 release from GitHub until its version-specific Zenodo DOI is issued. The 2.0.0 citation below is retained as a historical release record; it must not be used as the DOI for 2.0.1.
+
+
+
+**Historical citation — TSGenerator 2.0.0:**
 
 Valero-Jorge, A., Casterad Seral, M. A., & Alcalá Nalvaiz, J.-T. (2026). **TSGenerator 2.0.0: Tools for Copernicus HR-VPP Vegetation Time-Series Processing** (Version 2.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23265767
 

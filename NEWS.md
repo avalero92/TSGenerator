@@ -1,3 +1,9 @@
+# TSGenerator 2.0.1
+
+- Fixed VPP MAXV and TPROD scaling when GDAL scale/offset metadata are already applied by `terra`; added regression tests for scaled and unscaled rasters.
+- Improved Shiny raster input handling, direct-disk file inspection, and configurable browser upload limit (default 512 MiB; `TSG_SHINY_UPLOAD_MAX_MIB`).
+- No intended changes to the public API.
+
 # TSGenerator 2.0.0
 
 TSGenerator 2.0 is a major release focused on current Copernicus HR-VPP Seasonal Trajectories (ST) and Vegetation Phenology and Productivity (VPP) workflows. The package has been reorganized around native R acquisition, `terra`-based geospatial processing, explicit product-quality handling, and reproducible time-series analysis.

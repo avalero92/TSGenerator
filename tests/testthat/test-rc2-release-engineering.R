@@ -1,6 +1,6 @@
 test_that("release metadata and legacy guard documentation are synchronized", {
   desc <- read.dcf(system.file("DESCRIPTION", package = "TSGenerator"))
-  expect_match(unname(desc[1, "Version"]), "^2\\.0\\.0(?:\\.[0-9]+)?$")
+  expect_identical(unname(desc[1, "Version"]), "2.0.1")
 
   guards <- c("Download.VI", "get.Stack", "get.Clean.IV", "QFLAG2.Mask", "renames.image.IV")
   ns <- asNamespace("TSGenerator")

@@ -1,11 +1,11 @@
 {
-  "title": "TSGenerator 2.0.0: Tools for Copernicus HR-VPP Vegetation Time-Series Processing",
-  "version": "2.0.0",
+  "title": "TSGenerator 2.0.1: Tools for Copernicus HR-VPP Vegetation Time-Series Processing",
+  "version": "2.0.1",
   "upload_type": "software",
   "access_right": "open",
   "license": "mit",
   "language": "eng",
-  "description": "TSGenerator 2.0.0 is an open-source R package for acquiring, extracting, quality-assessing, and analysing vegetation time series derived from Copernicus High Resolution Vegetation Phenology and Productivity (HR-VPP) products. Version 2.0 provides native R access to the WEkEO Harmonised Data Access service through hdar for Seasonal Trajectories (ST) and Vegetation Phenology and Productivity (VPP) products; terra-based geospatial extraction and product-aware quality handling; temporal completeness assessment, optional imputation, and missingness diagnostics; and a unified Shiny application implementing an Acquire–Prepare/Extract–Quality–Analyze–Export workflow. Selected TSGenerator 1.x functions and historical source code are retained for migration and legacy traceability.",
+  "description": "TSGenerator 2.0.1 is an open-source R package for acquiring, extracting, quality-assessing, and analysing vegetation time series derived from Copernicus High Resolution Vegetation Phenology and Productivity (HR-VPP) products. Version 2.0 provides native R access to the WEkEO Harmonised Data Access service through hdar for Seasonal Trajectories (ST) and Vegetation Phenology and Productivity (VPP) products; terra-based geospatial extraction and product-aware quality handling; temporal completeness assessment, optional imputation, and missingness diagnostics; and a unified Shiny application implementing an Acquire–Prepare/Extract–Quality–Analyze–Export workflow. Selected TSGenerator 1.x functions and historical source code are retained for migration and legacy traceability.",
   "creators": [
     {
       "name": "Valero-Jorge, Alexey",
