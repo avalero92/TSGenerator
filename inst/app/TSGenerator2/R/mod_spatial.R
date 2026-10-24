@@ -93,23 +93,67 @@ mod_spatial_server <- function(id) {
     plan_obj <- shiny::reactiveVal(NULL)
     extraction <- shiny::reactiveVal(NULL)
     upload_dirs <- shiny::reactiveValues(aoi = NULL, raster = NULL)
+    raster_upload_cache <- shiny::reactiveVal(NULL)
+
+    # Uploaded files have session-scoped temporary names. Stage once per upload,
+    # preserving CLMS filenames, and release staged copies at session end.
+    session$onSessionEnded(function() {
+      for (td in c(upload_dirs$raster, upload_dirs$aoi)) {
+        if (!is.null(td) && dir.exists(td)) unlink(td, recursive = TRUE)
+      }
+    })
+
+    readable_rasters <- function(x) {
+      if (length(x) == 1L && dir.exists(x)) {
+        x <- list.files(x, "\\.(tif|tiff)$", full.names = TRUE, ignore.case = TRUE)
+      }
+      shiny::validate(shiny::need(length(x) > 0L, "No GeoTIFF files were found."))
+      shiny::validate(shiny::need(all(file.exists(x) & !dir.exists(x)), "One or more GeoTIFF paths do not exist."))
+      shiny::validate(shiny::need(all(tolower(tools::file_ext(x)) %in% c("tif", "tiff")), "Select GeoTIFF files only."))
+      x
+    }
+
+    raster_size_text <- function(files) {
+      bytes <- sum(file.info(files)$size)
+      if (!is.finite(bytes)) return("size unavailable")
+      sprintf("%.2f GiB (%d file%s)", bytes / 1024^3, length(files), if (length(files) == 1L) "" else "s")
+    }
 
     clean_text <- function(x) if (is.null(x) || !nzchar(trimws(x))) NULL else trimws(x)
 
     raster_input <- shiny::reactive({
       if (identical(input$raster_source, "upload")) {
-        shiny::req(input$raster_upload)
-        # Preserve original HR-VPP filenames: ST date parsing and VPP metadata
-        # inference depend on the standard CLMS file names.
-        td <- tempfile("tsg_raster_"); dir.create(td)
-        out <- file.path(td, input$raster_upload$name)
-        ok <- file.copy(input$raster_upload$datapath, out, overwrite = TRUE)
-        shiny::validate(shiny::need(all(ok), "Could not stage uploaded GeoTIFF files."))
+        upload <- input$raster_upload
+        shiny::req(upload)
+        shiny::validate(shiny::need(all(tolower(tools::file_ext(upload$name)) %in% c("tif", "tiff")),
+                                    "Upload GeoTIFF files only."))
+        shiny::validate(shiny::need(!anyDuplicated(upload$name),
+                                    "Uploaded GeoTIFF filenames must be unique."))
+        shiny::validate(shiny::need(all(basename(upload$name) == upload$name),
+                                    "Uploaded filenames must not contain directory paths."))
+        key <- paste(upload$name, upload$datapath, upload$size, sep = "|", collapse = "\n")
+        cache <- raster_upload_cache()
+        if (!is.null(cache) && identical(cache$key, key) && all(file.exists(cache$files))) {
+          return(cache$files)
+        }
+        td <- tempfile("tsg_raster_")
+        if (!dir.create(td)) stop("Could not create a raster staging directory.", call. = FALSE)
+        out <- file.path(td, upload$name)
+        ok <- file.copy(upload$datapath, out, overwrite = FALSE)
+        if (!all(ok)) {
+          unlink(td, recursive = TRUE)
+          stop("Could not stage uploaded GeoTIFF files. Use an existing local path for large rasters.", call. = FALSE)
+        }
+        previous <- upload_dirs$raster
         upload_dirs$raster <- td
+        raster_upload_cache(list(key = key, files = out))
+        if (!is.null(previous) && dir.exists(previous)) unlink(previous, recursive = TRUE)
         return(out)
       }
       p <- clean_text(input$raster_path)
       shiny::req(p)
+      readable_rasters(p)
+      # Preserve the original directory input for TSGenerator extraction APIs.
       p
     })
 
@@ -147,7 +191,8 @@ mod_spatial_server <- function(id) {
 
     inspect_rasters <- function() {
       x <- raster_input()
-      rr <- terra::rast(if (length(x) == 1L && dir.exists(x)) list.files(x, "\\.(tif|tiff)$", full.names = TRUE, ignore.case = TRUE) else x)
+      files <- readable_rasters(x)
+      rr <- terra::rast(files)
       src <- terra::sources(rr)
       fam <- if (identical(input$product_family, "AUTO")) detect_family(src) else input$product_family
       e <- terra::ext(rr); rs <- terra::res(rr)
@@ -169,7 +214,14 @@ mod_spatial_server <- function(id) {
     shiny::observeEvent(input$inspect_rasters, {
       z <- tryCatch(inspect_rasters(), error = function(e) e)
       if (inherits(z, "error")) shiny::showNotification(conditionMessage(z), type = "error", duration = NULL)
-      else { raster_info(z); plan_obj(NULL); extraction(NULL); shiny::showNotification("Raster products inspected.", type = "message") }
+      else {
+        raster_info(z); plan_obj(NULL); extraction(NULL)
+        files <- readable_rasters(raster_input())
+        shiny::showNotification(sprintf("Raster products inspected: %s. %s",
+          raster_size_text(files),
+          if (identical(input$raster_source, "upload")) "For large rasters, prefer Existing files / directory." else "Opened from disk without HTTP upload."),
+          type = "message", duration = 10)
+      }
     })
     shiny::observeEvent(input$inspect_aoi, {
       z <- tryCatch(inspect_aoi(), error = function(e) e)
