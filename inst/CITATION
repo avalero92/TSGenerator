@@ -10,5 +10,6 @@ bibentry(
   ),
   year = "2026",
   version = "2.0.1",
-  url = "https://github.com/avalero92/TSGenerator/releases/tag/v2.0.1"
+  doi = "10.5281/zenodo.23620160",
+  url = "https://doi.org/10.5281/zenodo.23620160"
 )
