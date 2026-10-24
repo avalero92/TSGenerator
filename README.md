@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://cran.r-project.org/package=TSGenerator"><img src="https://www.r-pkg.org/badges/version/TSGenerator" alt="CRAN version"></a>
-  <a href="https://doi.org/10.5281/zenodo.23265767"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg" alt="Zenodo DOI"></a>
+  <a href="https://doi.org/10.5281/zenodo.23620160"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23620160.svg" alt="Zenodo DOI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"></a>
   <a href="https://github.com/avalero92/TSGenerator/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/avalero92/TSGenerator/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master" alt="R CMD check"></a>
 </p>
@@ -262,9 +262,13 @@ A controlled real-download smoke test should also be completed before a release 
 
 ## Citation and DOI
 
-**Current maintenance version: 2.0.1.** Cite the 2.0.1 release from GitHub until its version-specific Zenodo DOI is issued. The 2.0.0 citation below is retained as a historical release record; it must not be used as the DOI for 2.0.1.
+**Current maintenance version: 2.0.1.** Cite the archived software release using its version-specific Zenodo DOI:
 
+Valero-Jorge, A., Casterad Seral, M. A., & Alcalá Nalvaiz, J.-T. (2026). **TSGenerator 2.0.1: Tools for Copernicus HR-VPP Vegetation Time-Series Processing** (Version 2.0.1) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23620160
 
+[![TSGenerator 2.0.1 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23620160.svg)](https://doi.org/10.5281/zenodo.23620160)
+
+GitHub release: https://github.com/avalero92/TSGenerator/releases/tag/v2.0.1
 
 **Historical citation — TSGenerator 2.0.0:**
 
@@ -272,7 +276,7 @@ Valero-Jorge, A., Casterad Seral, M. A., & Alcalá Nalvaiz, J.-T. (2026). **TSGe
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23265767.svg)](https://doi.org/10.5281/zenodo.23265767)
 
-The DOI above identifies the archived **2.0.0 release**. The scientific publications below are separate research outputs and should be cited additionally when relevant.
+The historical DOI above identifies the archived **2.0.0 release**. The scientific publications below are separate research outputs and should be cited additionally when relevant.
 
 ## Scientific publications
 
